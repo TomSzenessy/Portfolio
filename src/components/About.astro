@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import sheepImage from '../assets/Fotos/Tom with Sheep.webp';
 import wallImage from '../assets/Fotos/Tom leaning against a wall.webp';
+import Icon from './Icon.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -12,22 +13,22 @@ const { t } = Astro.props;
 const skillCategories = [
   {
     title: t('skills_ai_title'),
-    icon: 'fa-robot',
+    icon: 'robot',
     skills: ['skill_ml', 'skill_openai', 'skill_automation', 'skill_data_processing', 'skill_cloud']
   },
   {
     title: t('skills_web_title'),
-    icon: 'fa-code',
+    icon: 'code',
     skills: ['skill_js', 'skill_ts', 'skill_react', 'skill_next', 'skill_node', 'skill_tailwind']
   },
   {
     title: t('skills_creative_title'),
-    icon: 'fa-palette',
+    icon: 'palette',
     skills: ['skill_blender', 'skill_unity', 'skill_three', 'skill_video', 'skill_vector']
   },
   {
     title: t('skills_tools_title'),
-    icon: 'fa-toolbox',
+    icon: 'toolbox',
     skills: ['skill_git', 'skill_docker', 'skill_python', 'skill_js', 'skill_db']
   }
 ];
@@ -36,12 +37,12 @@ const experience = [
   {
     title: t('exp_ecosia_title'),
     desc: t('exp_ecosia_desc'),
-    icon: 'fa-leaf'
+    icon: 'leaf'
   },
   {
     title: t('exp_atech_title'),
     desc: t('exp_atech_desc'),
-    icon: 'fa-wrench'
+    icon: 'wrench'
   }
 ];
 
@@ -49,22 +50,22 @@ const milestones = [
   {
     title: t('ms_jf_title'),
     desc: t('ms_jf_desc'),
-    icon: 'fa-microscope'
+    icon: 'microscope'
   },
   {
     title: t('ms_eyp_title'),
     desc: t('ms_eyp_desc'),
-    icon: 'fa-users'
+    icon: 'users'
   },
   {
     title: t('ms_exchange_title'),
     desc: t('ms_exchange_desc'),
-    icon: 'fa-plane'
+    icon: 'plane'
   },
   {
     title: t('ms_abi_title'),
     desc: t('ms_abi_desc'),
-    icon: 'fa-graduation-cap'
+    icon: 'graduation-cap'
   }
 ];
 ---
@@ -122,7 +123,7 @@ const milestones = [
                     {skillCategories.map(cat => (
                         <div class="bg-white p-5 rounded-2xl shadow-sm border border-black/5">
                             <h4 class="font-semibold text-text-main mb-3 flex items-center gap-2">
-                                <i class={`fas ${cat.icon} text-accent`}></i>
+                                <Icon name={cat.icon} class="text-accent" />
                                 <span>{cat.title}</span>
                             </h4>
                             <div class="flex flex-wrap gap-2">
@@ -160,7 +161,7 @@ const milestones = [
             <div class="space-y-4">
                 {experience.map(exp => (
                     <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow">
-                        <i class={`fas ${exp.icon} text-2xl text-accent pt-1`}></i>
+                        <Icon name={exp.icon} class="text-2xl text-accent pt-1" />
                         <div>
                             <h4 class="font-bold text-text-main">{exp.title}</h4>
                             <p class="text-sm text-text-muted">{exp.desc}</p>
@@ -178,7 +179,7 @@ const milestones = [
             <div class="space-y-4">
                 {milestones.map(ms => (
                     <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow">
-                        <i class={`fas ${ms.icon} text-2xl text-accent pt-1`}></i>
+                        <Icon name={ms.icon} class="text-2xl text-accent pt-1" />
                         <div>
                             <h4 class="font-bold text-text-main">{ms.title}</h4>
                             <p class="text-sm text-text-muted">{ms.desc}</p>

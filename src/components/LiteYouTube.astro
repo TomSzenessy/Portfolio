@@ -1,0 +1,71 @@
+---
+interface Props {
+  videoId: string;
+  title: string;
+}
+
+const { videoId, title } = Astro.props;
+---
+
+<div class="lite-youtube relative aspect-video bg-black cursor-pointer group rounded-xl overflow-hidden shadow-lg border border-black/5" data-id={videoId} data-title={title}>
+    <!-- Poster Image -->
+    <img 
+        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} 
+        alt={title}
+        loading="lazy"
+        class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+    />
+    
+    <!-- Play Button Overlay -->
+    <div class="absolute inset-0 flex items-center justify-center">
+        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white text-2xl shadow-xl group-hover:scale-110 group-hover:bg-orange-400 transition-all duration-300">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                <path d="M8 5.14v14l11-7-11-7z" />
+            </svg>
+        </div>
+    </div>
+
+    <!-- YouTube Logo for Branding -->
+    <div class="absolute bottom-4 right-4 text-white/50 text-xs font-bold pointer-events-none group-hover:text-white/80 transition-colors">
+        YouTube
+    </div>
+</div>
+
+<script>
+    class LiteYouTube extends HTMLElement {
+        constructor() {
+            super();
+        }
+
+        connectedCallback() {
+            this.addEventListener('click', () => this.addIframe());
+        }
+
+        addIframe() {
+            const videoId = this.dataset.id;
+            const title = this.dataset.title;
+            const iframe = document.createElement('iframe');
+            
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allowfullscreen', '1');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('title', title || 'YouTube Video');
+            iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+            iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
+            
+            this.innerHTML = '';
+            this.appendChild(iframe);
+        }
+    }
+
+    // Register as a custom element if it hasn't been already
+    if (!customElements.get('lite-youtube')) {
+        customElements.define('lite-youtube', LiteYouTube);
+    }
+</script>
+
+<style>
+    .lite-youtube iframe {
+        border-radius: inherit;
+    }
+</style>

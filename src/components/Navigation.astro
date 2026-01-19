@@ -1,4 +1,6 @@
 ---
+import Icon from './Icon.astro';
+
 interface Props {
   t: (key: string) => string;
   lang: string;
@@ -51,9 +53,9 @@ const languages = [
     </div>
     <!-- Social Icons -->
     <div class="hidden sm:flex gap-4 text-lg text-text-muted">
-        <a href="https://www.youtube.com/@tomsze" target="_blank" class="text-[#ff0000] hover:-translate-y-1 transition-transform"><i class="fab fa-youtube"></i></a>
-        <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" class="text-[#0a66c2] hover:-translate-y-1 transition-transform"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/TomSzenessy" target="_blank" class="text-[#1f1f1f]  hover:-translate-y-1 transition-transform"><i class="fab fa-github"></i></a>
-        <a href="https://www.instagram.com/tom_szenessy/" target="_blank" class="text-[#833ab4] hover:-translate-y-1 transition-transform"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/@tomsze" target="_blank" class="text-[#ff0000] hover:-translate-y-1 transition-transform"><Icon name="youtube" /></a>
+        <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" class="text-[#0a66c2] hover:-translate-y-1 transition-transform"><Icon name="linkedin" /></a>
+        <a href="https://github.com/TomSzenessy" target="_blank" class="text-[#1f1f1f]  hover:-translate-y-1 transition-transform"><Icon name="github" /></a>
+        <a href="https://www.instagram.com/tom_szenessy/" target="_blank" class="text-[#833ab4] hover:-translate-y-1 transition-transform"><Icon name="instagram" /></a>
     </div>
 </nav>
