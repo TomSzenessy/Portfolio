@@ -63,22 +63,61 @@ const awards = [
     <!-- Lightbox Overlay -->
     <div id="lightbox" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center pt-20 pb-6 backdrop-blur-sm transition-all duration-300 opacity-0">
         <button id="close-lightbox" class="absolute top-16 right-6 text-white text-4xl hover:text-accent transition-colors z-10">&times;</button>
-        <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl" src="" alt="Enlarged Award">
+        
+        <!-- Loading Spinner -->
+        <div id="lightbox-loader" class="absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300">
+            <div class="w-12 h-12 border-4 border-accent/20 border-t-accent rounded-full animate-spin"></div>
+        </div>
+
+        <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-opacity duration-300 opacity-0" src="" alt="Enlarged Award">
     </div>
 </section>
 
 <script>
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const lightboxLoader = document.getElementById('lightbox-loader');
     const closeBtn = document.getElementById('close-lightbox');
     const awardCards = document.querySelectorAll('#awards .group');
 
+    // Preload helper
+    const preloadImage = (url: string) => {
+        if (!url) return;
+        const img = new Image();
+        img.src = url;
+    };
+
     awardCards.forEach(card => {
+        // Preload on hover
+        card.addEventListener('mouseenter', () => {
+            const fullImg = card.getAttribute('data-full-img');
+            if (fullImg) preloadImage(fullImg);
+        }, { once: true });
+
         card.addEventListener('click', () => {
             const fullImg = card.getAttribute('data-full-img');
             if (fullImg && lightbox && lightboxImg) {
-                lightboxImg.src = fullImg;
+                // Show lightbox and loader
                 lightbox.classList.remove('hidden');
+                if (lightboxLoader) lightboxLoader.style.opacity = '1';
+                lightboxImg.style.opacity = '0';
+                
+                // Set image source
+                lightboxImg.src = fullImg;
+                
+                // Handle image load
+                const onImageLoad = () => {
+                    if (lightboxLoader) lightboxLoader.style.opacity = '0';
+                    lightboxImg.style.opacity = '1';
+                    lightboxImg.removeEventListener('load', onImageLoad);
+                };
+
+                if (lightboxImg.complete) {
+                    onImageLoad();
+                } else {
+                    lightboxImg.addEventListener('load', onImageLoad);
+                }
+
                 setTimeout(() => lightbox.classList.add('opacity-100'), 10);
                 document.body.style.overflow = 'hidden';
             }
@@ -88,7 +127,10 @@ const awards = [
     const closeLightbox = () => {
         if (lightbox) {
             lightbox.classList.remove('opacity-100');
-            setTimeout(() => lightbox.classList.add('hidden'), 300);
+            setTimeout(() => {
+                lightbox.classList.add('hidden');
+                if (lightboxImg) lightboxImg.src = '';
+            }, 300);
             document.body.style.overflow = '';
         }
     };
@@ -96,5 +138,15 @@ const awards = [
     closeBtn?.addEventListener('click', closeLightbox);
     lightbox?.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
+    });
+
+    // Strategy: Preload all full images after page is fully loaded and idle
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            awardCards.forEach(card => {
+                const fullImg = card.getAttribute('data-full-img');
+                if (fullImg) preloadImage(fullImg);
+            });
+        }, 3000); // Wait 3 seconds after load to not interfere with initial performance
     });
 </script>

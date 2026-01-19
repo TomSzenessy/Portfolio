@@ -7,10 +7,10 @@ interface Props {
 const { videoId, title } = Astro.props;
 ---
 
-<div class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg" data-id={videoId} data-title={title}>
+<lite-youtube class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block" data-id={videoId} data-title={title}>
     <!-- Poster Image -->
     <img 
-        src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} 
+        src={`https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`} 
         alt={title}
         loading="lazy"
         class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
@@ -29,7 +29,7 @@ const { videoId, title } = Astro.props;
     <div class="absolute bottom-4 right-4 text-white/50 text-xs font-bold pointer-events-none group-hover:text-white/80 transition-colors">
         YouTube
     </div>
-</div>
+</lite-youtube>
 
 <script>
     class LiteYouTube extends HTMLElement {
