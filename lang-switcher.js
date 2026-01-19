@@ -1,10 +1,11 @@
 function updateContent() {
     const lang = localStorage.getItem('selectedLang') || 'en';
     const langData = translations[lang];
+    document.documentElement.setAttribute('lang', lang);
 
     document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
-        if (langData[key]) {
+        if (langData && langData[key]) {
             if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
                 element.placeholder = langData[key];
             } else if (element.hasAttribute('data-i18n-html')) {
@@ -12,6 +13,8 @@ function updateContent() {
             } else {
                 element.innerText = langData[key];
             }
+        } else {
+            console.warn(`Missing translation for key: ${key} in language: ${lang}`);
         }
     });
 

@@ -1,259 +1,1097 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tom Szenessy | Student & Builder</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tom Szenessy | Warm, Human-Centered Student</title>
+		<meta
+			name="description"
+			content="Tom Szenessy (Szenessy) is a Business Informatics student at TUM in Munich building warm, human-first tools in AI, VR, and product design. Projects, awards, and contact."
+		/>
+		<meta
+			name="keywords"
+			content="Tom Szenessy, Szenessy, Tom Lennio Szenessy, TUM, Business Informatics, Munich, student, AI, VR, product design, awards, projects"
+		/>
+		<meta name="author" content="Tom Szenessy" />
+		<meta
+			name="robots"
+			content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+		/>
+		<meta name="googlebot" content="index, follow" />
+		<meta name="theme-color" content="#f6eee2" />
+		<meta name="color-scheme" content="light" />
+		<link rel="canonical" href="https://szenessy.com/" />
+		<meta
+			property="og:title"
+			content="Tom Szenessy | Student Builder in Munich"
+		/>
+		<meta
+			property="og:description"
+			content="Tom Szenessy (Szenessy) builds tools in AI, VR, and product design. Discover projects, awards, and ways to connect."
+		/>
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Tom Szenessy" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:url" content="https://szenessy.com/" />
+		<meta
+			property="og:image"
+			content="https://szenessy.com/Fotos/Tom%20Passfoto.png"
+		/>
+		<meta property="og:image:alt" content="Portrait of Tom Szenessy" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta
+			name="twitter:title"
+			content="Tom Szenessy | Student Builder in Munich"
+		/>
+		<meta
+			name="twitter:description"
+			content="Tom Szenessy (Szenessy) builds warm, human-first tools in AI, VR, and product design. Discover projects, awards, and ways to connect."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://szenessy.com/Fotos/Tom%20Passfoto.png"
+		/>
+		<link rel="me" href="https://www.youtube.com/@tomsze" />
+		<link rel="me" href="https://www.linkedin.com/in/tom-szenessy" />
+		<link rel="me" href="https://github.com/TomSzenessy" />
+		<link rel="preload" as="image" href="Fotos/Tom%20Passfoto.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="preconnect"
+			href="https://cdnjs.cloudflare.com"
+			crossorigin
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@graph": [
+					{
+						"@type": "Person",
+						"@id": "https://szenessy.com/#tom",
+						"name": "Tom Szenessy",
+						"alternateName": "Tom Lennio Szenessy",
+						"url": "https://szenessy.com/",
+						"image": "https://szenessy.com/Fotos/Tom%20Passfoto.png",
+						"jobTitle": "Business Informatics student",
+						"description": "Business Informatics student at TUM in Munich building warm, human-first tools in AI, VR, and product design.",
+						"affiliation": {
+							"@type": "CollegeOrUniversity",
+							"name": "Technical University of Munich"
+						},
+						"address": {
+							"@type": "PostalAddress",
+							"addressLocality": "Munich",
+							"addressCountry": "DE"
+						},
+						"sameAs": [
+							"https://www.youtube.com/@tomsze",
+							"https://www.linkedin.com/in/tom-szenessy",
+							"https://github.com/TomSzenessy"
+						],
+						"knowsAbout": [
+							"AI",
+							"VR",
+							"Product design",
+							"Business Informatics",
+							"Student projects"
+						]
+					},
+					{
+						"@type": "WebSite",
+						"@id": "https://szenessy.com/#website",
+						"name": "Tom Szenessy",
+						"url": "https://szenessy.com/",
+						"inLanguage": "en",
+						"publisher": {
+							"@id": "https://szenessy.com/#tom"
+						}
+					},
+					{
+						"@type": "ItemList",
+						"@id": "https://szenessy.com/#projects",
+						"name": "Projects and Videos",
+						"itemListElement": [
+							{
+								"@type": "ListItem",
+								"position": 1,
+								"item": {
+									"@type": "VideoObject",
+									"name": "Mino Notes App",
+									"description": "An AI-first notes app that turns rough thoughts into clear mindmaps.",
+									"embedUrl": "https://www.youtube.com/embed/b2APx-m-Ch4",
+									"url": "https://youtu.be/b2APx-m-Ch4",
+									"thumbnailUrl": "https://img.youtube.com/vi/b2APx-m-Ch4/hqdefault.jpg"
+								}
+							},
+							{
+								"@type": "ListItem",
+								"position": 2,
+								"item": {
+									"@type": "VideoObject",
+									"name": "VR World from 3D Scan",
+									"description": "A 3D scan turned into a walkable VR world.",
+									"embedUrl": "https://www.youtube.com/embed/UdyzG_m69-g",
+									"url": "https://youtu.be/UdyzG_m69-g",
+									"thumbnailUrl": "https://img.youtube.com/vi/UdyzG_m69-g/hqdefault.jpg"
+								}
+							},
+							{
+								"@type": "ListItem",
+								"position": 3,
+								"item": {
+									"@type": "VideoObject",
+									"name": "AI Travel Agent",
+									"description": "A chat-based travel prototype that compares deals and explains the choice.",
+									"embedUrl": "https://www.youtube.com/embed/hHTIdMAS61U",
+									"url": "https://youtu.be/hHTIdMAS61U",
+									"thumbnailUrl": "https://img.youtube.com/vi/hHTIdMAS61U/hqdefault.jpg"
+								}
+							},
+							{
+								"@type": "ListItem",
+								"position": 4,
+								"item": {
+									"@type": "VideoObject",
+									"name": "AI and Identity",
+									"description": "A short video essay on identity, ethics, and the human questions behind AI.",
+									"embedUrl": "https://www.youtube.com/embed/bspxhyMI6RE",
+									"url": "https://youtu.be/bspxhyMI6RE",
+									"thumbnailUrl": "https://img.youtube.com/vi/bspxhyMI6RE/hqdefault.jpg"
+								}
+							},
+							{
+								"@type": "ListItem",
+								"position": 5,
+								"item": {
+									"@type": "VideoObject",
+									"name": "Programming Class Commercial",
+									"description": "A playful commercial shot and edited during an exchange year.",
+									"embedUrl": "https://www.youtube.com/embed/rNhRs4DzHv4",
+									"url": "https://youtu.be/rNhRs4DzHv4",
+									"thumbnailUrl": "https://img.youtube.com/vi/rNhRs4DzHv4/hqdefault.jpg"
+								}
+							}
+						]
+					}
+				]
+			}
+		</script>
+	</head>
+	<body>
+		<nav class="side-nav" aria-label="Section navigation">
+			<a
+				href="#home"
+				data-title="Home"
+				class="active"
+				aria-label="Home"
+			></a>
+			<a href="#projects" data-title="Projects" aria-label="Projects"></a>
+			<a href="#about" data-title="About" aria-label="About"></a>
+			<a href="#awards" data-title="Awards" aria-label="Awards"></a>
+			<a href="#contact" data-title="Contact" aria-label="Contact"></a>
+		</nav>
 
-    <!-- Side Navigation Dots -->
-    <div class="side-nav">
-        <a href="#home" data-title="Home" class="active"></a>
-        <a href="#projects" data-title="Projects"></a>
-        <a href="#about" data-title="About"></a>
-        <a href="#awards" data-title="Awards"></a>
-        <a href="#contact" data-title="Contact"></a>
-    </div>
+		<main>
+			<nav class="top-nav" aria-label="Primary">
+				<a href="#home" class="logo">tom.szenessy</a>
+				<!-- <div class="nav-links">
+					<a href="#projects" data-i18n="nav_projects">Projects</a>
+					<a href="#about" data-i18n="nav_about">About</a>
+					<a href="#awards" data-i18n="nav_awards">Awards</a>
+					<a href="#contact" data-i18n="nav_contact">Contact</a>
+				</div> -->
+				<div class="lang-switcher" aria-label="Language selector">
+					<span class="lang-link active" onclick="setLanguage('en')"
+						>EN</span
+					>
+					<span class="lang-link" onclick="setLanguage('de')"
+						>DE</span
+					>
+					<span class="lang-link" onclick="setLanguage('es')"
+						>ES</span
+					>
+				</div>
+				<div class="social-icons" aria-label="Social links">
+					<a
+						href="https://www.youtube.com/@tomsze"
+						target="_blank"
+						rel="noopener"
+						aria-label="YouTube"
+						><i class="fab fa-youtube"></i
+					></a>
+					<a
+						href="https://www.linkedin.com/in/tom-szenessy"
+						target="_blank"
+						rel="noopener"
+						aria-label="LinkedIn"
+						><i class="fab fa-linkedin"></i
+					></a>
+					<a
+						href="https://github.com/TomSzenessy"
+						target="_blank"
+						rel="noopener"
+						aria-label="GitHub"
+						><i class="fab fa-github"></i
+					></a>
+				</div>
+			</nav>
+			<div class="container">
+				<header id="home" class="hero">
+					<div class="hero-card reveal">
+						<div class="profile-img-container">
+							<img
+								src="./Fotos/Tom%20Passfoto.png"
+								alt="Portrait of Tom Szenessy"
+								class="profile-img"
+								fetchpriority="high"
+								decoding="async"
+							/>
+						</div>
+						<span class="hero-pre" data-i18n="hero_pre"
+							>Hi, I'm Tom</span
+						>
+						<h1 data-i18n="hero_title" data-i18n-html>
+							Tom Szenessy<br /><span>Student & Dreamer</span>
+						</h1>
+						<p
+							class="hero-text"
+							data-i18n="hero_text"
+							data-i18n-html
+						>
+							Tom Szenessy is a
+							<strong>Business Informatics student at TUM</strong>
+							in Munich. I build warm, human-first tools in AI and
+							VR, and I love turning messy problems into calm,
+							helpful experiences.
+						</p>
+						<p class="hero-note" data-i18n="hero_note">
+							Still learning, always curious, and grateful for
+							kind collaborators.
+						</p>
+						<div class="hero-actions">
+							<a
+								href="#projects"
+								class="btn"
+								data-i18n="btn_see_work"
+								>See My Work</a
+							>
+							<a
+								href="#about"
+								class="btn btn-secondary"
+								data-i18n="btn_more_about"
+								>More About Me</a
+							>
+						</div>
+						<div class="hero-badges">
+							<span class="badge"
+								><i
+									class="fas fa-graduation-cap"
+									aria-hidden="true"
+								></i
+								><span data-i18n="hero_badge_tum"
+									>TUM Business Informatics</span
+								></span
+							>
+							<span class="badge"
+								><i
+									class="fas fa-location-dot"
+									aria-hidden="true"
+								></i
+								><span data-i18n="hero_badge_location"
+									>Based in Munich</span
+								></span
+							>
+							<span class="badge"
+								><i class="fas fa-heart" aria-hidden="true"></i
+								><span data-i18n="hero_badge_focus"
+									>Human-centered builder</span
+								></span
+							>
+						</div>
+					</div>
+				</header>
+			</div>
 
-    <div class="container">
-        <!-- Navigation -->
-        <nav>
-            <a href="#home" class="logo">tom.szenessy</a>
-            <div class="nav-links">
-                <a href="#projects" data-i18n="nav_projects">Projects</a>
-                <a href="#about" data-i18n="nav_about">About</a>
-                <a href="#awards">Awards</a>
-                <a href="#contact" data-i18n="nav_contact">Contact</a>
-            </div>
-            <div class="lang-switcher">
-                <span class="lang-link active" onclick="setLanguage('en')">EN</span>
-                <span class="lang-link" onclick="setLanguage('de')">DE</span>
-                <span class="lang-link" onclick="setLanguage('es')">ES</span>
-            </div>
-            <div class="social-icons">
-                <a href="https://www.youtube.com/@tomsze" target="_blank"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://github.com/TomSzenessy" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
-        </nav>
+			<div class="parallax-section" id="quotes">
+				<div class="parallax-quote reveal">
+					<div class="quote-avatar">
+						<img
+							src="./Fotos/Tom%20with%20Sheep.jpg"
+							alt="Tom with a sheep"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+					<blockquote data-i18n="parallax_quote">
+						"I once spent three hours debugging. It was a missing
+						comma."
+					</blockquote>
+					<cite data-i18n="parallax_cite">— Tom, still smiling</cite>
+				</div>
+			</div>
 
-        <!-- Section 1: Home/Hero -->
-        <header id="home">
-            <div class="profile-img-container">
-                <img src="./Fotos/Tom Passfoto.jpg" alt="Tom Szenessy" class="profile-img">
-            </div>
-            <span class="hero-pre" data-i18n="hero_pre">Hi, I'm Tom</span>
-            <h1 data-i18n="hero_title" data-i18n-html>Building with Heart<br>& Logic</h1>
-            <p class="hero-text" data-i18n="hero_text" data-i18n-html>
-                I'm a <strong>Business Informatics student at TUM</strong> with a passion for solving problems and turning abstract ideas into real-world projects. 
-                Whether it's AI research, competitive math, or petting sheep-I'm just a chill guy who loves solving problems.
-            </p>
-            <div>
-                <a href="#projects" class="btn" data-i18n="btn_see_work">See My Work</a>
-                <a href="#about" class="btn btn-secondary" data-i18n="btn_more_about">More About Me</a>
-            </div>
-        </header>
-    </div> <!-- End Hero Container -->
+			<div class="container">
+				<section id="projects">
+					<div class="section-header reveal">
+						<p class="section-kicker" data-i18n="projects_kicker">
+							Projects & Videos
+						</p>
+						<h2 data-i18n="projects_title">
+							Selected Projects & Videos
+						</h2>
+						<p
+							class="section-subtitle"
+							data-i18n="projects_subtitle"
+						>
+							Small experiments, student projects, and videos that
+							taught me a lot.
+						</p>
+					</div>
 
-    <!-- "Experience" Section: Full-Width Parallax Quote -->
-    <div class="parallax-section" id="quotes">
-        <div class="parallax-quote">
-            <div style="margin-bottom: 1.5rem;">
-                <img src="./Fotos/Tom with Sheep.jpg" alt="Sheep Context" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
-            </div>
-            <blockquote data-i18n="parallax_quote">"I'll be back."</blockquote>
-            <cite data-i18n="parallax_cite">— Christoph Kolumbus</cite>
-        </div>
-    </div>
+					<div class="video-grid">
+						<div class="video-card reveal" style="--delay: 0s">
+							<div class="video-wrapper">
+								<iframe
+									src="https://www.youtube.com/embed/b2APx-m-Ch4?origin=https://szenessy.com"
+									title="Mino Notes App"
+									loading="lazy"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allow="
+										accelerometer;
+										autoplay;
+										clipboard-write;
+										encrypted-media;
+										gyroscope;
+										picture-in-picture;
+										web-share;
+									"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="video-info">
+								<p class="video-kicker" data-i18n="mino_kicker">
+									AI productivity prototype
+								</p>
+								<h3 data-i18n="mino_title">Mino Notes App</h3>
+								<p data-i18n="mino_desc">
+									An AI-first notes app that turns rough
+									thoughts into clear mindmaps. Built for
+									Jugend forscht, inspired by messy notebooks.
+								</p>
+								<a
+									class="video-link"
+									href="https://youtu.be/b2APx-m-Ch4"
+									target="_blank"
+									rel="noopener"
+									data-i18n="video_watch"
+									>Watch on YouTube</a
+								>
+							</div>
+						</div>
+						<div class="video-card reveal" style="--delay: 0.05s">
+							<div class="video-wrapper">
+								<iframe
+									src="https://www.youtube.com/embed/UdyzG_m69-g?origin=https://szenessy.com"
+									title="VR World from 3D Scan"
+									loading="lazy"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allow="
+										accelerometer;
+										autoplay;
+										clipboard-write;
+										encrypted-media;
+										gyroscope;
+										picture-in-picture;
+										web-share;
+									"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="video-info">
+								<p class="video-kicker" data-i18n="vr_kicker">
+									VR experiment
+								</p>
+								<h3 data-i18n="vr_title">
+									VR World from 3D Scan
+								</h3>
+								<p data-i18n="vr_desc">
+									I turned a 3D scan into a walkable VR space.
+									It was my first time stepping inside
+									something I had built.
+								</p>
+								<a
+									class="video-link"
+									href="https://youtu.be/UdyzG_m69-g"
+									target="_blank"
+									rel="noopener"
+									data-i18n="video_watch"
+									>Watch on YouTube</a
+								>
+							</div>
+						</div>
+						<div class="video-card reveal" style="--delay: 0.15s">
+							<div class="video-wrapper">
+								<iframe
+									src="https://www.youtube.com/embed/bspxhyMI6RE?origin=https://szenessy.com"
+									title="AI and Identity"
+									loading="lazy"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allow="
+										accelerometer;
+										autoplay;
+										clipboard-write;
+										encrypted-media;
+										gyroscope;
+										picture-in-picture;
+										web-share;
+									"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="video-info">
+								<p
+									class="video-kicker"
+									data-i18n="ai_id_kicker"
+								>
+									Video essay
+								</p>
+								<h3 data-i18n="ai_id_title">AI and Identity</h3>
+								<p data-i18n="ai_id_desc">
+									A short essay on identity, ethics, and the
+									human questions behind AI.
+								</p>
+								<a
+									class="video-link"
+									href="https://youtu.be/bspxhyMI6RE"
+									target="_blank"
+									rel="noopener"
+									data-i18n="video_watch"
+									>Watch on YouTube</a
+								>
+							</div>
+						</div>
+						<div class="video-card reveal" style="--delay: 0.2s">
+							<div class="video-wrapper">
+								<iframe
+									src="https://www.youtube.com/embed/rNhRs4DzHv4?origin=https://szenessy.com"
+									title="Programming Class Commercial"
+									loading="lazy"
+									referrerpolicy="strict-origin-when-cross-origin"
+									allow="
+										accelerometer;
+										autoplay;
+										clipboard-write;
+										encrypted-media;
+										gyroscope;
+										picture-in-picture;
+										web-share;
+									"
+									allowfullscreen
+								></iframe>
+							</div>
+							<div class="video-info">
+								<p class="video-kicker" data-i18n="comm_kicker">
+									Short film
+								</p>
+								<h3 data-i18n="comm_title">
+									Programming Class Commercial
+								</h3>
+								<p data-i18n="comm_desc">
+									A playful commercial shot and edited during
+									my exchange year. I love storytelling with
+									camera and sound.
+								</p>
+								<a
+									class="video-link"
+									href="https://youtu.be/rNhRs4DzHv4"
+									target="_blank"
+									rel="noopener"
+									data-i18n="video_watch"
+									>Watch on YouTube</a
+								>
+							</div>
+						</div>
+					</div>
+				</section>
 
-    <div class="container">
-        <!-- Section 2: Projects -->
-        <section id="projects">
-            <h1 data-i18n="projects_title">Selected Projects</h1>
-            <p class="hero-text" data-i18n="projects_subtitle">A collection of experiments, products, and ideas I've brought to life.</p>
-            
-            <div class="video-grid" style="margin-top: 3rem;">
-                <!-- Mino -->
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/b2APx-m-Ch4?si=pWQPqJAvP3h6YDLq" title="Mino Notes App" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h3 data-i18n="mino_title">Mino Notes App</h3>
-                        <p data-i18n="mino_desc">AI-powered note-taking that reads your mind (almost).</p>
-                    </div>
-                </div>
-                <!-- VR -->
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/UdyzG_m69-g?si=uaUZdumWvmJvfjIi" title="VR World" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h3 data-i18n="vr_title">VR World from 3D Scan</h3>
-                        <p data-i18n="vr_desc">Walked into a 3D scan. Literally.</p>
-                    </div>
-                </div>
-                <!-- AI Travel -->
-                <div class="video-card">
-                    <div class="video-wrapper">
-                        <iframe src="https://www.youtube.com/embed/hHTIdMAS61U?si=Hh31gw2e9mIrq5Zu" title="Travel Agent" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                    <div class="video-info">
-                        <h3 data-i18n="travel_title">AI Travel Agent</h3>
-                        <p data-i18n="travel_desc">A prototype that finds the best deals via chat.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+				<section id="about">
+					<div class="about-split">
+						<div class="about-text">
+							<h2 data-i18n="about_h2">More Than Just Code</h2>
+							<p data-i18n="about_p1">
+								I like technology that feels warm and
+								understandable. My path started with hardware
+								experiments and grew into software and AI.
+							</p>
+							<p data-i18n="about_p2" data-i18n-html>
+								Today, I study
+								<strong>Business Informatics</strong> at TUM,
+								connecting technical depth with real-world
+								impact. I care about teamwork and try to make
+								spaces where people feel comfortable sharing
+								ideas early.
+							</p>
+							<p data-i18n="about_p3">
+								Outside of tech, I enjoy organizing small
+								creative events and filming short videos with
+								friends.
+							</p>
 
-        <!-- Section 3: About -->
-        <section id="about">
-            <div class="about-split">
-                <div class="about-text">
-                    <h2 data-i18n="about_h2">More Than Just Code</h2>
-                    <p style="margin-bottom: 1.5rem;" data-i18n="about_p1">I believe the best technology comes from genuinely understanding the world and the people in it.</p>
-                    <p style="margin-bottom: 2rem;" data-i18n="about_p2" data-i18n-html>Today, I study <strong>Business Informatics</strong> at TUM, bridging the gap between technical complexity and real-world value.</p>
-                    
-                    <h3 data-i18n="milestones_title">Milestones</h3>
-                    <div class="milestone-list">
-                        <div class="milestone">
-                            <i class="fas fa-microscope milestone-icon"></i>
-                            <div class="milestone-content">
-                                <h4 data-i18n="ms_jf_title">Jugend forscht 2024</h4>
-                                <p data-i18n="ms_jf_desc">2nd Prize & CIB Award for AI mindmaps.</p>
-                            </div>
-                        </div>
-                        <div class="milestone">
-                            <i class="fas fa-graduation-cap milestone-icon"></i>
-                            <div class="milestone-content">
-                                <h4 data-i18n="ms_abi_title">1.0 Abitur</h4>
-                                <p data-i18n="ms_abi_desc">Deutsche Schule Málaga (2025). Top of class.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-image sheep-container">
-                    <img src="./Fotos/Tom with Sheep.jpg" alt="Tom & Sheep" class="about-img">
-                    <div class="sheep-tooltip" data-i18n="sheep_tooltip" data-i18n-html>
-                        <strong>Strategy:</strong><br>The sheep is the expert. 🐑
-                    </div>
-                </div>
-            </div>
-        </section>
+							<h3 data-i18n="milestones_title">Milestones</h3>
+							<div class="milestone-list">
+								<div class="milestone">
+									<i
+										class="fas fa-microscope milestone-icon"
+										aria-hidden="true"
+									></i>
+									<div class="milestone-content">
+										<h4 data-i18n="ms_jf_title">
+											Jugend forscht 2024
+										</h4>
+										<p data-i18n="ms_jf_desc">
+											2nd Prize and CIB Award for an AI
+											mindmap tool.
+										</p>
+									</div>
+								</div>
+								<div class="milestone">
+									<i
+										class="fas fa-calculator milestone-icon"
+										aria-hidden="true"
+									></i>
+									<div class="milestone-content">
+										<h4 data-i18n="ms_math_title">
+											Mathematics Olympiad
+										</h4>
+										<p data-i18n="ms_math_desc">
+											3rd Prize (2018/19) and regional
+											finalist years.
+										</p>
+									</div>
+								</div>
+								<div class="milestone">
+									<i
+										class="fas fa-users milestone-icon"
+										aria-hidden="true"
+									></i>
+									<div class="milestone-content">
+										<h4 data-i18n="ms_eyp_title">
+											European Youth Parliament
+										</h4>
+										<p data-i18n="ms_eyp_desc">
+											Delegate certificate (2023-24). A
+											lesson in collaboration.
+										</p>
+									</div>
+								</div>
+								<div class="milestone">
+									<i
+										class="fas fa-graduation-cap milestone-icon"
+										aria-hidden="true"
+									></i>
+									<div class="milestone-content">
+										<h4 data-i18n="ms_abi_title">
+											1.0 Abitur
+										</h4>
+										<p data-i18n="ms_abi_desc">
+											Deutsche Schule Málaga (2025). Top
+											of class.
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="about-image sheep-container">
+							<img
+								src="./Fotos/Tom%20with%20Sheep.jpg"
+								alt="Tom with a sheep"
+								class="about-img"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div
+								class="sheep-tooltip"
+								data-i18n="sheep_tooltip"
+								data-i18n-html
+							>
+								Chilling with a sheep.
+							</div>
+						</div>
+					</div>
+					<div class="about-highlights">
+						<div class="section-header reveal">
+							<h3 data-i18n="about_highlights_title">
+								How I show up
+							</h3>
+							<p
+								class="section-subtitle"
+								data-i18n="about_highlights_sub"
+							>
+								Curious, kind, and focused on shipping useful
+								things.
+							</p>
+						</div>
+						<div class="highlight-grid">
+							<div
+								class="highlight-card reveal"
+								style="--delay: 0s"
+							>
+								<h4 data-i18n="about_card_1_title">
+									Curious by default
+								</h4>
+								<p data-i18n="about_card_1_desc">
+									I ask questions, test ideas quickly, and
+									keep learning.
+								</p>
+							</div>
+							<div
+								class="highlight-card reveal"
+								style="--delay: 0.05s"
+							>
+								<h4 data-i18n="about_card_2_title">
+									Calm and kind
+								</h4>
+								<p data-i18n="about_card_2_desc">
+									I try to make teams feel safe sharing early
+									drafts and honest feedback.
+								</p>
+							</div>
+							<div
+								class="highlight-card reveal"
+								style="--delay: 0.1s"
+							>
+								<h4 data-i18n="about_card_3_title">
+									Finish-minded
+								</h4>
+								<p data-i18n="about_card_3_desc">
+									I like shipping small wins that build
+									momentum.
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="photo-section">
+						<div class="section-header reveal">
+							<h3 data-i18n="photo_title">
+								Moments from my life
+							</h3>
+							<p
+								class="section-subtitle"
+								data-i18n="photo_subtitle"
+							>
+								A few snapshots that keep me grounded.
+							</p>
+						</div>
+						<div class="photo-grid">
+							<figure
+								class="photo-card reveal"
+								style="--delay: 0s"
+							>
+								<img
+									src="./Fotos/Tom%20leaning%20against%20a%20wall.jpg"
+									alt="Tom leaning against a wall"
+									loading="lazy"
+									decoding="async"
+								/>
+								<figcaption data-i18n="photo_caption_wall">
+									Quiet focus between projects.
+								</figcaption>
+							</figure>
+						</div>
+					</div>
+				</section>
 
-        <!-- Section 4: Awards Gallery -->
-        <section id="awards">
-            <h1 style="text-align: center;" data-i18n="honors_title">Awards & Certificates</h1>
-            <div class="awards-gallery" style="margin-top: 3rem;">
-                <div class="award-img-card" onclick="openLightbox(this)">
-                    <img src="./Preise/images/jugend_forscht_2024.png" alt="JF 2024">
-                    <div class="caption" data-i18n="award_jf_2024">Jugend forscht – 2nd Prize</div>
-                </div>
-                <div class="award-img-card" onclick="openLightbox(this)">
-                    <img src="./Preise/images/math_olympiad_2019.png" alt="Math 2019">
-                    <div class="caption" data-i18n="award_math_2019">Math Olympiad – 3rd Prize</div>
-                </div>
-                <div class="award-img-card" onclick="openLightbox(this)">
-                    <img src="./Preise/images/eyp_2024.png" alt="EYP 2024">
-                    <div class="caption" data-i18n="ms_eyp_title">European Youth Parliament</div>
-                </div>
-                <div class="award-img-card" onclick="openLightbox(this)">
-                    <img src="./Preise/images/bwinf_2023.png" alt="BwInf 2023">
-                    <div class="caption" data-i18n="award_bwinf_title">BwInf – CS Competition</div>
-                </div>
-            </div>
-        </section>
+				<section id="awards">
+					<div class="section-header reveal">
+						<p class="section-kicker" data-i18n="awards_kicker">
+							Awards
+						</p>
+						<h2 data-i18n="honors_title">
+							Awards, Certificates, and Prizes
+						</h2>
+						<p class="section-subtitle" data-i18n="awards_subtitle">
+							Highlights that reflect curiosity, persistence, and
+							teamwork.
+						</p>
+					</div>
 
-        <!-- Section 5: Contact -->
-        <section id="contact" style="text-align: center; padding: 6rem 0;">
-            <h1 data-i18n="contact_title">Let's Connect</h1>
-            <p class="hero-text" data-i18n="contact_subtitle">Always open to new ideas.</p>
-            <div style="margin-top: 3rem; font-size: 1.5rem;">
-                <a href="mailto:tom@szenessy.de" style="color: var(--accent-warm); text-decoration: none; font-weight: 700;">tom@szenessy.de</a>
-            </div>
-        </section>
+					<div class="awards-featured">
+						<div
+							class="award-img-card featured reveal"
+							style="--delay: 0s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/jugend_forscht_2024.png"
+								alt="Jugend forscht 2024 certificate"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="caption" data-i18n="award_jf_2024">
+								Jugend forscht 2024 - 2nd Prize
+							</div>
+						</div>
+						<div
+							class="award-img-card featured reveal"
+							style="--delay: 0.05s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/jugend_forscht_cib_2024.png"
+								alt="Jugend forscht CIB award"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="caption" data-i18n="award_jf_cib_2024">
+								Jugend forscht 2024 - CIB Award
+							</div>
+						</div>
+						<div
+							class="award-img-card featured reveal"
+							style="--delay: 0.1s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/bwinf_2023.png"
+								alt="Bundeswettbewerb Informatik certificate"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="caption" data-i18n="award_bwinf_2023">
+								Bundeswettbewerb Informatik (2022/23)
+							</div>
+						</div>
+						<div
+							class="award-img-card featured reveal"
+							style="--delay: 0.15s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/math_olympiad_2019.png"
+								alt="Mathematics Olympiad 2019 award"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="caption" data-i18n="award_math_2019">
+								Mathematics Olympiad - 3rd Prize
+							</div>
+						</div>
 
-        <footer>
-            <p data-i18n="footer_made_with">Made with warmth by Tom Szenessy &copy; 2026.</p>
-            <p style="margin-top: 0.5rem;">Munich • tom@szenessy.de</p>
-        </footer>
+						<div
+							class="award-img-card reveal"
+							style="--delay: 0s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/eyp_2024.png"
+								alt="European Youth Parliament certificate"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="caption" data-i18n="award_eyp_2024">
+								European Youth Parliament (2023/24)
+							</div>
+						</div>
+						<div
+							class="award-img-card reveal"
+							style="--delay: 0.05s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/biber_2023.png"
+								alt="Informatik Biber 2023 award"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="caption" data-i18n="award_biber_2023">
+								Informatik Biber - 2nd Prize
+							</div>
+						</div>
+						<div
+							class="award-img-card reveal"
+							style="--delay: 0.1s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/jwinf_2023.png"
+								alt="Jugendwettbewerb Informatik certificate"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div class="caption" data-i18n="award_jwinf_2023">
+								Jugendwettbewerb Informatik (2022/23)
+							</div>
+						</div>
+						<div
+							class="award-img-card reveal"
+							style="--delay: 0.15s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/kangaroo_2024.png"
+								alt="Kangaroo Mathematics 2024 certificate"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div
+								class="caption"
+								data-i18n="award_kangaroo_2024"
+							>
+								Kangaroo Mathematics (2024)
+							</div>
+						</div>
+						<div
+							class="award-img-card reveal"
+							style="--delay: 0.15s"
+							onclick="openLightbox(this)"
+						>
+							<img
+								src="./Preise/images/kangaroo_2019.png"
+								alt="Kangaroo Mathematics 2019 certificate"
+								loading="lazy"
+								decoding="async"
+							/>
+							<div
+								class="caption"
+								data-i18n="award_kangaroo_2019"
+							>
+								Kangaroo Mathematics (2019)
+							</div>
+						</div>
+					</div>
+				</section>
 
-        <!-- Peeking Tom -->
-        <div class="peeking-tom" id="peekingTom">
-            <div class="peeking-bubble" data-i18n="peeking_bubble">Thanks for scrolling! 👋</div>
-            <img src="./Fotos/Tom Passfoto.jpg" alt="Peeking Tom">
-        </div>
+				<section id="contact" class="contact-section">
+					<div class="section-header reveal">
+						<h2 data-i18n="contact_title">Let's Connect</h2>
+						<p
+							class="section-subtitle"
+							data-i18n="contact_subtitle"
+						>
+							If you are curious about my work or want to say hi,
+							I would love to hear from you.
+						</p>
+					</div>
+					<div class="contact-grid">
+						<div class="contact-card reveal">
+							<div class="contact-icon">
+								<i
+									class="fas fa-paper-plane"
+									aria-hidden="true"
+								></i>
+							</div>
+							<h3 data-i18n="contact_h2">Send me a message</h3>
+							<p data-i18n="contact_p">
+								Email is the easiest way to reach me and I
+								usually reply within a day.
+							</p>
+							<a href="mailto:tom@szenessy.de" class="btn"
+								>tom@szenessy.de</a
+							>
+							<div class="contact-social">
+								<span
+									class="contact-social-label"
+									data-i18n="contact_social_label"
+									>Find me here:</span
+								>
+								<div class="contact-social-links">
+									<a
+										href="https://www.linkedin.com/in/tom-szenessy"
+										target="_blank"
+										rel="noopener"
+										aria-label="LinkedIn"
+										><i class="fab fa-linkedin"></i
+									></a>
+									<a
+										href="https://github.com/TomSzenessy"
+										target="_blank"
+										rel="noopener"
+										aria-label="GitHub"
+										><i class="fab fa-github"></i
+									></a>
+									<a
+										href="https://www.youtube.com/@tomsze"
+										target="_blank"
+										rel="noopener"
+										aria-label="YouTube"
+										><i class="fab fa-youtube"></i
+									></a>
+								</div>
+							</div>
+						</div>
+						<div
+							class="contact-panel reveal"
+							style="--delay: 0.05s"
+						>
+							<h3 data-i18n="contact_topics_title">
+								What I'm excited about
+							</h3>
+							<ul class="contact-topics">
+								<li data-i18n="contact_topic_1">
+									Internships, student projects, and research
+								</li>
+								<li data-i18n="contact_topic_2">
+									AI tools that make life simpler and kinder
+								</li>
+								<li data-i18n="contact_topic_3">
+									Creative collaborations, videos, or
+									community ideas
+								</li>
+							</ul>
+							<p class="contact-note" data-i18n="contact_note">
+								If you are not sure, just say hi. I am happy to
+								chat.
+							</p>
+						</div>
+					</div>
+				</section>
 
-        <!-- Lightbox -->
-        <div class="lightbox" id="lightbox">
-            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-            <img src="" alt="Certificate" id="lightboxImg">
-        </div>
+				<footer>
+					<p data-i18n="footer_made_with">
+						Made with warmth and curiosity by Tom Szenessy &copy;
+						2026.
+					</p>
+					<p class="footer-note">Munich • tom@szenessy.de</p>
+				</footer>
+			</div>
+		</main>
 
-        <script src="translations.js"></script>
-        <script src="lang-switcher.js"></script>
-        <script>
-            // Peeking Tom Logic
-            const peekingTom = document.getElementById('peekingTom');
-            const peekingBubble = peekingTom.querySelector('.peeking-bubble');
+		<div class="peeking-tom" id="peekingTom">
+			<div class="peeking-bubble" data-i18n="peeking_bubble">
+				Thanks for scrolling!
+			</div>
+			<img
+				src="./Fotos/Tom%20Passfoto.png"
+				alt="Tom peeking in"
+				loading="lazy"
+				decoding="async"
+			/>
+		</div>
 
-            // Lightbox Logic
-            function openLightbox(card) {
-                const src = card.querySelector('img').src;
-                document.getElementById('lightboxImg').src = src;
-                document.getElementById('lightbox').classList.add('active');
-            }
-            function closeLightbox() {
-                document.getElementById('lightbox').classList.remove('active');
-            }
-            document.getElementById('lightbox').addEventListener('click', function(e) {
-                if (e.target === this) closeLightbox();
-            });
+		<div class="lightbox" id="lightbox">
+			<span class="lightbox-close" onclick="closeLightbox()"
+				>&times;</span
+			>
+			<img src="" alt="Certificate" id="lightboxImg" />
+		</div>
 
-            // Scroll Spy & Side Nav Logic
-            const sections = document.querySelectorAll('header, section');
-            const navDots = document.querySelectorAll('.side-nav a');
+		<script src="translations.js"></script>
+		<script src="lang-switcher.js"></script>
+		<script>
+			const peekingTom = document.getElementById('peekingTom');
+			const peekingBubble = peekingTom.querySelector('.peeking-bubble');
 
-            window.addEventListener('scroll', () => {
-                let current = "home";
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
-                        current = section.getAttribute('id');
-                    }
-                });
+			function openLightbox(card) {
+				const src = card.querySelector('img').src;
+				document.getElementById('lightboxImg').src = src;
+				document.getElementById('lightbox').classList.add('active');
+			}
+			function closeLightbox() {
+				document.getElementById('lightbox').classList.remove('active');
+			}
+			document
+				.getElementById('lightbox')
+				.addEventListener('click', function (e) {
+					if (e.target === this) closeLightbox();
+				});
 
-                navDots.forEach(dot => {
-                    dot.classList.remove('active');
-                    const targetId = dot.getAttribute('href').substring(1);
-                    if (targetId === current || (current === 'quotes' && targetId === 'home')) {
-                        dot.classList.add('active');
-                    }
-                });
+			const sections = document.querySelectorAll(
+				'header, section, .parallax-section'
+			);
+			const navDots = document.querySelectorAll('.side-nav a');
 
-                // Peeking Tom Reveal
-                const scrollPos = window.scrollY + window.innerHeight;
-                const totalHeight = document.body.offsetHeight;
-                const triggerPoint = totalHeight - 600; 
-                
-                if (scrollPos > triggerPoint) {
-                    const progress = Math.min((scrollPos - triggerPoint) / 500, 1);
-                    peekingTom.style.bottom = `${-150 + (progress * 130)}px`;
-                    peekingTom.style.transform = `rotate(${progress * -15}deg)`;
-                    peekingBubble.style.opacity = progress > 0.7 ? '1' : '0';
-                } else {
-                    peekingTom.style.bottom = '-150px';
-                    peekingBubble.style.opacity = '0';
-                }
-            });
-        </script>
-    </div>
-</body>
+			const updateScrollUI = () => {
+				let current = 'home';
+				const scrollPos = window.scrollY + 150;
+
+				sections.forEach((section) => {
+					const id = section.getAttribute('id');
+					if (id && scrollPos >= section.offsetTop) {
+						current = id;
+					}
+				});
+
+				if (
+					window.innerHeight + window.scrollY >=
+					document.body.offsetHeight - 120
+				) {
+					current = 'contact';
+				}
+
+				navDots.forEach((dot) => {
+					dot.classList.remove('active');
+					const targetId = dot.getAttribute('href').substring(1);
+					if (
+						targetId === current ||
+						(current === 'quotes' && targetId === 'home')
+					) {
+						dot.classList.add('active');
+					}
+				});
+
+				const scrollable =
+					document.documentElement.scrollHeight - window.innerHeight;
+				const progress =
+					scrollable > 0 ? window.scrollY / scrollable : 0;
+				const start = 0.05;
+				const end = 0.7;
+				const clamped = Math.min(
+					Math.max((progress - start) / (end - start), 0),
+					1
+				);
+
+				peekingTom.style.bottom = `${-140 + clamped * 130}px`;
+				peekingTom.style.transform = `rotate(${clamped * -10}deg)`;
+				peekingBubble.style.opacity = clamped > 0.45 ? '1' : '0';
+			};
+
+			let ticking = false;
+			const onScroll = () => {
+				if (!ticking) {
+					window.requestAnimationFrame(() => {
+						updateScrollUI();
+						ticking = false;
+					});
+					ticking = true;
+				}
+			};
+
+			window.addEventListener('scroll', onScroll, { passive: true });
+			window.addEventListener('resize', onScroll);
+			updateScrollUI();
+
+			const revealItems = document.querySelectorAll('.reveal');
+			const prefersReducedMotion = window.matchMedia(
+				'(prefers-reduced-motion: reduce)'
+			).matches;
+
+			if (prefersReducedMotion) {
+				revealItems.forEach((item) => item.classList.add('in-view'));
+			} else {
+				const revealObserver = new IntersectionObserver(
+					(entries, observer) => {
+						entries.forEach((entry) => {
+							if (entry.isIntersecting) {
+								entry.target.classList.add('in-view');
+								observer.unobserve(entry.target);
+							}
+						});
+					},
+					{ threshold: 0.15 }
+				);
+
+				revealItems.forEach((item) => revealObserver.observe(item));
+			}
+		</script>
+	</body>
 </html>
