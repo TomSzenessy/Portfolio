@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import profileThumb from '../assets/Fotos/Tom Passfoto-400.webp';
+
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+---
+
+<div id="peekingTom" class="fixed -bottom-[140px] right-6 w-28 h-28 z-50 transition-all duration-75 ease-linear pointer-events-none drop-shadow-xl">
+    <div id="peekingBubble" class="absolute -top-12 right-16 bg-white px-4 py-2 rounded-2xl text-sm font-bold shadow-md border border-black/5 opacity-0 transition-opacity duration-300 whitespace-nowrap after:content-[''] after:absolute after:right-4 after:-bottom-2 after:border-l-8 after:border-r-8 after:border-t-8 after:border-t-white after:border-transparent">
+        {t('peeking_bubble')}
+    </div>
+    <Image src={profileThumb} alt="Tom peeking" width={112} height={112} class="w-full h-full object-contain" />
+</div>
+
+<script>
+    const peekingTom = document.getElementById('peekingTom');
+    const peekingBubble = document.getElementById('peekingBubble');
+
+    if (peekingTom && peekingBubble) {
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+            const start = 0.05;
+            const end = 0.7;
+            const progress = Math.min(Math.max((scrollPercent - start) / (end - start), 0), 1);
+
+            peekingTom.style.bottom = `${-140 + progress * 130}px`;
+            peekingTom.style.transform = `rotate(${progress * -10}deg)`;
+            peekingBubble.style.opacity = progress > 0.8 ? '1' : '0';
+        }, { passive: true });
+    }
+</script>

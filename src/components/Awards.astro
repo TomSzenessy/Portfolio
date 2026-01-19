@@ -1,0 +1,100 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+// Use import.meta.glob to get all award images
+const awardImages = import.meta.glob('../assets/Preise/images/*.{png,jpg,jpeg,webp}', { eager: true });
+
+const awards = [
+  { id: 'jf_2024', img: '../assets/Preise/images/jugend_forscht_2024.png', label: t('award_jf_2024'), delay: 0 },
+  { id: 'jf_cib_2024', img: '../assets/Preise/images/jugend_forscht_cib_2024.png', label: t('award_jf_cib_2024'), delay: 50 },
+  { id: 'bwinf_2023', img: '../assets/Preise/images/bwinf_2023.png', label: t('award_bwinf_2023'), delay: 100 },
+  { id: 'math_2019', img: '../assets/Preise/images/math_olympiad_2019.png', label: t('award_math_2019'), delay: 150 },
+  { id: 'eyp_2024', img: '../assets/Preise/images/eyp_2024.png', label: t('award_eyp_2024'), delay: 0 },
+  { id: 'biber_2023', img: '../assets/Preise/images/biber_2023.png', label: t('award_biber_2023'), delay: 50 },
+  { id: 'jwinf_2023', img: '../assets/Preise/images/jwinf_2023.png', label: t('award_jwinf_2023'), delay: 100 },
+  { id: 'kangaroo_2024', img: '../assets/Preise/images/kangaroo_2024.png', label: t('award_kangaroo_2024'), delay: 150 },
+];
+---
+
+<section id="awards" class="py-20">
+    <div class="text-center mb-16 reveal-item">
+        <p class="text-accent font-bold tracking-widest uppercase text-xs mb-3">
+            {t('awards_kicker')}
+        </p>
+        <h2 class="font-heading text-4xl text-text-main mb-4">
+            {t('honors_title')}
+        </h2>
+        <div class="text-xs text-text-muted/40 italic pt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
+            {t('quote_tidy')}
+        </div>
+    </div>
+
+    <!-- Awards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {awards.map(award => {
+            const imageAsset: any = awardImages[award.img];
+            return (
+                <div class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item" 
+                     data-full-img={imageAsset?.default?.src}
+                     style={`transition-delay: ${award.delay}ms`}>
+                    <div class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5">
+                        <Image 
+                            src={imageAsset?.default} 
+                            alt={award.label} 
+                            width={400} 
+                            height={300} 
+                            class="w-full h-64 object-contain mix-blend-multiply group-hover:scale-105 transition-transform" 
+                        />
+                    </div>
+                    <p class="text-center font-bold text-text-main text-sm">
+                        {award.label}
+                    </p>
+                </div>
+            );
+        })}
+    </div>
+
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center pt-20 pb-6 backdrop-blur-sm transition-all duration-300 opacity-0">
+        <button id="close-lightbox" class="absolute top-16 right-6 text-white text-4xl hover:text-accent transition-colors z-10">&times;</button>
+        <img id="lightbox-img" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl" src="" alt="Enlarged Award">
+    </div>
+</section>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const closeBtn = document.getElementById('close-lightbox');
+    const awardCards = document.querySelectorAll('#awards .group');
+
+    awardCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const fullImg = card.getAttribute('data-full-img');
+            if (fullImg && lightbox && lightboxImg) {
+                lightboxImg.src = fullImg;
+                lightbox.classList.remove('hidden');
+                setTimeout(() => lightbox.classList.add('opacity-100'), 10);
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    });
+
+    const closeLightbox = () => {
+        if (lightbox) {
+            lightbox.classList.remove('opacity-100');
+            setTimeout(() => lightbox.classList.add('hidden'), 300);
+            document.body.style.overflow = '';
+        }
+    };
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    lightbox?.addEventListener('click', (e) => {
+        if (e.target === lightbox) closeLightbox();
+    });
+</script>

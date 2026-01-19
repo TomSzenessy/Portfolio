@@ -1,0 +1,59 @@
+---
+interface Props {
+  t: (key: string) => string;
+  lang: string;
+}
+
+const { t, lang } = Astro.props;
+
+const navItems = [
+  { id: 'home', label: t('nav_home') },
+  { id: 'projects', label: t('nav_projects') },
+  { id: 'about', label: t('nav_about') },
+  { id: 'awards', label: t('nav_awards') },
+  { id: 'contact', label: t('nav_contact') },
+];
+
+const languages = [
+  { code: 'en', label: 'EN' },
+  { code: 'de', label: 'DE' },
+  { code: 'es', label: 'ES' },
+];
+---
+
+<!-- Navigation Dots (Desktop) -->
+<nav class="hidden side-nav fixed right-8 top-1/2 -translate-y-1/2 md:flex flex-col gap-4 z-50 p-3 bg-white/70 backdrop-blur-md rounded-full border border-white/30 shadow-lg">
+    {navItems.map(item => (
+        <a href={`#${item.id}`} class="w-3 h-3 bg-text-muted rounded-full transition-all hover:bg-accent hover:scale-125 relative group" aria-label={item.label}>
+            <span class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                {item.label}
+            </span>
+        </a>
+    ))}
+</nav>
+
+<!-- Top Navigation -->
+<nav class="sticky top-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-black/5 px-6 py-4 flex flex-wrap justify-around items-center transition-all duration-300" id="top-nav">
+    <a href="#home" class="font-heading font-bold text-xl tracking-tight text-text-main hover:text-accent transition-colors">tom.szenessy</a>
+
+    <div class="flex items-center gap-6">
+        <!-- Language Switcher -->
+        <div class="flex gap-3 text-sm font-semibold">
+            {languages.map(l => (
+                <a 
+                    href={`/${l.code}/`} 
+                    class={`lang-btn cursor-pointer ${lang === l.code ? 'is-active' : ''}`}
+                >
+                    {l.label}
+                </a>
+            ))}
+        </div>
+    </div>
+    <!-- Social Icons -->
+    <div class="hidden sm:flex gap-4 text-lg text-text-muted">
+        <a href="https://www.youtube.com/@tomsze" target="_blank" class="text-[#ff0000] hover:-translate-y-1 transition-transform"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" class="text-[#0a66c2] hover:-translate-y-1 transition-transform"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/TomSzenessy" target="_blank" class="text-[#1f1f1f]  hover:-translate-y-1 transition-transform"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/tom_szenessy/" target="_blank" class="text-[#833ab4] hover:-translate-y-1 transition-transform"><i class="fab fa-instagram"></i></a>
+    </div>
+</nav>

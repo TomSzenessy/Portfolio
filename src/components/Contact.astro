@@ -1,0 +1,69 @@
+---
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+---
+
+<section id="contact" class="py-20 mb-20 px-6">
+    <div class="text-center mb-16 reveal-item">
+        <h2 class="font-heading text-4xl text-text-main mb-4 transition-colors duration-300">
+            {t('contact_title')}
+        </h2>
+        <p class="text-text-muted text-lg max-w-2xl mx-auto transition-colors duration-300">
+            {t('contact_subtitle')}
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Direct Contact -->
+        <div class="bg-card-bg p-10 rounded-3xl shadow-lg border border-border-main hover:shadow-xl transition-all transition-colors duration-300 reveal-item text-center md:text-left">
+            <div class="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center text-accent text-xl mb-6 mx-auto md:mx-0">
+                <i class="fas fa-paper-plane"></i>
+            </div>
+            <h3 class="font-heading text-2xl text-text-main mb-3 transition-colors duration-300">
+                {t('contact_h2')}
+            </h3>
+            <p class="text-text-muted mb-8 transition-colors duration-300">
+                {t('contact_p')}
+            </p>
+            <a href="mailto:tom@szenessy.de" class="inline-block bg-gradient-to-br from-accent to-orange-400 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 hover:-translate-y-1 transition-all">
+                tom@szenessy.de
+            </a>
+            <div class="mt-8 pt-8 border-t border-border-main">
+                <span class="text-xs font-bold text-text-muted uppercase tracking-wider block mb-4 transition-colors duration-300">{t('contact_social_label')}</span>
+                <div class="flex justify-center md:justify-start gap-6 text-2xl text-text-muted">
+                    <a href="https://www.youtube.com/@tomsze" target="_blank" class="text-[#ff0000] hover:scale-110 transition-all"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" class="text-[#0a66c2] hover:scale-110 transition-all"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/TomSzenessy" target="_blank" class="text-[#1f1f1f] hover:scale-110 transition-all"><i class="fab fa-github"></i></a>
+                    <a href="https://www.instagram.com/tom_szenessy/" target="_blank" class="text-[#833ab4] hover:scale-110 transition-all"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topics Panel -->
+        <div class="bg-card-bg p-10 rounded-3xl shadow-lg border border-border-main hover:shadow-xl transition-all transition-colors duration-300 reveal-item" style="transition-delay: 100ms">
+            <h3 class="font-heading text-2xl text-text-main mb-6 transition-colors duration-300">
+                {t('contact_topics_title')}
+            </h3>
+            <ul class="space-y-4">
+                <li class="flex gap-3 text-text-muted transition-colors duration-300">
+                    <span class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></span>
+                    <span>{t('contact_topic_1')}</span>
+                </li>
+                <li class="flex gap-3 text-text-muted transition-colors duration-300">
+                    <span class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></span>
+                    <span>{t('contact_topic_2')}</span>
+                </li>
+                <li class="flex gap-3 text-text-muted transition-colors duration-300">
+                    <span class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"></span>
+                    <span>{t('contact_topic_3')}</span>
+                </li>
+            </ul>
+            <p class="mt-8 text-text-muted italic opacity-80 border-t border-border-main pt-6 transition-colors duration-300">
+                {t('contact_note')}
+            </p>
+        </div>
+    </div>
+</section>

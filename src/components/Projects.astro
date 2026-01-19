@@ -1,0 +1,88 @@
+---
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const projects = [
+  {
+    id: 'mino',
+    youtubeId: 'b2APx-m-Ch4',
+    kicker: t('mino_kicker'),
+    title: t('mino_title'),
+    desc: t('mino_desc'),
+    quote: t('quote_chatgpt'),
+    delay: 0
+  },
+  {
+    id: 'vr',
+    youtubeId: 'UdyzG_m69-g',
+    kicker: t('vr_kicker'),
+    title: t('vr_title'),
+    desc: t('vr_desc'),
+    delay: 100
+  },
+  {
+    id: 'ai_id',
+    youtubeId: 'bspxhyMI6RE',
+    kicker: t('ai_id_kicker'),
+    title: t('ai_id_title'),
+    desc: t('ai_id_desc'),
+    delay: 0
+  },
+  {
+    id: 'comm',
+    youtubeId: 'rNhRs4DzHv4',
+    kicker: t('comm_kicker'),
+    title: t('comm_title'),
+    desc: t('comm_desc'),
+    quote: t('quote_coding_hours'),
+    delay: 100
+  }
+];
+---
+
+<section id="projects" class="py-20">
+    <div class="text-center mb-16 reveal-item">
+        <p class="text-accent font-bold tracking-widest uppercase text-xs mb-3">
+            {t('projects_kicker')}
+        </p>
+        <h2 class="font-heading text-4xl md:text-5xl text-text-main mb-4">
+            {t('projects_title')}
+        </h2>
+        <p class="text-text-muted text-lg max-w-2xl mx-auto">
+            {t('projects_subtitle')}
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {projects.map(p => (
+            <div class="bg-card-bg rounded-3xl overflow-hidden shadow-lg border border-black/5 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group" style={`transition-delay: ${p.delay}ms`}>
+                <div class="aspect-video bg-black relative overflow-hidden">
+                    <iframe class="w-full h-full absolute inset-0" src={`https://www.youtube.com/embed/${p.youtubeId}`} title={p.title} loading="lazy" allowfullscreen></iframe>
+                </div>
+                <div class="p-8">
+                    <p class="text-xs font-bold text-accent uppercase tracking-wider mb-2">
+                        {p.kicker}
+                    </p>
+                    <h3 class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors">
+                        {p.title}
+                    </h3>
+                    <p class="text-text-muted mb-4">
+                        {p.desc}
+                    </p>
+                    <a href={`https://youtu.be/${p.youtubeId}`} target="_blank" class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4">
+                        <span>{t('video_watch')}</span>
+                        <i class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"></i>
+                    </a>
+                    {p.quote && (
+                        <div class="mt-4 text-[10px] text-text-muted/30 italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
+                            {p.quote}
+                        </div>
+                    )}
+                </div>
+            </div>
+        ))}
+    </div>
+</section>

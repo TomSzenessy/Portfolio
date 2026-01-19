@@ -1,0 +1,18 @@
+---
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+---
+
+<footer class="text-center pb-12 pt-12 text-text-muted/70 text-sm">
+    <p set:html={t('footer_made_with')} />
+    <div>
+        <a href="mailto:tom@szenessy.de" class="hover:text-accent">tom@szenessy.de</a>
+        <p class="mt-2">{t('footer_location')}</p>
+    </div>
+    <div class="mt-4 text-[10px] italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
+        {t('quote_chocolates')}
+    </div>
+</footer>

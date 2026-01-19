@@ -1,0 +1,29 @@
+---
+import { Image, getImage } from 'astro:assets';
+import mountainImage from '../assets/Fotos/Tom on Mountain-1600.webp';
+import profileThumb from '../assets/Fotos/Tom Passfoto-400.webp';
+
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const optimizedBg = await getImage({ src: mountainImage, format: 'webp' });
+---
+
+<div id="quotes" class="relative w-screen left-[50%] -translate-x-[50%] h-[70vh] bg-fixed bg-center bg-cover flex items-start p-6 mb-24 overflow-hidden group" 
+     style={`background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url(${optimizedBg.src});`}>
+    <div class="container mx-auto px-6 flex justify-center">
+        <div class="speech-bubble backdrop-blur p-8 rounded-3xl max-w-sm shadow-2xl transform transition-transform duration-700 hover:scale-105 reveal-item mt-16">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-full border-4 border-white shadow-md overflow-hidden shrink-0">
+                    <Image src={profileThumb} alt="Tom" width={56} height={56} class="w-full h-full object-cover" />
+                </div>
+                <blockquote class="font-heading text-2xl text-text-main italic leading-tight">
+                    “Let me cook.”
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>

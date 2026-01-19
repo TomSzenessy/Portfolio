@@ -1,0 +1,41 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = "Tom Szenessy | Just a chill, friendly Business Informatics Student",
+  description = "Tom Szenessy is a friendly Business Informatics student at TUM in Munich, building creative projects with AI, VR, and product design."
+} = Astro.props;
+
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{title}</title>
+        <link rel="icon" type="image/webp" href="/Fotos/Tom%20Passfoto-400.webp" />
+        <meta name="description" content={description} />
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;600;700&display=swap" rel="stylesheet" />
+
+        <!-- Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    </head>
+    <body class="bg-bg text-text-main font-body selection:bg-accent selection:text-white overflow-x-hidden">
+        <!-- Background Canvas for Particles -->
+        <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-full z-0 opacity-40 pointer-events-none"></canvas>
+
+        <!-- Noise Overlay -->
+        <div class="noise-bg"></div>
+
+        <slot />
+    </body>
+</html>

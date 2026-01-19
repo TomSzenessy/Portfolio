@@ -1,38 +1,53 @@
-# Tom Szenessy | Portfolio
+# Tom Szenessy Portfolio - Astro Version
 
-A warm, human-centered personal portfolio showcasing my journey in tech, AI, and creative projects.
-
-[![Live Portfolio](https://img.shields.io/badge/Live-Portfolio-orange?style=for-the-badge)](https://github.com/TomSzenessy/Portfolio)
-
-Currently running on [szenessy.com](https://szenessy.com)
-
-## 🌟 About Me
-I'm a **Business Informatics student at TUM in Munich**. I love turning messy technical problems into simple, calm experiences. My work spans across AI, VR, and product design, always with a human-first approach.
+This is the high-performance, modular version of my portfolio, migrated from a monolithic HTML structure to [Astro](https://astro.build/).
 
 ## 🚀 Features
-- **🌍 Multi-language Support**: Fully localized in English, German, and Spanish.
-- **✨ Smooth Aesthetics**: Featuring a custom noise texture, particle background, and elegant reveal animations.
-- **📱 Responsive Design**: Built with Tailwind CSS for a seamless experience on all devices.
-- **🎥 Project Showcase**: Integrated video projects and experiments.
 
-## 🛠️ Tech Stack
-- **Structure**: HTML5
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Logic**: Vanilla JavaScript
-- **Icons**: [Font Awesome](https://fontawesome.com/)
-- **Fonts**: [Fraunces](https://fonts.google.com/specimen/Fraunces) & [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque)
+- **Static Branding & i18n:** Full support for English, German, and Spanish with static routing for SEO and speed.
+- **Optimized Assets:** Automatic image optimization (WebP/compression) via `astro:assets`.
+- **Modern Styling:** Built with Tailwind CSS 4 and custom Bricolage Grotesque/Fraunces typography.
+- **Interactive Elements:** Smooth reveal animations, a custom particle background system, and a playful "Peeking Tom" scroll-triggered avatar.
+- **Zero JS by Default:** Ships minimal JavaScript, only where interactivity is required.
 
-## 📁 Project Structure
-- `index.html`: Main portfolio structure and Tailwind configuration.
-- `translations.js`: Localization data for EN, DE, and ES.
-- `lang-switcher.js`: Logic for seamless language transitions.
-- `Fotos/`: Curated imagery and assets.
+## 🛠️ Project Structure
 
-## 📬 Contact
-- **GitHub**: [TomSzenessy](https://github.com/TomSzenessy)
-- **LinkedIn**: [Tom Szenessy](https://www.linkedin.com/in/tom-szenessy)
-- **Instagram**: [@tom_szenessy](https://www.instagram.com/tom_szenessy/)
-- **YouTube**: [@tomsze](https://www.youtube.com/@tomsze)
+```text
+.
+├── src/
+│   ├── assets/           # Original high-res images and certificates
+│   ├── components/       # Modular Astro components (Hero, Projects, etc.)
+│   ├── i18n/             # Localization logic and translation strings
+│   ├── layouts/          # Base HTML structure
+│   ├── pages/            # Multi-language static routes
+│   └── styles/           # Global Tailwind and custom CSS
+├── public/               # Static assets served as-is
+├── legacy/               # Backup of the original monolithic files
+└── astro.config.mjs      # Astro configuration
+```
+
+## 🏗️ Getting Started
+
+### Prerequisites
+- Node.js (v18+)
+- npm
+
+### Development
+```bash
+npm install
+npm run dev
+```
+Open `http://localhost:4321` in your browser.
+
+### Build & Deploy
+```bash
+npm run build
+```
+The production-ready site will be generated in the `dist/` directory.
+
+## 📈 Performance Improvements
+- **PageSpeed Score:** Significant boost by removing Tailwind CDN and using build-time compilation.
+- **FCP (First Contentful Paint):** Dramatically reduced through static generation and optimized media.
 
 ---
-Made with ♥ and curiosity by Tom Szenessy © 2026.
+Made with ♥ by Tom Szenessy

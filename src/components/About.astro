@@ -1,0 +1,191 @@
+---
+import { Image } from 'astro:assets';
+import sheepImage from '../assets/Fotos/Tom with sheep.webp';
+import wallImage from '../assets/Fotos/Tom leaning against a wall.webp';
+
+interface Props {
+  t: (key: string) => string;
+}
+
+const { t } = Astro.props;
+
+const skillCategories = [
+  {
+    title: t('skills_ai_title'),
+    icon: 'fa-robot',
+    skills: ['skill_ml', 'skill_openai', 'skill_automation', 'skill_data_processing', 'skill_cloud']
+  },
+  {
+    title: t('skills_web_title'),
+    icon: 'fa-code',
+    skills: ['skill_js', 'skill_ts', 'skill_react', 'skill_next', 'skill_node', 'skill_tailwind']
+  },
+  {
+    title: t('skills_creative_title'),
+    icon: 'fa-palette',
+    skills: ['skill_blender', 'skill_unity', 'skill_three', 'skill_video', 'skill_vector']
+  },
+  {
+    title: t('skills_tools_title'),
+    icon: 'fa-toolbox',
+    skills: ['skill_git', 'skill_docker', 'skill_python', 'skill_js', 'skill_db']
+  }
+];
+
+const experience = [
+  {
+    title: t('exp_ecosia_title'),
+    desc: t('exp_ecosia_desc'),
+    icon: 'fa-leaf'
+  },
+  {
+    title: t('exp_atech_title'),
+    desc: t('exp_atech_desc'),
+    icon: 'fa-wrench'
+  }
+];
+
+const milestones = [
+  {
+    title: t('ms_jf_title'),
+    desc: t('ms_jf_desc'),
+    icon: 'fa-microscope'
+  },
+  {
+    title: t('ms_eyp_title'),
+    desc: t('ms_eyp_desc'),
+    icon: 'fa-users'
+  },
+  {
+    title: t('ms_exchange_title'),
+    desc: t('ms_exchange_desc'),
+    icon: 'fa-plane'
+  },
+  {
+    title: t('ms_abi_title'),
+    desc: t('ms_abi_desc'),
+    icon: 'fa-graduation-cap'
+  }
+];
+---
+
+<section id="about" class="py-20 scroll-mt-24">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+        <!-- Image with Sheep -->
+        <div class="reveal-item" style="transition-delay: 200ms">
+            <div class="relative group sheep-container transform rotate-2 hover:rotate-0 transition-all duration-500">
+                <Image src={sheepImage} alt="Tom with sheep" width={1200} height={548} class="w-full rounded-[30px] shadow-xl border-4 border-white" />
+                <div class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5">
+                    {t('photo_caption_sheep')}
+                </div>
+            </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="reveal-item">
+            <h2 class="font-heading text-4xl text-text-main mb-6">
+                {t('about_h2')}
+            </h2>
+            <div class="space-y-4 text-text-muted text-lg leading-relaxed">
+                <p>{t('about_p1')}</p>
+                <p set:html={t('about_p2')} />
+                <p>{t('about_p3')}</p>
+                <div class="text-xs text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
+                    {t('quote_bugs')}
+                </div>
+            </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="reveal-item">
+            <div class="space-y-4">
+                <h3 class="font-heading text-2xl text-text-main mb-4">
+                    {t('languages_title')}
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                    {['lang_de', 'lang_en', 'lang_es', 'lang_fr'].map(l => (
+                        <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-text-main border border-black/5">
+                            {t(l)}
+                        </span>
+                    ))}
+                </div>
+            </div>
+
+            <div class="mt-10 space-y-4">
+                <h3 class="font-heading text-2xl text-text-main mb-2">
+                    {t('skills_title')}
+                </h3>
+                <p class="text-sm text-text-muted">
+                    {t('skills_subtitle')}
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {skillCategories.map(cat => (
+                        <div class="bg-white p-5 rounded-2xl shadow-sm border border-black/5">
+                            <h4 class="font-semibold text-text-main mb-3 flex items-center gap-2">
+                                <i class={`fas ${cat.icon} text-accent`}></i>
+                                <span>{cat.title}</span>
+                            </h4>
+                            <div class="flex flex-wrap gap-2">
+                                {cat.skills.map(s => (
+                                    <span class="skill-chip">
+                                        <span class="skill-dot"></span>
+                                        <span>{t(s)}</span>
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaning Image -->
+        <div class="space-y-8 reveal-item" style="transition-delay: 200ms">
+            <div class="relative group sheep-container transform -rotate-1 hover:rotate-0 transition-all duration-500">
+                <Image src={wallImage} alt="Tom leaning" width={1200} height={1200} class="w-full rounded-[30px] shadow-xl border-4 border-white" />
+                <div class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5">
+                    {t('photo_caption_wall')}
+                </div>
+                <div class="text-xs text-center text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
+                    {t('quote_pit_machine')}
+                </div>
+            </div>
+        </div>
+
+        <!-- Experience -->
+        <div class="space-y-4 reveal-item">
+            <h3 class="font-heading text-2xl text-text-main mb-4">
+                {t('experience_title')}
+            </h3>
+            <div class="space-y-4">
+                {experience.map(exp => (
+                    <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow">
+                        <i class={`fas ${exp.icon} text-2xl text-accent pt-1`}></i>
+                        <div>
+                            <h4 class="font-bold text-text-main">{exp.title}</h4>
+                            <p class="text-sm text-text-muted">{exp.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <!-- Milestones -->
+        <div class="space-y-4 reveal-item">
+            <h3 class="font-heading text-2xl text-text-main mb-4">
+                {t('milestones_title')}
+            </h3>
+            <div class="space-y-4">
+                {milestones.map(ms => (
+                    <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow">
+                        <i class={`fas ${ms.icon} text-2xl text-accent pt-1`}></i>
+                        <div>
+                            <h4 class="font-bold text-text-main">{ms.title}</h4>
+                            <p class="text-sm text-text-muted">{ms.desc}</p>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+</section>

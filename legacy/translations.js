@@ -1,0 +1,433 @@
+const translations = {
+	en: {
+		nav_home: 'Home',
+		nav_projects: 'Projects',
+		nav_about: 'About',
+		nav_awards: 'Awards',
+		nav_contact: 'Contact',
+		hero_title: "Hi, I'm Tom<br />",
+		hero_text:
+			'<strong>Business Informatics student @ TUM</strong> in Munich. I love solving messy technical problems and starting new projects',
+		hero_note:
+			'Still learning, always curious, and grateful for opportunities to collaborate.',
+		btn_see_work: 'See My Work',
+		btn_more_about: 'More About Me',
+		hero_badge_tum: 'TUM Business Informatics',
+		hero_badge_location: 'Based in Munich',
+		hero_badge_focus: 'Dreamer and problem-solver',
+		parallax_quote: '“Let me cook.”',
+
+		projects_kicker: 'Projects & Videos',
+		projects_title: 'Selected Projects & Videos',
+		projects_subtitle:
+			'Small experiments, student projects, and videos that taught me a lot.',
+		video_watch: 'Watch on YouTube',
+		mino_kicker: 'AI productivity prototype',
+		mino_title: 'Mino Notes App',
+		mino_desc:
+			'An AI-first notes app that turns rough thoughts into clear mindmaps. Built for Jugend forscht, inspired by messy notebooks.',
+		vr_kicker: 'VR experiment',
+		vr_title: 'VR World from 3D Scan',
+		vr_desc:
+			'I turned a 3D scan into a walkable VR space. It was my first time stepping inside something I had built.',
+		ai_id_kicker: 'Video essay',
+		ai_id_title: 'AI and Identity',
+		ai_id_desc:
+			'A short essay on identity, ethics, and the human questions behind AI.',
+		comm_kicker: 'Short film',
+		comm_title: 'Programming Class Commercial',
+		comm_desc:
+			'A playful commercial shot and edited during my exchange year. I love storytelling with camera and sound.',
+		about_h2: 'To the limit and beyond!',
+		about_p1: 'I like everything that has to do with technology.',
+		about_p2:
+			'Today, I study <strong>Business Informatics</strong> at TUM, leveraging AI to extend my horizon.',
+		about_p3:
+			'Outside of tech, I enjoy organizing small creative events and filming short videos with friends.',
+		milestones_title: 'Milestones',
+		ms_jf_title: 'Jugend forscht 2024',
+		ms_jf_desc: '2nd Prize and CIB Award for an AI mindmap tool.',
+		ms_math_title: 'Mathematics Olympiad',
+		ms_math_desc: '3rd Prize (2018/19) and regional finalist years.',
+		ms_eyp_title: 'European Youth Parliament',
+		ms_eyp_desc: 'Delegate certificate (2023-24)',
+		ms_exchange_title: 'Exchange Year (USA)',
+		ms_exchange_desc:
+			'Class rank 24 / 829 in the United States (Grade 12, 2022-2023).',
+		ms_abi_title: '1.0 Abitur',
+		ms_abi_desc: 'Deutsche Schule Málaga (2025).',
+		experience_title: 'Experience',
+		exp_ecosia_title: 'Ecosia Internship',
+		exp_ecosia_desc:
+			'Two-week internship focused on software development',
+		exp_atech_title: 'Atech Internship',
+		exp_atech_desc:
+			'One-week internship focused on computer installation and maintenance in Malaga.',
+		languages_title: 'Languages',
+		lang_de: 'German — Native',
+		lang_en: 'English — C2',
+		lang_es: 'Spanish — C1',
+		lang_fr: 'French — A2',
+		skills_title: 'Skills Snapshot',
+		skills_subtitle: 'A quick map of what I build with.',
+		skills_ai_title: 'AI & Automation',
+		skills_web_title: 'Web Development',
+		skills_creative_title: 'Creative Tech',
+		skills_tools_title: 'Dev Tools & Languages',
+		skill_ml: 'Machine Learning',
+		skill_openai: 'OpenAI Integration',
+		skill_automation: 'Automation Scripts',
+		skill_data_processing: 'Data Processing',
+		skill_cloud: 'Cloud Services',
+		skill_ts: 'TypeScript',
+		skill_react: 'React',
+		skill_next: 'Next.js',
+		skill_node: 'Node.js',
+		skill_tailwind: 'Tailwind CSS',
+		skill_blender: 'Blender',
+		skill_unity: 'Unity',
+		skill_three: 'Three.js',
+		skill_video: 'Video Editing',
+		skill_vector: 'Vector Design',
+		skill_git: 'Git & GitHub',
+		skill_docker: 'Docker',
+		skill_python: 'Python',
+		skill_js: 'JavaScript',
+		skill_db: 'Database Design',
+		sheep_tooltip: 'Chilling with a sheep.',
+		photo_caption_sheep: 'Chilling with a sheep.',
+		photo_caption_wall: 'Also chilling, no sheep.',
+		awards_kicker: 'Awards',
+		honors_title: 'Awards, Certificates, and Prizes',
+		award_jf_2024: 'Jugend forscht 2024 - 2nd Prize',
+		award_jf_cib_2024: 'Jugend forscht 2024 - CIB Award',
+		award_bwinf_2023: 'Bundeswettbewerb Informatik (2022/23)',
+		award_math_2019: 'Mathematics Olympiad - 3rd Prize',
+		award_eyp_2024: 'European Youth Parliament (2023/24)',
+		award_biber_2023: 'Informatik Biber - 2nd Prize',
+		award_jwinf_2023: 'Jugendwettbewerb Informatik (2022/23)',
+		award_kangaroo_2024: 'Kangaroo Mathematics (2024)',
+		award_kangaroo_2019: 'Kangaroo Mathematics (2019)',
+		contact_title: "Let's Connect",
+		contact_subtitle:
+			'If you are curious about my work or want to say hi, I would love to hear from you.',
+		contact_h2: 'Slide into my DMs',
+		contact_p:
+			'Email is the easiest way to reach me and I usually reply within a day.',
+		contact_social_label: 'Find me here:',
+		contact_topics_title: "What I'm excited about",
+		contact_topic_1: 'Internships, student projects, and research',
+		contact_topic_2: 'AI tools that make life simpler and kinder',
+		contact_topic_3: 'Creative collaborations, videos, or community ideas',
+		contact_note: 'If you are not sure, just say hi. I am happy to chat.',
+		footer_made_with:
+			'Made with ♥ and curiosity by Tom Szenessy &copy; 2026.',
+		footer_location: 'Munich',
+		peeking_bubble: 'Thanks for scrolling!',
+		quote_coding_hours: 'Weeks of coding can save you hours of planning.',
+		quote_bugs: 'The best way to predict bugs is to design them yourself.',
+		quote_tidy:
+			'“Keeping things tidy is just being too lazy to search.” – Sherlock Holmes',
+		quote_chocolates:
+			'“Life is like a box of chocolates. You never know what you’re gonna get.” – Willy Wonka',
+		quote_chatgpt: '“I think, therefore I am.” – ChatGPT',
+		quote_github_commit:
+			'Life is like a GitHub Repo – it doesn’t work if you don’t commit...',
+		quote_nothing_fun:
+			'“Doing nothing is only fun when you actually have a lot to do.”',
+		quote_pit_machine:
+			'“He who digs a pit for others has a pit-digging machine.” – James Bond',
+		quote_mom_wake_up: '“Getting up is healthy!” – Mom'
+	},
+	de: {
+		nav_home: 'Start',
+		nav_projects: 'Projekte',
+		nav_about: 'Über mich',
+		nav_awards: 'Auszeichnungen',
+		nav_contact: 'Kontakt',
+		hero_title: 'Hi, ich bin Tom<br />',
+		hero_text:
+			'<strong>Wirtschaftsinformatik-Student an der TUM</strong> in München. Ich liebe es, komplexe technische Probleme zu lösen und neue Projekte zu starten.',
+		hero_note:
+			'Immer am Lernen, immer neugierig und dankbar für Möglichkeiten zur Zusammenarbeit.',
+		btn_see_work: 'Meine Projekte',
+		btn_more_about: 'Mehr über mich',
+		hero_badge_tum: 'TUM Wirtschaftsinformatik',
+		hero_badge_location: 'München',
+		hero_badge_focus: 'Entdecker und Problemlöser',
+		projects_kicker: 'Projekte & Videos',
+		projects_title: 'Ausgewählte Projekte & Videos',
+		projects_subtitle:
+			'Kleine Experimente, Studienprojekte und Videos, die mir viel beigebracht haben.',
+		video_watch: 'Auf YouTube ansehen',
+		mino_kicker: 'KI-Produktivität-Prototyp',
+		mino_title: 'Mino Notiz-App',
+		mino_desc:
+			'Eine KI-Notiz-App, die grobe Gedanken in klare Mindmaps verwandelt. Gebaut für Jugend forscht, inspiriert von chaotischen Notizbüchern.',
+		vr_kicker: 'VR-Experiment',
+		vr_title: 'VR-Welt aus 3D-Scan',
+		vr_desc:
+			'Ich habe einen 3D-Scan in eine begehbare VR-Welt verwandelt. Es war das erste Mal, dass ich einen Raum betreten habe, den ich selbst gebaut habe.',
+		ai_id_kicker: 'Video-Essay',
+		ai_id_title: 'KI und Identität',
+		ai_id_desc:
+			'Ein kurzer Essay über Identität, Ethik und die menschlichen Fragen hinter KI.',
+		comm_kicker: 'Kurzfilm',
+		comm_title: 'Werbespot für Programmierkurs',
+		comm_desc:
+			'Ein spielerischer Spot, den ich während meines Austauschjahres gedreht und geschnitten habe. Ich liebe Storytelling mit Kamera und Ton.',
+		about_h2: 'Über mich',
+		about_p1:
+			'Ich mag Technologie, die warm und verständlich wirkt. Mein Weg begann mit Hardware-Experimenten und führte zu Software und KI.',
+		about_p2:
+			'Heute studiere ich <strong>Wirtschaftsinformatik</strong> an der TUM, und verwende KI um meinen Horizont zu erweitern.',
+		about_p3:
+			'Abseits der Technik organisiere ich kleine kreative Events und drehe kurze Videos mit Freunden.',
+		milestones_title: 'Meilensteine',
+		ms_jf_title: 'Jugend forscht 2024',
+		ms_jf_desc: '2. Preis und CIB Award für ein KI-Mindmap-Tool.',
+		ms_math_title: 'Mathematik-Olympiade',
+		ms_math_desc: '3. Preis (2018/19) und regionale Finalrunden.',
+		ms_eyp_title: 'Europäisches Jugendparlament',
+		ms_eyp_desc:
+			'Delegierten-Zertifikat (2023-24).',
+		ms_exchange_title: 'Austauschjahr (USA)',
+		ms_exchange_desc:
+			'Klassenrang 24 / 829 in den USA (Klasse 12, 2022-2023).',
+		ms_abi_title: '1,0 Abitur',
+		ms_abi_desc: 'Deutsche Schule Málaga (2025).',
+		experience_title: 'Erfahrung',
+		exp_ecosia_title: 'Praktikum bei Ecosia',
+		exp_ecosia_desc:
+			'Zweiwochiges Praktikum mit Fokus auf Softwareentwicklung',
+		exp_atech_title: 'Praktikum bei Atech',
+		exp_atech_desc:
+			'Einwöchiges Praktikum mit Fokus auf Installation und Wartung von Computern in Málaga.',
+		languages_title: 'Sprachen',
+		lang_de: 'Deutsch — Muttersprache',
+		lang_en: 'Englisch — C2',
+		lang_es: 'Spanisch — C1',
+		lang_fr: 'Französisch — A2',
+		skills_title: 'Skills-Überblick',
+		skills_subtitle: 'Ein kurzer Überblick über Tools und Themen.',
+		skills_ai_title: 'KI & Automatisierung',
+		skills_web_title: 'Webentwicklung',
+		skills_creative_title: 'Kreativ-Tech',
+		skills_tools_title: 'Dev-Tools & Sprachen',
+		skill_ml: 'Maschinelles Lernen',
+		skill_openai: 'OpenAI-Integration',
+		skill_automation: 'Automatisierungs-Skripte',
+		skill_data_processing: 'Datenverarbeitung',
+		skill_cloud: 'Cloud-Services',
+		skill_ts: 'TypeScript',
+		skill_react: 'React',
+		skill_next: 'Next.js',
+		skill_node: 'Node.js',
+		skill_tailwind: 'Tailwind CSS',
+		skill_blender: 'Blender',
+		skill_unity: 'Unity',
+		skill_three: 'Three.js',
+		skill_video: 'Videoschnitt',
+		skill_vector: 'Vektor-Design',
+		skill_git: 'Git & GitHub',
+		skill_docker: 'Docker',
+		skill_python: 'Python',
+		skill_js: 'JavaScript',
+		skill_db: 'Datenbankdesign',
+		sheep_tooltip: 'Am chillen mit einem Schaf.',
+		photo_caption_sheep: 'Am chillen mit einem Schaf.',
+		photo_caption_wall: 'Auch am Chillen, ohne Schaf.',
+		awards_kicker: 'Auszeichnungen',
+		honors_title: 'Auszeichnungen, Zertifikate und Preise',
+		award_jf_2024: 'Jugend forscht 2024 - 2. Preis',
+		award_jf_cib_2024: 'Jugend forscht 2024 - CIB Award',
+		award_bwinf_2023: 'Bundeswettbewerb Informatik (2022/23)',
+		award_math_2019: 'Mathematik-Olympiade - 3. Preis',
+		award_eyp_2024: 'Europäisches Jugendparlament (2023/24)',
+		award_biber_2023: 'Informatik Biber - 2. Preis',
+		award_jwinf_2023: 'Jugendwettbewerb Informatik (2022/23)',
+		award_kangaroo_2024: 'Känguru der Mathematik (2024)',
+		award_kangaroo_2019: 'Känguru der Mathematik (2019)',
+		contact_title: 'Kontakt aufnehmen',
+		contact_subtitle:
+			'Wenn du neugierig auf meine Arbeit bist oder einfach Hallo sagen willst, freue ich mich über deine Nachricht.',
+		contact_h2: 'Slide in meine DMs',
+		contact_p:
+			'Per E-Mail bin ich am besten erreichbar und antworte meist innerhalb eines Tages.',
+		contact_social_label: 'Hier findest du mich:',
+		contact_topics_title: 'Worauf ich mich freue',
+		contact_topic_1: 'Praktika, Studienprojekte und Forschung',
+		contact_topic_2:
+			'KI-Tools, die das Leben einfacher und freundlicher machen',
+		contact_topic_3: 'Kreative Kooperationen, Videos oder Community-Ideen',
+		contact_note:
+			'Wenn du unsicher bist, sag einfach Hallo. Ich freue mich auf den Austausch.',
+		footer_made_with:
+			'Mit ♥ und Neugier gemacht von Tom Szenessy &copy; 2026.',
+		footer_location: 'München',
+		peeking_bubble: 'Danke fürs Scrollen!',
+		quote_coding_hours:
+			'Wochenlanges Programmieren kann dir Stunden der Planung ersparen.',
+		quote_bugs:
+			'Der beste Weg, Bugs vorherzusagen, ist, sie selbst zu entwerfen.',
+		quote_tidy:
+			'„Wer Ordnung hält, ist nur zu faul zum Suchen.“ – Sherlock Holmes',
+		quote_chocolates:
+			'„Das Leben ist wie eine Schachtel Pralinen. Man weiß nie, was man bekommt.“ – Willy Wonka',
+		quote_chatgpt: '„Ich denke, also bin ich.“ – ChatGPT',
+		quote_github_commit:
+			'Das Leben ist wie ein GitHub-Repo – es funktioniert nicht, wenn man nicht committet...',
+		quote_nothing_fun:
+			'„Nichtstun macht nur dann Spaß, wenn man eigentlich viel zu tun hätte.“',
+		quote_pit_machine:
+			'„Wer anderen eine Grube gräbt, der hat ein Grubengrabgerät.“ – James Bond',
+		quote_mom_wake_up: '„Aufstehen ist gesund!“ – Mama'
+	},
+	es: {
+		nav_home: 'Inicio',
+		nav_projects: 'Proyectos',
+		nav_about: 'Sobre mí',
+		nav_awards: 'Premios',
+		nav_contact: 'Contacto',
+		hero_title: 'Hola, soy Tom<br />',
+		hero_text:
+			'<strong>Estudiante de Informática en la TUM</strong> en Múnich. Me encanta resolver problemas técnicos complejos y empezar nuevos proyectos.',
+		hero_note:
+			'Sigo aprendiendo, siempre curioso y agradecido por las oportunidades de colaborar.',
+		btn_see_work: 'Ver mis proyectos',
+		btn_more_about: 'Más sobre mí',
+		hero_badge_tum: 'TUM Informática de Gestión',
+		hero_badge_location: 'En Múnich',
+		hero_badge_focus: 'Desarrollador',
+		projects_kicker: 'Proyectos y vídeos',
+		projects_title: 'Proyectos y vídeos seleccionados',
+		projects_subtitle:
+			'Pequeños experimentos, proyectos de estudiante y vídeos que me enseñaron mucho.',
+		video_watch: 'Ver en YouTube',
+		mino_kicker: 'Prototipo de productividad con IA',
+		mino_title: 'Mino Notes App',
+		mino_desc:
+			'Una app de notas con IA que convierte ideas en mapas mentales claros. Creada para Jugend forscht, inspirada en cuadernos desordenados.',
+		vr_kicker: 'Experimento VR',
+		vr_title: 'Mundo VR desde un escaneo 3D',
+		vr_desc:
+			'Transformé un escaneo 3D en un espacio VR caminable. Fue la primera vez que entré en algo que yo mismo había construido.',
+		ai_id_kicker: 'Vídeo-ensayo',
+		ai_id_title: 'IA e Identidad',
+		ai_id_desc:
+			'Un breve ensayo sobre la identidad, la ética y las preguntas humanas detrás de la IA.',
+		comm_kicker: 'Cortometraje',
+		comm_title: 'Comercial de clase de programación',
+		comm_desc:
+			'Un comercial divertido grabado y editado durante mi año de intercambio. Me encanta contar historias con cámara y sonido.',
+		about_h2: 'Sobre mí',
+		about_p1:
+			'Me gusta la tecnología que se siente cálida y comprensible. Mi camino empezó con experimentos de hardware y creció hacia el software y la IA.',
+		about_p2:
+			'Hoy estudio <strong>Informática de Gestión</strong> en la TUM, y uso IA para aprender y ampliar mi horizonte.',
+		about_p3:
+			'Fuera de la tecnología, disfruto organizando pequeños eventos creativos y grabando vídeos cortos con amigos.',
+		milestones_title: 'Hitos',
+		ms_jf_title: 'Jugend forscht 2024',
+		ms_jf_desc:
+			'2do Premio y Premio CIB por una herramienta de mapas mentales con IA.',
+		ms_math_title: 'Olimpiada de Matemáticas',
+		ms_math_desc:
+			'3er Premio (2018/19) y finalista regional durante varios años.',
+		ms_eyp_title: 'Parlamento Europeo de la Juventud',
+		ms_eyp_desc:
+			'Certificado de delegado (2023-24).',
+		ms_exchange_title: 'Año de intercambio (EE. UU.)',
+		ms_exchange_desc:
+			'Puesto 24 / 829 en Estados Unidos (12º grado, 2022-2023).',
+		ms_abi_title: '1.0 Abitur',
+		ms_abi_desc: 'Colegio Alemán de Málaga (2025).',
+		experience_title: 'Experiencia',
+		exp_ecosia_title: 'Prácticas en Ecosia',
+		exp_ecosia_desc:
+			'Prácticas de dos semanas centradas en el desarrollo de software',
+		exp_atech_title: 'Prácticas en Atech',
+		exp_atech_desc:
+			'Prácticas de una semana centradas en la instalación y mantenimiento de equipos en Málaga.',
+		languages_title: 'Idiomas',
+		lang_de: 'Alemán — nativo',
+		lang_en: 'Inglés — C2',
+		lang_es: 'Español — C1',
+		lang_fr: 'Francés — A2',
+		skills_title: 'Resumen de habilidades',
+		skills_subtitle: 'Un vistazo rápido a las herramientas y temas.',
+		skills_ai_title: 'IA y Automatización',
+		skills_web_title: 'Desarrollo Web',
+		skills_creative_title: 'Tecnología Creativa',
+		skills_tools_title: 'Herramientas y Lenguajes',
+		skill_ml: 'Aprendizaje automático',
+		skill_openai: 'Integración con OpenAI',
+		skill_automation: 'Scripts de automatización',
+		skill_data_processing: 'Procesamiento de datos',
+		skill_cloud: 'Servicios en la nube',
+		skill_ts: 'TypeScript',
+		skill_react: 'React',
+		skill_next: 'Next.js',
+		skill_node: 'Node.js',
+		skill_tailwind: 'Tailwind CSS',
+		skill_blender: 'Blender',
+		skill_unity: 'Unity',
+		skill_three: 'Three.js',
+		skill_video: 'Edición de video',
+		skill_vector: 'Diseño vectorial',
+		skill_git: 'Git & GitHub',
+		skill_docker: 'Docker',
+		skill_python: 'Python',
+		skill_js: 'JavaScript',
+		skill_db: 'Diseño de bases de datos',
+		sheep_tooltip: 'Relajado con una oveja.',
+		photo_caption_sheep: 'Relajado con una oveja.',
+		photo_caption_wall: 'También relajado, sin oveja.',
+		awards_kicker: 'Premios',
+		honors_title: 'Premios, certificados y reconocimientos',
+		award_jf_2024: 'Jugend forscht 2024 - 2do Premio',
+		award_jf_cib_2024: 'Jugend forscht 2024 - Premio CIB',
+		award_bwinf_2023: 'Bundeswettbewerb Informatik (2022/23)',
+		award_math_2019: 'Olimpiada de Matemáticas - 3er Premio',
+		award_eyp_2024: 'Parlamento Europeo de la Juventud (2023/24)',
+		award_biber_2023: 'Informatik Biber - 2do Premio',
+		award_jwinf_2023: 'Jugendwettbewerb Informatik (2022/23)',
+		award_kangaroo_2024: 'Kangaroo Mathematics (2024)',
+		award_kangaroo_2019: 'Kangaroo Mathematics (2019)',
+		contact_title: 'Conectemos',
+		contact_subtitle:
+			'Si tienes curiosidad por mi trabajo o quieres saludar, me encantaría saber de ti.',
+		contact_h2: 'Tírate a mis DMs',
+		contact_p:
+			'El correo electrónico es la forma más fácil de contactarme y suelo responder en un día.',
+		contact_social_label: 'Encuéntrame aquí:',
+		contact_topics_title: 'Lo que me entusiasma',
+		contact_topic_1: 'Prácticas, proyectos de estudiantes e investigación',
+		contact_topic_2:
+			'Herramientas de IA que hacen la vida más sencilla y amable',
+		contact_topic_3:
+			'Colaboraciones creativas, vídeos o ideas comunitarias',
+		contact_note:
+			'Si no estás seguro, solo di hola. Estaré encantado de charlar.',
+		footer_made_with:
+			'Hecho con ♥ y curiosidad por Tom Szenessy &copy; 2026.',
+		footer_location: 'Múnich',
+		peeking_bubble: '¡Gracias por llegar hasta aquí!',
+		quote_coding_hours:
+			'Semanas de programación pueden ahorrarte horas de planificación.',
+		quote_bugs:
+			'La mejor manera de predecir errores es diseñarlos tú mismo.',
+		quote_tidy:
+			'“Mantener el orden es solo ser demasiado perezoso para buscar.” – Sherlock Holmes',
+		quote_chocolates:
+			'“La vida es como una caja de bombones. Nunca sabes lo que te va a tocar.” – Willy Wonka',
+		quote_chatgpt: '“Pienso, luego existo.” – ChatGPT',
+		quote_github_commit:
+			'La vida es como un repositorio de GitHub: no funciona si no haces commit...',
+		quote_nothing_fun:
+			'“No hacer nada solo es divertido cuando en realidad tienes mucho que hacer.”',
+		quote_pit_machine:
+			'“El que cava una fosa para otros tiene una máquina excavadora de fosas.” – James Bond',
+		quote_mom_wake_up: '“¡Levantarse es saludable!” – Mamá'
+	}
+};
