@@ -1,10 +1,11 @@
 const translations = {
 	en: {
+		nav_home: 'Home',
 		nav_projects: 'Projects',
 		nav_about: 'About',
 		nav_awards: 'Awards',
 		nav_contact: 'Contact',
-		hero_title: 'Hi, I\'m Tom<br />',
+		hero_title: "Hi, I'm Tom<br />",
 		hero_text:
 			'<strong>Business Informatics student @ TUM</strong> in Munich. I love turning messy technical problems into simple, calm experiences.',
 		hero_note:
@@ -14,9 +15,8 @@ const translations = {
 		hero_badge_tum: 'TUM Business Informatics',
 		hero_badge_location: 'Based in Munich',
 		hero_badge_focus: 'Human-centered builder',
-		parallax_quote:
-			'"Let me cook"',
-	
+		parallax_quote: '“Let me cook.”',
+
 		projects_kicker: 'Projects & Videos',
 		projects_title: 'Selected Projects & Videos',
 		projects_subtitle:
@@ -56,7 +56,8 @@ const translations = {
 		ms_abi_title: '1.0 Abitur',
 		ms_abi_desc: 'Deutsche Schule Málaga (2025). Top of class.',
 		sheep_tooltip: 'Chilling with a sheep.',
-		photo_caption_wall: 'Chilling with a sheep.',
+		photo_caption_sheep: 'Chilling with a sheep.',
+		photo_caption_wall: 'Also chilling, no sheep.',
 		awards_kicker: 'Awards',
 		honors_title: 'Awards, Certificates, and Prizes',
 		awards_subtitle:
@@ -84,18 +85,25 @@ const translations = {
 		contact_note: 'If you are not sure, just say hi. I am happy to chat.',
 		footer_made_with:
 			'Made with warmth and curiosity by Tom Szenessy &copy; 2026.',
+		footer_location: 'Munich • tom@szenessy.de',
 		peeking_bubble: 'Thanks for scrolling!',
 		quote_coding_hours: 'Weeks of coding can save you hours of planning.',
 		quote_bugs: 'The best way to predict bugs is to design them yourself.',
-		quote_tidy: '“Keeping things tidy is just being too lazy to search.” – Sherlock Holmes',
-		quote_chocolates: '“Life is like a box of chocolates. You never know what you’re gonna get.” – Willy Wonka',
+		quote_tidy:
+			'“Keeping things tidy is just being too lazy to search.” – Sherlock Holmes',
+		quote_chocolates:
+			'“Life is like a box of chocolates. You never know what you’re gonna get.” – Willy Wonka',
 		quote_chatgpt: '“I think, therefore I am.” – ChatGPT',
-		quote_github_commit: 'Life is like a GitHub Repo – it doesn’t work if you don’t commit...',
-		quote_nothing_fun: '“Doing nothing is only fun when you actually have a lot to do.”',
-		quote_pit_machine: '“He who digs a pit for others has a pit-digging machine.” – James Bond',
+		quote_github_commit:
+			'Life is like a GitHub Repo – it doesn’t work if you don’t commit...',
+		quote_nothing_fun:
+			'“Doing nothing is only fun when you actually have a lot to do.”',
+		quote_pit_machine:
+			'“He who digs a pit for others has a pit-digging machine.” – James Bond',
 		quote_mom_wake_up: '“Getting up is healthy!” – Mom'
 	},
 	de: {
+		nav_home: 'Start',
 		nav_projects: 'Projekte',
 		nav_about: 'Über mich',
 		nav_awards: 'Auszeichnungen',
@@ -108,11 +116,10 @@ const translations = {
 		btn_see_work: 'Meine Projekte',
 		btn_more_about: 'Mehr über mich',
 		hero_badge_tum: 'TUM Wirtschaftsinformatik',
-		hero_badge_location: 'In München zu Hause',
+		hero_badge_location: 'München',
 		hero_badge_focus: 'Menschenorientierter Entwickler',
-		parallax_quote:
-			'"Let me cook"',
-	
+		parallax_quote: '„Lass mich kochen.“',
+
 		projects_kicker: 'Projekte & Videos',
 		projects_title: 'Ausgewählte Projekte & Videos',
 		projects_subtitle:
@@ -152,7 +159,8 @@ const translations = {
 		ms_abi_title: '1,0 Abitur',
 		ms_abi_desc: 'Deutsche Schule Málaga (2025). Jahrgangsbester.',
 		sheep_tooltip: 'Am chillen mit einem Schaf.',
-		photo_caption_wall: 'Am chillen mit einem Schaf.',
+		photo_caption_sheep: 'Am chillen mit einem Schaf.',
+		photo_caption_wall: 'Auch am Chillen, ohne Schaf.',
 		awards_kicker: 'Auszeichnungen',
 		honors_title: 'Auszeichnungen, Zertifikate und Preise',
 		awards_subtitle:
@@ -182,18 +190,27 @@ const translations = {
 			'Wenn du unsicher bist, sag einfach Hallo. Ich freue mich auf den Austausch.',
 		footer_made_with:
 			'Mit Wärme und Neugier gemacht von Tom Szenessy &copy; 2026.',
+		footer_location: 'München • tom@szenessy.de',
 		peeking_bubble: 'Danke fürs Scrollen!',
-		quote_coding_hours: 'Wochenlanges Programmieren kann dir Stunden der Planung ersparen.',
-		quote_bugs: 'Der beste Weg, Bugs vorherzusagen, ist, sie selbst zu entwerfen.',
-		quote_tidy: '„Wer Ordnung hält, ist nur zu faul zum Suchen.“ – Sherlock Holmes',
-		quote_chocolates: '„Das Leben ist wie eine Schachtel Pralinen. Man weiß nie, was man bekommt.“ – Willy Wonka',
+		quote_coding_hours:
+			'Wochenlanges Programmieren kann dir Stunden der Planung ersparen.',
+		quote_bugs:
+			'Der beste Weg, Bugs vorherzusagen, ist, sie selbst zu entwerfen.',
+		quote_tidy:
+			'„Wer Ordnung hält, ist nur zu faul zum Suchen.“ – Sherlock Holmes',
+		quote_chocolates:
+			'„Das Leben ist wie eine Schachtel Pralinen. Man weiß nie, was man bekommt.“ – Willy Wonka',
 		quote_chatgpt: '„Ich denke, also bin ich.“ – ChatGPT',
-		quote_github_commit: 'Das Leben ist wie ein GitHub-Repo – es funktioniert nicht, wenn man nicht committet...',
-		quote_nothing_fun: '„Nichtstun macht nur dann Spaß, wenn man eigentlich viel zu tun hätte.“',
-		quote_pit_machine: '„Wer anderen eine Grube gräbt, der hat ein Grubengrabgerät.“ – James Bond',
+		quote_github_commit:
+			'Das Leben ist wie ein GitHub-Repo – es funktioniert nicht, wenn man nicht committet...',
+		quote_nothing_fun:
+			'„Nichtstun macht nur dann Spaß, wenn man eigentlich viel zu tun hätte.“',
+		quote_pit_machine:
+			'„Wer anderen eine Grube gräbt, der hat ein Grubengrabgerät.“ – James Bond',
 		quote_mom_wake_up: '„Aufstehen ist gesund!“ – Mama'
 	},
 	es: {
+		nav_home: 'Inicio',
 		nav_projects: 'Proyectos',
 		nav_about: 'Sobre mí',
 		nav_awards: 'Premios',
@@ -208,9 +225,8 @@ const translations = {
 		hero_badge_tum: 'TUM Informática de Gestión',
 		hero_badge_location: 'En Múnich',
 		hero_badge_focus: 'Desarrollador centrado en las personas',
-		parallax_quote:
-			'"Let me cook"',
-	
+		parallax_quote: '“Déjame cocinar.”',
+
 		projects_kicker: 'Proyectos y vídeos',
 		projects_title: 'Proyectos y vídeos seleccionados',
 		projects_subtitle:
@@ -241,16 +257,19 @@ const translations = {
 			'Fuera de la tecnología, disfruto organizando pequeños eventos creativos y grabando vídeos cortos con amigos.',
 		milestones_title: 'Hitos',
 		ms_jf_title: 'Jugend forscht 2024',
-		ms_jf_desc: '2do Premio y Premio CIB por una herramienta de mapas mentales con IA.',
+		ms_jf_desc:
+			'2do Premio y Premio CIB por una herramienta de mapas mentales con IA.',
 		ms_math_title: 'Olimpiada de Matemáticas',
-		ms_math_desc: '3er Premio (2018/19) y finalista regional durante varios años.',
+		ms_math_desc:
+			'3er Premio (2018/19) y finalista regional durante varios años.',
 		ms_eyp_title: 'Parlamento Europeo de la Juventud',
 		ms_eyp_desc:
 			'Certificado de delegado (2023-24). Una lección de colaboración.',
 		ms_abi_title: '1.0 Abitur',
 		ms_abi_desc: 'Colegio Alemán de Málaga (2025). Primero de la clase.',
 		sheep_tooltip: 'Relajado con una oveja.',
-		photo_caption_wall: 'Relajado con una oveja.',
+		photo_caption_sheep: 'Relajado con una oveja.',
+		photo_caption_wall: 'También relajado, sin oveja.',
 		awards_kicker: 'Premios',
 		honors_title: 'Premios, certificados y reconocimientos',
 		awards_subtitle:
@@ -273,20 +292,31 @@ const translations = {
 		contact_social_label: 'Encuéntrame aquí:',
 		contact_topics_title: 'Lo que me entusiasma',
 		contact_topic_1: 'Prácticas, proyectos de estudiantes e investigación',
-		contact_topic_2: 'Herramientas de IA que hacen la vida más sencilla y amable',
-		contact_topic_3: 'Colaboraciones creativas, vídeos o ideas comunitarias',
-		contact_note: 'Si no estás seguro, solo di hola. Estaré encantado de charlar.',
+		contact_topic_2:
+			'Herramientas de IA que hacen la vida más sencilla y amable',
+		contact_topic_3:
+			'Colaboraciones creativas, vídeos o ideas comunitarias',
+		contact_note:
+			'Si no estás seguro, solo di hola. Estaré encantado de charlar.',
 		footer_made_with:
 			'Hecho con calidez y curiosidad por Tom Szenessy &copy; 2026.',
+		footer_location: 'Múnich • tom@szenessy.de',
 		peeking_bubble: '¡Gracias por llegar hasta aquí!',
-		quote_coding_hours: 'Semanas de programación pueden ahorrarte horas de planificación.',
-		quote_bugs: 'La mejor manera de predecir errores es diseñarlos tú mismo.',
-		quote_tidy: '“Mantener el orden es solo ser demasiado perezoso para buscar.” – Sherlock Holmes',
-		quote_chocolates: '“La vida es como una caja de bombones. Nunca sabes lo que te va a tocar.” – Willy Wonka',
+		quote_coding_hours:
+			'Semanas de programación pueden ahorrarte horas de planificación.',
+		quote_bugs:
+			'La mejor manera de predecir errores es diseñarlos tú mismo.',
+		quote_tidy:
+			'“Mantener el orden es solo ser demasiado perezoso para buscar.” – Sherlock Holmes',
+		quote_chocolates:
+			'“La vida es como una caja de bombones. Nunca sabes lo que te va a tocar.” – Willy Wonka',
 		quote_chatgpt: '“Pienso, luego existo.” – ChatGPT',
-		quote_github_commit: 'La vida es como un repositorio de GitHub: no funciona si no haces commit...',
-		quote_nothing_fun: '“No hacer nada solo es divertido cuando en realidad tienes mucho que hacer.”',
-		quote_pit_machine: '“El que cava una fosa para otros tiene una máquina excavadora de fosas.” – James Bond',
+		quote_github_commit:
+			'La vida es como un repositorio de GitHub: no funciona si no haces commit...',
+		quote_nothing_fun:
+			'“No hacer nada solo es divertido cuando en realidad tienes mucho que hacer.”',
+		quote_pit_machine:
+			'“El que cava una fosa para otros tiene una máquina excavadora de fosas.” – James Bond',
 		quote_mom_wake_up: '“¡Levantarse es saludable!” – Mamá'
 	}
 };

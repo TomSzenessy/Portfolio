@@ -104,6 +104,22 @@
 				opacity: 1;
 				transform: translateY(0);
 			}
+
+			/* Speech bubble for parallax quote */
+			.speech-bubble {
+				position: relative;
+				background: rgba(255, 255, 255, 0.95);
+			}
+			.speech-bubble::after {
+				content: '';
+				position: absolute;
+				left: 50%;
+				bottom: -18px;
+				transform: translateX(-50%);
+				border-left: 16px solid transparent;
+				border-right: 16px solid transparent;
+				border-top: 18px solid rgba(255, 255, 255, 0.95);
+			}
 		</style>
 	</head>
 	<body
@@ -129,6 +145,7 @@
 			>
 				<span
 					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					data-i18n="nav_home"
 					>Home</span
 				>
 			</a>
@@ -139,6 +156,7 @@
 			>
 				<span
 					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					data-i18n="nav_projects"
 					>Projects</span
 				>
 			</a>
@@ -149,6 +167,7 @@
 			>
 				<span
 					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					data-i18n="nav_about"
 					>About</span
 				>
 			</a>
@@ -159,6 +178,7 @@
 			>
 				<span
 					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					data-i18n="nav_awards"
 					>Awards</span
 				>
 			</a>
@@ -169,6 +189,7 @@
 			>
 				<span
 					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					data-i18n="nav_contact"
 					>Contact</span
 				>
 			</a>
@@ -239,7 +260,7 @@
 			<!-- Hero Section -->
 			<header
 				id="home"
-				class="min-h-screen flex items-center justify-center py-20"
+				class="min-h-screen flex items-center justify-center py-20 mt-12"
 			>
 				<div
 					class="bg-card-bg/90 backdrop-blur-sm p-10 md:p-16 rounded-[40px] shadow-2xl border border-accent/10 text-center max-w-4xl w-full relative reveal-item active"
@@ -249,7 +270,7 @@
 						class="w-44 h-44 mx-auto -mt-36 mb-8 rounded-full border-8 border-white shadow-lg overflow-hidden relative z-10 bg-gradient-to-br from-accent to-orange-300"
 					>
 						<img
-							src="./Fotos/Tom%20Passfoto.png"
+							src="./Fotos/Tom%20Passfoto.webp"
 							alt="Tom Szenessy"
 							class="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-500"
 						/>
@@ -286,7 +307,11 @@
 								href="#projects"
 								class="group relative px-8 py-4 bg-gradient-to-r from-accent to-orange-400 text-white rounded-full font-semibold shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 hover:-translate-y-1 transition-all overflow-hidden"
 							>
-								<span class="relative z-10">See My Work</span>
+								<span
+									class="relative z-10"
+									data-i18n="btn_see_work"
+									>See My Work</span
+								>
 								<div
 									class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
 								></div>
@@ -295,7 +320,9 @@
 								href="#about"
 								class="px-8 py-4 bg-transparent border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all"
 							>
-								More About Me
+								<span data-i18n="btn_more_about"
+									>More About Me</span
+								>
 							</a>
 						</div>
 
@@ -306,19 +333,25 @@
 								<i
 									class="fas fa-graduation-cap text-accent"
 								></i>
-								TUM Business Informatics
+								<span data-i18n="hero_badge_tum"
+									>TUM Business Informatics</span
+								>
 							</span>
 							<span
 								class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main"
 							>
 								<i class="fas fa-location-dot text-accent"></i>
-								Based in Munich
+								<span data-i18n="hero_badge_location"
+									>Based in Munich</span
+								>
 							</span>
 							<span
 								class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main"
 							>
 								<i class="fas fa-heart text-accent"></i>
-								Human-centered builder
+								<span data-i18n="hero_badge_focus"
+									>Human-centered builder</span
+								>
 							</span>
 						</div>
 					</div>
@@ -336,34 +369,37 @@
 			<!-- Parallax Quote -->
 			<div
 				id="quotes"
-				class="relative w-screen left-[50%] -translate-x-[50%] h-[70vh] bg-fixed bg-center bg-cover flex items-center mb-24 overflow-hidden group"
+				class="relative w-screen left-[50%] -translate-x-[50%] h-[70vh] bg-fixed bg-center bg-cover flex items-center p-6 mb-24 overflow-hidden group"
 				style="
 					background-image:
 						linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
-						url('./Fotos/Tom%20on%20Mountain.jpg');
+						url('./Fotos/Tom%20on%20Mountain.webp');
 				"
 			>
-				<div class="container mx-auto px-6 items-right flex">
+				<div class="container mx-auto px-6 flex justify-center">
 					<div
-						class="bg-white/95 backdrop-blur md:ml-24 p-10 md:p-14 rounded-3xl max-w-lg shadow-2xl border-l-8 border-accent transform transition-transform duration-700 hover:scale-105 reveal-item"
+						class="speech-bubble backdrop-blur p-8 rounded-3xl max-w-sm shadow-2xl transform transition-transform duration-700 hover:scale-105 reveal-item mt-16"
 					>
-						<div
-							class="w-16 h-16 rounded-full border-4 border-white shadow-md overflow-hidden mb-6"
-						>
-							<img
-								src="./Fotos/Tom%20Passfoto.png"
-								alt="Tom"
-								class="w-full h-full object-cover"
-							/>
+						<div class="flex items-center gap-4">
+							<div
+								class="w-14 h-14 rounded-full border-4 border-white shadow-md overflow-hidden shrink-0"
+							>
+								<img
+									src="./Fotos/Tom%20Passfoto.webp"
+									alt="Tom"
+									class="w-full h-full object-cover"
+								/>
+							</div>
+							<blockquote
+								class="font-heading text-2xl text-text-main italic leading-tight"
+								data-i18n="parallax_quote"
+								data-i18n-html
+							>
+								“Let me cook.”
+							</blockquote>
 						</div>
-						<blockquote
-							class="font-heading text-3xl text-text-main italic mb-4"
-							data-i18n="parallax_quote"
-							data-i18n-html
-						>
-							"Let me cook"
-						</blockquote>
-						<cite class="text-accent font-bold not-italic"
+						<cite
+							class="mt-3 block text-accent font-bold not-italic text-xs"
 							>— Tom</cite
 						>
 					</div>
@@ -383,7 +419,7 @@
 						class="font-heading text-4xl md:text-5xl text-text-main mb-4"
 						data-i18n="projects_title"
 					>
-						Selected Work
+						Selected Projects & Videos
 					</h2>
 					<p
 						class="text-text-muted text-lg max-w-2xl mx-auto"
@@ -415,7 +451,7 @@
 								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
 								data-i18n="mino_kicker"
 							>
-								AI Productivity
+								AI productivity prototype
 							</p>
 							<h3
 								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
@@ -471,7 +507,7 @@
 								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
 								data-i18n="vr_kicker"
 							>
-								VR Experiment
+								VR experiment
 							</p>
 							<h3
 								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
@@ -489,7 +525,9 @@
 								target="_blank"
 								class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4"
 							>
-								Watch on YouTube
+								<span data-i18n="video_watch"
+									>Watch on YouTube</span
+								>
 								<i
 									class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"
 								></i>
@@ -515,7 +553,7 @@
 								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
 								data-i18n="ai_id_kicker"
 							>
-								Video Essay
+								Video essay
 							</p>
 							<h3
 								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
@@ -535,7 +573,9 @@
 								target="_blank"
 								class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4"
 							>
-								Watch on YouTube
+								<span data-i18n="video_watch"
+									>Watch on YouTube</span
+								>
 								<i
 									class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"
 								></i>
@@ -562,7 +602,7 @@
 								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
 								data-i18n="comm_kicker"
 							>
-								Short Film
+								Short film
 							</p>
 							<h3
 								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
@@ -583,7 +623,9 @@
 								target="_blank"
 								class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4"
 							>
-								Watch on YouTube
+								<span data-i18n="video_watch"
+									>Watch on YouTube</span
+								>
 								<i
 									class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"
 								></i>
@@ -636,11 +678,11 @@
 								friends.
 							</p>
 							<div
-								class="text-xs text-text-muted/40 italic pt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
-								data-i18n="quote_tidy"
+								class="text-xs text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+								data-i18n="quote_bugs"
 							>
-								“Keeping things tidy is just being too lazy to
-								search.” – Sherlock Holmes
+								The best way to predict bugs is to design them
+								yourself.
 							</div>
 						</div>
 
@@ -753,12 +795,13 @@
 							class="relative group sheep-container transform rotate-2 hover:rotate-0 transition-all duration-500"
 						>
 							<img
-								src="./Fotos/Tom%20with%20Sheep.jpg"
+								src="./Fotos/Tom%20with%20Sheep.webp"
 								alt="Tom with sheep"
 								class="w-full rounded-[30px] shadow-xl border-4 border-white"
 							/>
 							<div
 								class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5"
+								data-i18n="photo_caption_sheep"
 							>
 								Chilling with a sheep.
 							</div>
@@ -768,12 +811,13 @@
 							class="relative group sheep-container transform -rotate-1 hover:rotate-0 transition-all duration-500"
 						>
 							<img
-								src="./Fotos/Tom%20leaning%20against%20a%20wall.jpg"
+								src="./Fotos/Tom%20leaning%20against%20a%20wall.webp"
 								alt="Tom leaning"
 								class="w-full rounded-[30px] shadow-xl border-4 border-white"
 							/>
 							<div
 								class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5"
+								data-i18n="photo_caption_wall"
 							>
 								Also chilling, no sheep.
 							</div>
@@ -802,7 +846,7 @@
 						class="font-heading text-4xl text-text-main mb-4"
 						data-i18n="honors_title"
 					>
-						Certificates & Prizes
+						Awards, Certificates, and Prizes
 					</h2>
 					<p
 						class="text-text-muted text-lg max-w-2xl mx-auto"
@@ -812,10 +856,11 @@
 						teamwork.
 					</p>
 					<div
-						class="text-xs text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
-						data-i18n="quote_bugs"
+						class="text-xs text-text-muted/40 italic pt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+						data-i18n="quote_tidy"
 					>
-						The best way to predict bugs is to design them yourself.
+						“Keeping things tidy is just being too lazy to search.”
+						– Sherlock Holmes
 					</div>
 				</div>
 
@@ -930,7 +975,7 @@
 							class="text-center font-bold text-text-main text-sm"
 							data-i18n="award_eyp_2024"
 						>
-							EYP Delegate (2023/24)
+							European Youth Parliament (2023/24)
 						</p>
 					</div>
 					<div
@@ -972,7 +1017,7 @@
 							class="text-center font-bold text-text-main text-sm"
 							data-i18n="award_jwinf_2023"
 						>
-							JWINF (2022/23)
+							Jugendwettbewerb Informatik (2022/23)
 						</p>
 					</div>
 					<div
@@ -993,7 +1038,7 @@
 							class="text-center font-bold text-text-main text-sm"
 							data-i18n="award_kangaroo_2024"
 						>
-							Kangaroo Math (2024)
+							Kangaroo Mathematics (2024)
 						</p>
 					</div>
 				</div>
@@ -1002,10 +1047,16 @@
 			<!-- Contact Section -->
 			<section id="contact" class="py-20 mb-20">
 				<div class="text-center mb-16 reveal-item">
-					<h2 class="font-heading text-4xl text-text-main mb-4">
+					<h2
+						class="font-heading text-4xl text-text-main mb-4"
+						data-i18n="contact_title"
+					>
 						Let's Connect
 					</h2>
-					<p class="text-text-muted text-lg max-w-2xl mx-auto">
+					<p
+						class="text-text-muted text-lg max-w-2xl mx-auto"
+						data-i18n="contact_subtitle"
+					>
 						If you are curious about my work or want to say hi, I
 						would love to hear from you.
 					</p>
@@ -1023,10 +1074,13 @@
 						>
 							<i class="fas fa-paper-plane"></i>
 						</div>
-						<h3 class="font-heading text-2xl mb-3">
+						<h3
+							class="font-heading text-2xl mb-3"
+							data-i18n="contact_h2"
+						>
 							Slide into my DMs
 						</h3>
-						<p class="text-text-muted mb-8">
+						<p class="text-text-muted mb-8" data-i18n="contact_p">
 							Email is the easiest way to reach me and I usually
 							reply within a day.
 						</p>
@@ -1039,6 +1093,7 @@
 						<div class="mt-8 pt-8 border-t border-black/5">
 							<span
 								class="text-xs font-bold text-text-muted uppercase tracking-wider block mb-4"
+								data-i18n="contact_social_label"
 								>Find me here:</span
 							>
 							<div
@@ -1063,14 +1118,6 @@
 									><i class="fab fa-github"></i
 								></a>
 							</div>
-
-							<div
-								class="text-[10px] text-text-muted/30 italic text-accent hover:opacity-100 transition-all cursor-default select-none pt-2"
-								data-i18n="quote_github_commit"
-							>
-								Life is like a GitHub Repo – it doesn’t work if
-								you don’t commit...
-							</div>
 						</div>
 					</div>
 
@@ -1079,7 +1126,10 @@
 						class="bg-white p-10 rounded-3xl shadow-lg border border-black/5 hover:shadow-xl transition-shadow reveal-item"
 						style="transition-delay: 100ms"
 					>
-						<h3 class="font-heading text-2xl mb-6">
+						<h3
+							class="font-heading text-2xl mb-6"
+							data-i18n="contact_topics_title"
+						>
 							What I'm excited about
 						</h3>
 						<ul class="space-y-4">
@@ -1087,7 +1137,7 @@
 								<span
 									class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"
 								></span>
-								<span
+								<span data-i18n="contact_topic_1"
 									>Internships, student projects, and
 									research</span
 								>
@@ -1096,7 +1146,7 @@
 								<span
 									class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"
 								></span>
-								<span
+								<span data-i18n="contact_topic_2"
 									>AI tools that make life simpler and
 									kinder</span
 								>
@@ -1105,7 +1155,7 @@
 								<span
 									class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"
 								></span>
-								<span
+								<span data-i18n="contact_topic_3"
 									>Creative collaborations, videos, or
 									community ideas</span
 								>
@@ -1113,6 +1163,7 @@
 						</ul>
 						<p
 							class="mt-8 text-text-muted italic opacity-80 border-t border-black/5 pt-6"
+							data-i18n="contact_note"
 						>
 							If you are not sure, just say hi. I am happy to
 							chat.
@@ -1125,7 +1176,9 @@
 				<p data-i18n="footer_made_with" data-i18n-html>
 					Made with warmth and curiosity by Tom Szenessy &copy; 2026.
 				</p>
-				<p class="mt-2">Munich • tom@szenessy.de</p>
+				<p class="mt-2" data-i18n="footer_location">
+					Munich • tom@szenessy.de
+				</p>
 				<div
 					class="mt-4 text-[10px] italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
 					data-i18n="quote_chocolates"
@@ -1149,7 +1202,7 @@
 				Thanks for scrolling!
 			</div>
 			<img
-				src="./Fotos/Tom%20Passfoto.png"
+				src="./Fotos/Tom%20Passfoto.webp"
 				alt="Tom peeking"
 				class="w-full h-full object-contain"
 			/>
