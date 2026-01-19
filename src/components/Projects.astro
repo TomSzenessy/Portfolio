@@ -12,6 +12,7 @@ const projects = [
   {
     id: 'mino',
     youtubeId: 'b2APx-m-Ch4',
+    uploadDate: '8 Dec 2024',
     kicker: t('mino_kicker'),
     title: t('mino_title'),
     desc: t('mino_desc'),
@@ -21,6 +22,7 @@ const projects = [
   {
     id: 'vr',
     youtubeId: 'UdyzG_m69-g',
+    uploadDate: '14 Dec 2024',
     kicker: t('vr_kicker'),
     title: t('vr_title'),
     desc: t('vr_desc'),
@@ -29,6 +31,7 @@ const projects = [
   {
     id: 'ai_id',
     youtubeId: 'bspxhyMI6RE',
+    uploadDate: '18 May 2025',
     kicker: t('ai_id_kicker'),
     title: t('ai_id_title'),
     desc: t('ai_id_desc'),
@@ -37,6 +40,7 @@ const projects = [
   {
     id: 'comm',
     youtubeId: 'rNhRs4DzHv4',
+    uploadDate: '17 Dec 2024',
     kicker: t('comm_kicker'),
     title: t('comm_title'),
     desc: t('comm_desc'),
@@ -63,7 +67,7 @@ const projects = [
         {projects.map(p => (
             <div class="bg-card-bg rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group" style={`transition-delay: ${p.delay}ms`}>
                 <div class="aspect-video relative overflow-hidden">
-                    <LiteYouTube videoId={p.youtubeId} title={p.title} />
+                    <LiteYouTube videoId={p.youtubeId} title={p.title} uploadDate={p.uploadDate} />
                 </div>
                 <div class="p-8">
                     <p class="text-xs font-bold text-accent uppercase tracking-wider mb-2">

@@ -2,9 +2,10 @@
 interface Props {
   videoId: string;
   title: string;
+  uploadDate?: string;
 }
 
-const { videoId, title } = Astro.props;
+const { videoId, title, uploadDate } = Astro.props;
 ---
 
 <lite-youtube class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block" data-id={videoId} data-title={title}>
@@ -24,6 +25,13 @@ const { videoId, title } = Astro.props;
             </svg>
         </div>
     </div>
+
+    <!-- Upload Date -->
+    {uploadDate && (
+        <div class="absolute bottom-4 left-4 text-white/70 text-xs font-medium pointer-events-none group-hover:text-white/90 transition-colors bg-black/30 px-2 py-1 rounded">
+            {uploadDate}
+        </div>
+    )}
 
     <!-- YouTube Logo for Branding -->
     <div class="absolute bottom-4 right-4 text-white/50 text-xs font-bold pointer-events-none group-hover:text-white/80 transition-colors">
