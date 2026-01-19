@@ -75,7 +75,7 @@ const translations = {
 		about_card_3_desc: 'I like shipping small wins that build momentum.',
 		photo_title: 'Moments from my life',
 		photo_subtitle: 'A few snapshots that keep me grounded.',
-		photo_caption_wall: 'Quiet focus between projects.',
+		photo_caption_wall: 'Philosophizing...',
 		photo_caption_sheep: 'Learning from the real experts.',
 		photo_caption_mountain: 'Hiking recharges my head.',
 		awards_kicker: 'Awards',
