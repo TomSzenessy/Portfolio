@@ -1,621 +1,741 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Tom Szenessy | Warm, Human-Centered Student</title>
 		<meta
 			name="description"
-			content="Tom Szenessy (Szenessy) is a Business Informatics student at TUM in Munich building warm, human-first tools in AI, VR, and product design. Projects, awards, and contact."
+			content="Tom Szenessy is a Business Informatics student at TUM in Munich building warm, human-first tools in AI, VR, and product design."
 		/>
-		<meta
-			name="keywords"
-			content="Tom Szenessy, Szenessy, Tom Lennio Szenessy, TUM, Business Informatics, Munich, student, AI, VR, product design, awards, projects"
-		/>
-		<meta name="author" content="Tom Szenessy" />
-		<meta
-			name="robots"
-			content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-		/>
-		<meta name="googlebot" content="index, follow" />
-		<meta name="theme-color" content="#f6eee2" />
-		<meta name="color-scheme" content="light" />
-		<link rel="canonical" href="https://szenessy.com/" />
-		<meta
-			property="og:title"
-			content="Tom Szenessy | Student Builder in Munich"
-		/>
-		<meta
-			property="og:description"
-			content="Tom Szenessy (Szenessy) builds tools in AI, VR, and product design. Discover projects, awards, and ways to connect."
-		/>
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content="Tom Szenessy" />
-		<meta property="og:locale" content="en_US" />
-		<meta property="og:url" content="https://szenessy.com/" />
-		<meta
-			property="og:image"
-			content="https://szenessy.com/Fotos/Tom%20Passfoto.png"
-		/>
-		<meta property="og:image:alt" content="Portrait of Tom Szenessy" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta
-			name="twitter:title"
-			content="Tom Szenessy | Student Builder in Munich"
-		/>
-		<meta
-			name="twitter:description"
-			content="Tom Szenessy (Szenessy) builds warm, human-first tools in AI, VR, and product design. Discover projects, awards, and ways to connect."
-		/>
-		<meta
-			name="twitter:image"
-			content="https://szenessy.com/Fotos/Tom%20Passfoto.png"
-		/>
-		<link rel="me" href="https://www.youtube.com/@tomsze" />
-		<link rel="me" href="https://www.linkedin.com/in/tom-szenessy" />
-		<link rel="me" href="https://github.com/TomSzenessy" />
-		<link rel="preload" as="image" href="Fotos/Tom%20Passfoto.png" />
+
+		<!-- Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			rel="preconnect"
-			href="https://cdnjs.cloudflare.com"
-			crossorigin
-		/>
 		<link
 			href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;600;700&display=swap"
 			rel="stylesheet"
 		/>
+
+		<!-- Icons -->
 		<link
 			rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 		/>
-		<link rel="stylesheet" href="styles.css" />
-		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@graph": [
-					{
-						"@type": "Person",
-						"@id": "https://szenessy.com/#tom",
-						"name": "Tom Szenessy",
-						"alternateName": "Tom Lennio Szenessy",
-						"url": "https://szenessy.com/",
-						"image": "https://szenessy.com/Fotos/Tom%20Passfoto.png",
-						"jobTitle": "Business Informatics student",
-						"description": "Business Informatics student at TUM in Munich building warm, human-first tools in AI, VR, and product design.",
-						"affiliation": {
-							"@type": "CollegeOrUniversity",
-							"name": "Technical University of Munich"
+
+		<!-- Tailwind CSS -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				theme: {
+					extend: {
+						colors: {
+							bg: '#f6eee2',
+							'bg-alt': '#fbeedc',
+							'text-main': '#2d231c',
+							'text-muted': '#6a5c52',
+							accent: '#d07a3d',
+							'accent-soft': '#f3c8a0',
+							'accent-sage': '#8aa39a',
+							'card-bg': '#ffffff'
 						},
-						"address": {
-							"@type": "PostalAddress",
-							"addressLocality": "Munich",
-							"addressCountry": "DE"
+						fontFamily: {
+							heading: ['Fraunces', 'serif'],
+							body: ['Bricolage Grotesque', 'sans-serif']
 						},
-						"sameAs": [
-							"https://www.youtube.com/@tomsze",
-							"https://www.linkedin.com/in/tom-szenessy",
-							"https://github.com/TomSzenessy"
-						],
-						"knowsAbout": [
-							"AI",
-							"VR",
-							"Product design",
-							"Business Informatics",
-							"Student projects"
-						]
-					},
-					{
-						"@type": "WebSite",
-						"@id": "https://szenessy.com/#website",
-						"name": "Tom Szenessy",
-						"url": "https://szenessy.com/",
-						"inLanguage": "en",
-						"publisher": {
-							"@id": "https://szenessy.com/#tom"
-						}
-					},
-					{
-						"@type": "ItemList",
-						"@id": "https://szenessy.com/#projects",
-						"name": "Projects and Videos",
-						"itemListElement": [
-							{
-								"@type": "ListItem",
-								"position": 1,
-								"item": {
-									"@type": "VideoObject",
-									"name": "Mino Notes App",
-									"description": "An AI-first notes app that turns rough thoughts into clear mindmaps.",
-									"embedUrl": "https://www.youtube.com/embed/b2APx-m-Ch4",
-									"url": "https://youtu.be/b2APx-m-Ch4",
-									"thumbnailUrl": "https://img.youtube.com/vi/b2APx-m-Ch4/hqdefault.jpg"
-								}
-							},
-							{
-								"@type": "ListItem",
-								"position": 2,
-								"item": {
-									"@type": "VideoObject",
-									"name": "VR World from 3D Scan",
-									"description": "A 3D scan turned into a walkable VR world.",
-									"embedUrl": "https://www.youtube.com/embed/UdyzG_m69-g",
-									"url": "https://youtu.be/UdyzG_m69-g",
-									"thumbnailUrl": "https://img.youtube.com/vi/UdyzG_m69-g/hqdefault.jpg"
-								}
-							},
-							{
-								"@type": "ListItem",
-								"position": 3,
-								"item": {
-									"@type": "VideoObject",
-									"name": "AI Travel Agent",
-									"description": "A chat-based travel prototype that compares deals and explains the choice.",
-									"embedUrl": "https://www.youtube.com/embed/hHTIdMAS61U",
-									"url": "https://youtu.be/hHTIdMAS61U",
-									"thumbnailUrl": "https://img.youtube.com/vi/hHTIdMAS61U/hqdefault.jpg"
-								}
-							},
-							{
-								"@type": "ListItem",
-								"position": 4,
-								"item": {
-									"@type": "VideoObject",
-									"name": "AI and Identity",
-									"description": "A short video essay on identity, ethics, and the human questions behind AI.",
-									"embedUrl": "https://www.youtube.com/embed/bspxhyMI6RE",
-									"url": "https://youtu.be/bspxhyMI6RE",
-									"thumbnailUrl": "https://img.youtube.com/vi/bspxhyMI6RE/hqdefault.jpg"
-								}
-							},
-							{
-								"@type": "ListItem",
-								"position": 5,
-								"item": {
-									"@type": "VideoObject",
-									"name": "Programming Class Commercial",
-									"description": "A playful commercial shot and edited during an exchange year.",
-									"embedUrl": "https://www.youtube.com/embed/rNhRs4DzHv4",
-									"url": "https://youtu.be/rNhRs4DzHv4",
-									"thumbnailUrl": "https://img.youtube.com/vi/rNhRs4DzHv4/hqdefault.jpg"
-								}
+						animation: {
+							float: 'float 6s ease-in-out infinite'
+						},
+						keyframes: {
+							float: {
+								'0%, 100%': { transform: 'translateY(0)' },
+								'50%': { transform: 'translateY(-10px)' }
 							}
-						]
+						}
 					}
-				]
-			}
+				}
+			};
 		</script>
+
+		<style>
+			/* Custom Noise Texture */
+			.noise-bg {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+				opacity: 0.04;
+				pointer-events: none;
+				z-index: 5;
+			}
+
+			/* Hide scrollbar for clean look */
+			::-webkit-scrollbar {
+				width: 8px;
+			}
+			::-webkit-scrollbar-track {
+				background: #f6eee2;
+			}
+			::-webkit-scrollbar-thumb {
+				background: #d07a3d;
+				border-radius: 4px;
+			}
+
+			/* Reveal Animation Classes */
+			.reveal-item {
+				opacity: 0;
+				transform: translateY(30px);
+				transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+			}
+			.reveal-item.active {
+				opacity: 1;
+				transform: translateY(0);
+			}
+
+			/* Tooltip styling specifically for the sheep */
+			.sheep-tooltip {
+				opacity: 0;
+				transform: translateY(10px);
+				transition: all 0.3s ease;
+			}
+			.sheep-container:hover .sheep-tooltip {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		</style>
 	</head>
-	<body>
-		<nav class="side-nav" aria-label="Section navigation">
+	<body
+		class="bg-bg text-text-main font-body selection:bg-accent selection:text-white overflow-x-hidden"
+	>
+		<!-- Background Canvas for Particles -->
+		<canvas
+			id="bg-canvas"
+			class="fixed top-0 left-0 w-full h-full z-0 opacity-40 pointer-events-none"
+		></canvas>
+
+		<!-- Noise Overlay -->
+		<div class="noise-bg"></div>
+
+		<!-- Navigation Dots (Desktop) -->
+		<nav
+			class="hidden fixed right-8 top-1/2 -translate-y-1/2 md:flex flex-col gap-4 z-50 p-3 bg-white/70 backdrop-blur-md rounded-full border border-white/30 shadow-lg"
+		>
 			<a
 				href="#home"
-				data-title="Home"
-				class="active"
+				class="w-3 h-3 bg-text-muted rounded-full transition-all hover:bg-accent hover:scale-125 relative group active-dot"
 				aria-label="Home"
-			></a>
-			<a href="#projects" data-title="Projects" aria-label="Projects"></a>
-			<a href="#about" data-title="About" aria-label="About"></a>
-			<a href="#awards" data-title="Awards" aria-label="Awards"></a>
-			<a href="#contact" data-title="Contact" aria-label="Contact"></a>
+			>
+				<span
+					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					>Home</span
+				>
+			</a>
+			<a
+				href="#projects"
+				class="w-3 h-3 bg-text-muted rounded-full transition-all hover:bg-accent hover:scale-125 relative group"
+				aria-label="Projects"
+			>
+				<span
+					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					>Projects</span
+				>
+			</a>
+			<a
+				href="#about"
+				class="w-3 h-3 bg-text-muted rounded-full transition-all hover:bg-accent hover:scale-125 relative group"
+				aria-label="About"
+			>
+				<span
+					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					>About</span
+				>
+			</a>
+			<a
+				href="#awards"
+				class="w-3 h-3 bg-text-muted rounded-full transition-all hover:bg-accent hover:scale-125 relative group"
+				aria-label="Awards"
+			>
+				<span
+					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					>Awards</span
+				>
+			</a>
+			<a
+				href="#contact"
+				class="w-3 h-3 bg-text-muted rounded-full transition-all hover:bg-accent hover:scale-125 relative group"
+				aria-label="Contact"
+			>
+				<span
+					class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none"
+					>Contact</span
+				>
+			</a>
 		</nav>
 
-		<main>
-			<nav class="top-nav" aria-label="Primary">
-				<a href="#home" class="logo">tom.szenessy</a>
-				<!-- <div class="nav-links">
-					<a href="#projects" data-i18n="nav_projects">Projects</a>
-					<a href="#about" data-i18n="nav_about">About</a>
-					<a href="#awards" data-i18n="nav_awards">Awards</a>
-					<a href="#contact" data-i18n="nav_contact">Contact</a>
-				</div> -->
-				<div class="lang-switcher" aria-label="Language selector">
-					<span class="lang-link active" onclick="setLanguage('en')"
-						>EN</span
+		<!-- Top Navigation -->
+		<nav
+			class="sticky top-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-black/5 px-6 py-4 flex flex-wrap justify-around items-center transition-all duration-300"
+			id="top-nav"
+		>
+			<a
+				href="#home"
+				class="font-heading font-bold text-xl tracking-tight text-text-main hover:text-accent transition-colors"
+				>tom.szenessy</a
+			>
+
+			<div class="flex items-center gap-6">
+				<!-- Language Switcher -->
+				<div class="flex gap-3 text-sm font-semibold">
+					<button
+						class="lang-btn text-accent underline underline-offset-4 cursor-pointer"
+						data-lang="en"
+						onclick="setLanguage('en')"
 					>
-					<span class="lang-link" onclick="setLanguage('de')"
-						>DE</span
+						EN
+					</button>
+					<button
+						class="lang-btn text-text-muted hover:text-accent transition-colors cursor-pointer"
+						data-lang="de"
+						onclick="setLanguage('de')"
 					>
-					<span class="lang-link" onclick="setLanguage('es')"
-						>ES</span
+						DE
+					</button>
+					<button
+						class="lang-btn text-text-muted hover:text-accent transition-colors cursor-pointer"
+						data-lang="es"
+						onclick="setLanguage('es')"
 					>
+						ES
+					</button>
 				</div>
-				<div class="social-icons" aria-label="Social links">
+
+				<!-- Social Icons -->
+				<div class="hidden sm:flex gap-4 text-lg text-text-muted">
 					<a
 						href="https://www.youtube.com/@tomsze"
 						target="_blank"
-						rel="noopener"
-						aria-label="YouTube"
+						class="text-[#ff0000] hover:-translate-y-1 transition-transform"
 						><i class="fab fa-youtube"></i
 					></a>
 					<a
 						href="https://www.linkedin.com/in/tom-szenessy"
 						target="_blank"
-						rel="noopener"
-						aria-label="LinkedIn"
+						class="text-[#0a66c2] hover:-translate-y-1 transition-transform"
 						><i class="fab fa-linkedin"></i
 					></a>
 					<a
 						href="https://github.com/TomSzenessy"
 						target="_blank"
-						rel="noopener"
-						aria-label="GitHub"
+						class="text-[#1f1f1f] hover:-translate-y-1 transition-transform"
 						><i class="fab fa-github"></i
 					></a>
 				</div>
-			</nav>
-			<div class="container">
-				<header id="home" class="hero">
-					<div class="hero-card reveal">
-						<div class="profile-img-container">
-							<img
-								src="./Fotos/Tom%20Passfoto.png"
-								alt="Portrait of Tom Szenessy"
-								class="profile-img"
-								fetchpriority="high"
-								decoding="async"
-							/>
-						</div>
-						<span class="hero-pre" data-i18n="hero_pre"
-							>Hi, I'm Tom</span
+			</div>
+		</nav>
+
+		<main class="relative z-10 max-w-6xl mx-auto px-6 md:px-12">
+			<!-- Hero Section -->
+			<header
+				id="home"
+				class="min-h-screen flex items-center justify-center py-20"
+			>
+				<div
+					class="bg-card-bg/90 backdrop-blur-sm p-10 md:p-16 rounded-[40px] shadow-2xl border border-accent/10 text-center max-w-4xl w-full relative reveal-item active"
+				>
+					<!-- Profile Image -->
+					<div
+						class="w-44 h-44 mx-auto -mt-36 mb-8 rounded-full border-8 border-white shadow-lg overflow-hidden relative z-10 bg-gradient-to-br from-accent to-orange-300"
+					>
+						<img
+							src="./Fotos/Tom%20Passfoto.png"
+							alt="Tom Szenessy"
+							class="w-full h-full object-cover object-top hover:scale-110 transition-transform duration-500"
+						/>
+					</div>
+
+					<div class="space-y-6">
+						<h1
+							class="font-heading text-5xl md:text-6xl text-text-main leading-tight"
+							data-i18n="hero_title"
+							data-i18n-html
 						>
-						<h1 data-i18n="hero_title" data-i18n-html>
-							Tom Szenessy<br /><span>Student & Dreamer</span>
+							Hi, I'm Tom<br />
 						</h1>
+
 						<p
-							class="hero-text"
+							class="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed"
 							data-i18n="hero_text"
 							data-i18n-html
 						>
-							Tom Szenessy is a
-							<strong>Business Informatics student at TUM</strong>
-							in Munich. I build warm, human-first tools in AI and
-							VR, and I love turning messy problems into calm,
-							helpful experiences.
+							<strong>Business Informatics student @ TUM</strong>
+							in Munich. I love turning messy technical problems
+							into simple, calm experiences.
 						</p>
-						<p class="hero-note" data-i18n="hero_note">
+						<p
+							class="italic opacity-80 text-base mt-2 block"
+							data-i18n="hero_note"
+						>
 							Still learning, always curious, and grateful for
-							kind collaborators.
+							opportunities to collaborate.
 						</p>
-						<div class="hero-actions">
+
+						<div class="flex flex-wrap justify-center gap-4 pt-4">
 							<a
 								href="#projects"
-								class="btn"
-								data-i18n="btn_see_work"
-								>See My Work</a
+								class="group relative px-8 py-4 bg-gradient-to-r from-accent to-orange-400 text-white rounded-full font-semibold shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 hover:-translate-y-1 transition-all overflow-hidden"
 							>
+								<span class="relative z-10">See My Work</span>
+								<div
+									class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+								></div>
+							</a>
 							<a
 								href="#about"
-								class="btn btn-secondary"
-								data-i18n="btn_more_about"
-								>More About Me</a
+								class="px-8 py-4 bg-transparent border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all"
 							>
+								More About Me
+							</a>
 						</div>
-						<div class="hero-badges">
-							<span class="badge"
-								><i
-									class="fas fa-graduation-cap"
-									aria-hidden="true"
-								></i
-								><span data-i18n="hero_badge_tum"
-									>TUM Business Informatics</span
-								></span
-							>
-							<span class="badge"
-								><i
-									class="fas fa-location-dot"
-									aria-hidden="true"
-								></i
-								><span data-i18n="hero_badge_location"
-									>Based in Munich</span
-								></span
-							>
-							<span class="badge"
-								><i class="fas fa-heart" aria-hidden="true"></i
-								><span data-i18n="hero_badge_focus"
-									>Human-centered builder</span
-								></span
-							>
-						</div>
-					</div>
-				</header>
-			</div>
 
-			<div class="parallax-section" id="quotes">
-				<div class="parallax-quote reveal">
-					<div class="quote-avatar">
-						<img
-							src="./Fotos/Tom%20with%20Sheep.jpg"
-							alt="Tom with a sheep"
-							loading="lazy"
-							decoding="async"
-						/>
+						<div class="flex flex-wrap justify-center gap-3 pt-6">
+							<span
+								class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main"
+							>
+								<i
+									class="fas fa-graduation-cap text-accent"
+								></i>
+								TUM Business Informatics
+							</span>
+							<span
+								class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main"
+							>
+								<i class="fas fa-location-dot text-accent"></i>
+								Based in Munich
+							</span>
+							<span
+								class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main"
+							>
+								<i class="fas fa-heart text-accent"></i>
+								Human-centered builder
+							</span>
+						</div>
 					</div>
-					<blockquote data-i18n="parallax_quote">
-						"I once spent three hours debugging. It was a missing
-						comma."
-					</blockquote>
-					<cite data-i18n="parallax_cite">— Tom, still smiling</cite>
+
+					<div
+						class="mt-8 text-xs text-text-muted/40 italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+					>
+						<span data-i18n="quote_mom_wake_up"
+							>“Getting up is healthy!” – Mom</span
+						>
+					</div>
+				</div>
+			</header>
+
+			<!-- Parallax Quote -->
+			<div
+				id="quotes"
+				class="relative w-screen left-[50%] -translate-x-[50%] h-[70vh] bg-fixed bg-center bg-cover flex items-center mb-24 overflow-hidden group"
+				style="
+					background-image:
+						linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)),
+						url('./Fotos/Tom%20on%20Mountain.jpg');
+				"
+			>
+				<div class="container mx-auto px-6 items-right flex">
+					<div
+						class="bg-white/95 backdrop-blur md:ml-24 p-10 md:p-14 rounded-3xl max-w-lg shadow-2xl border-l-8 border-accent transform transition-transform duration-700 hover:scale-105 reveal-item"
+					>
+						<div
+							class="w-16 h-16 rounded-full border-4 border-white shadow-md overflow-hidden mb-6"
+						>
+							<img
+								src="./Fotos/Tom%20Passfoto.png"
+								alt="Tom"
+								class="w-full h-full object-cover"
+							/>
+						</div>
+						<blockquote
+							class="font-heading text-3xl text-text-main italic mb-4"
+							data-i18n="parallax_quote"
+							data-i18n-html
+						>
+							"Let me cook"
+						</blockquote>
+						<cite class="text-accent font-bold not-italic"
+							>— Tom</cite
+						>
+					</div>
 				</div>
 			</div>
 
-			<div class="container">
-				<section id="projects">
-					<div class="section-header reveal">
-						<p class="section-kicker" data-i18n="projects_kicker">
-							Projects & Videos
-						</p>
-						<h2 data-i18n="projects_title">
-							Selected Projects & Videos
-						</h2>
-						<p
-							class="section-subtitle"
-							data-i18n="projects_subtitle"
-						>
-							Small experiments, student projects, and videos that
-							taught me a lot.
-						</p>
-					</div>
+			<!-- Projects Section -->
+			<section id="projects" class="py-20">
+				<div class="text-center mb-16 reveal-item">
+					<p
+						class="text-accent font-bold tracking-widest uppercase text-xs mb-3"
+						data-i18n="projects_kicker"
+					>
+						Projects & Videos
+					</p>
+					<h2
+						class="font-heading text-4xl md:text-5xl text-text-main mb-4"
+						data-i18n="projects_title"
+					>
+						Selected Work
+					</h2>
+					<p
+						class="text-text-muted text-lg max-w-2xl mx-auto"
+						data-i18n="projects_subtitle"
+					>
+						Small experiments, student projects, and videos that
+						taught me a lot.
+					</p>
+				</div>
 
-					<div class="video-grid">
-						<div class="video-card reveal" style="--delay: 0s">
-							<div class="video-wrapper">
-								<iframe
-									src="https://www.youtube.com/embed/b2APx-m-Ch4?origin=https://szenessy.com"
-									title="Mino Notes App"
-									loading="lazy"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allow="
-										accelerometer;
-										autoplay;
-										clipboard-write;
-										encrypted-media;
-										gyroscope;
-										picture-in-picture;
-										web-share;
-									"
-									allowfullscreen
-								></iframe>
-							</div>
-							<div class="video-info">
-								<p class="video-kicker" data-i18n="mino_kicker">
-									AI productivity prototype
-								</p>
-								<h3 data-i18n="mino_title">Mino Notes App</h3>
-								<p data-i18n="mino_desc">
-									An AI-first notes app that turns rough
-									thoughts into clear mindmaps. Built for
-									Jugend forscht, inspired by messy notebooks.
-								</p>
-								<a
-									class="video-link"
-									href="https://youtu.be/b2APx-m-Ch4"
-									target="_blank"
-									rel="noopener"
-									data-i18n="video_watch"
-									>Watch on YouTube</a
-								>
-							</div>
-						</div>
-						<div class="video-card reveal" style="--delay: 0.05s">
-							<div class="video-wrapper">
-								<iframe
-									src="https://www.youtube.com/embed/UdyzG_m69-g?origin=https://szenessy.com"
-									title="VR World from 3D Scan"
-									loading="lazy"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allow="
-										accelerometer;
-										autoplay;
-										clipboard-write;
-										encrypted-media;
-										gyroscope;
-										picture-in-picture;
-										web-share;
-									"
-									allowfullscreen
-								></iframe>
-							</div>
-							<div class="video-info">
-								<p class="video-kicker" data-i18n="vr_kicker">
-									VR experiment
-								</p>
-								<h3 data-i18n="vr_title">
-									VR World from 3D Scan
-								</h3>
-								<p data-i18n="vr_desc">
-									I turned a 3D scan into a walkable VR space.
-									It was my first time stepping inside
-									something I had built.
-								</p>
-								<a
-									class="video-link"
-									href="https://youtu.be/UdyzG_m69-g"
-									target="_blank"
-									rel="noopener"
-									data-i18n="video_watch"
-									>Watch on YouTube</a
-								>
-							</div>
-						</div>
-						<div class="video-card reveal" style="--delay: 0.15s">
-							<div class="video-wrapper">
-								<iframe
-									src="https://www.youtube.com/embed/bspxhyMI6RE?origin=https://szenessy.com"
-									title="AI and Identity"
-									loading="lazy"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allow="
-										accelerometer;
-										autoplay;
-										clipboard-write;
-										encrypted-media;
-										gyroscope;
-										picture-in-picture;
-										web-share;
-									"
-									allowfullscreen
-								></iframe>
-							</div>
-							<div class="video-info">
-								<p
-									class="video-kicker"
-									data-i18n="ai_id_kicker"
-								>
-									Video essay
-								</p>
-								<h3 data-i18n="ai_id_title">AI and Identity</h3>
-								<p data-i18n="ai_id_desc">
-									A short essay on identity, ethics, and the
-									human questions behind AI.
-								</p>
-								<a
-									class="video-link"
-									href="https://youtu.be/bspxhyMI6RE"
-									target="_blank"
-									rel="noopener"
-									data-i18n="video_watch"
-									>Watch on YouTube</a
-								>
-							</div>
-						</div>
-						<div class="video-card reveal" style="--delay: 0.2s">
-							<div class="video-wrapper">
-								<iframe
-									src="https://www.youtube.com/embed/rNhRs4DzHv4?origin=https://szenessy.com"
-									title="Programming Class Commercial"
-									loading="lazy"
-									referrerpolicy="strict-origin-when-cross-origin"
-									allow="
-										accelerometer;
-										autoplay;
-										clipboard-write;
-										encrypted-media;
-										gyroscope;
-										picture-in-picture;
-										web-share;
-									"
-									allowfullscreen
-								></iframe>
-							</div>
-							<div class="video-info">
-								<p class="video-kicker" data-i18n="comm_kicker">
-									Short film
-								</p>
-								<h3 data-i18n="comm_title">
-									Programming Class Commercial
-								</h3>
-								<p data-i18n="comm_desc">
-									A playful commercial shot and edited during
-									my exchange year. I love storytelling with
-									camera and sound.
-								</p>
-								<a
-									class="video-link"
-									href="https://youtu.be/rNhRs4DzHv4"
-									target="_blank"
-									rel="noopener"
-									data-i18n="video_watch"
-									>Watch on YouTube</a
-								>
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section id="about">
-					<div class="about-text">
-						<h2 data-i18n="about_h2">More Than Just Code</h2>
-						<p data-i18n="about_p1">
-							I like technology that feels warm and
-							understandable. My path started with hardware
-							experiments and grew into software and AI.
-						</p>
-						<p data-i18n="about_p2" data-i18n-html>
-							Today, I study
-							<strong>Business Informatics</strong> at TUM,
-							connecting technical depth with real-world impact. I
-							care about teamwork and try to make spaces where
-							people feel comfortable sharing ideas early.
-						</p>
-						<p data-i18n="about_p3">
-							Outside of tech, I enjoy organizing small creative
-							events and filming short videos with friends.
-						</p>
-					</div>
-					<div class="about-image sheep-container">
-						<img
-							src="./Fotos/Tom%20with%20Sheep.jpg"
-							alt="Tom with a sheep"
-							class="about-img"
-							loading="lazy"
-							decoding="async"
-						/>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+					<!-- Video Item 1 -->
+					<div
+						class="bg-card-bg rounded-3xl overflow-hidden shadow-lg border border-black/5 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group"
+					>
 						<div
-							class="sheep-tooltip"
-							data-i18n="sheep_tooltip"
-							data-i18n-html
+							class="aspect-video bg-black relative overflow-hidden"
 						>
-							Chilling with a sheep.
+							<iframe
+								class="w-full h-full absolute inset-0"
+								src="https://www.youtube.com/embed/b2APx-m-Ch4"
+								title="Mino Notes App"
+								loading="lazy"
+								allowfullscreen
+							></iframe>
+						</div>
+						<div class="p-8">
+							<p
+								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
+								data-i18n="mino_kicker"
+							>
+								AI Productivity
+							</p>
+							<h3
+								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
+								data-i18n="mino_title"
+							>
+								Mino Notes App
+							</h3>
+							<p
+								class="text-text-muted mb-4"
+								data-i18n="mino_desc"
+							>
+								An AI-first notes app that turns rough thoughts
+								into clear mindmaps. Built for Jugend forscht,
+								inspired by messy notebooks.
+							</p>
+							<a
+								href="https://youtu.be/b2APx-m-Ch4"
+								target="_blank"
+								class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4"
+							>
+								<span data-i18n="video_watch"
+									>Watch on YouTube</span
+								>
+								<i
+									class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"
+								></i>
+							</a>
+							<div
+								class="mt-4 text-[10px] text-text-muted/30 italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+								data-i18n="quote_chatgpt"
+							>
+								“I think, therefore I am.” – ChatGPT
+							</div>
 						</div>
 					</div>
-					<div class="about-text pt-4">
-						<h3 data-i18n="milestones_title">Milestones</h3>
-						<div class="milestone-list">
-							<div class="milestone">
+
+					<!-- Video Item 2 -->
+					<div
+						class="bg-card-bg rounded-3xl overflow-hidden shadow-lg border border-black/5 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group"
+						style="transition-delay: 100ms"
+					>
+						<div class="aspect-video bg-black relative">
+							<iframe
+								class="w-full h-full absolute inset-0"
+								src="https://www.youtube.com/embed/UdyzG_m69-g"
+								title="VR World"
+								loading="lazy"
+								allowfullscreen
+							></iframe>
+						</div>
+						<div class="p-8">
+							<p
+								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
+								data-i18n="vr_kicker"
+							>
+								VR Experiment
+							</p>
+							<h3
+								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
+								data-i18n="vr_title"
+							>
+								VR World from 3D Scan
+							</h3>
+							<p class="text-text-muted mb-4" data-i18n="vr_desc">
+								I turned a 3D scan into a walkable VR space. It
+								was my first time stepping inside something I
+								had built.
+							</p>
+							<a
+								href="https://youtu.be/UdyzG_m69-g"
+								target="_blank"
+								class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4"
+							>
+								Watch on YouTube
 								<i
-									class="fas fa-microscope milestone-icon"
-									aria-hidden="true"
+									class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"
 								></i>
-								<div class="milestone-content">
-									<h4 data-i18n="ms_jf_title">
+							</a>
+						</div>
+					</div>
+
+					<!-- Video Item 3 -->
+					<div
+						class="bg-card-bg rounded-3xl overflow-hidden shadow-lg border border-black/5 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group"
+					>
+						<div class="aspect-video bg-black relative">
+							<iframe
+								class="w-full h-full absolute inset-0"
+								src="https://www.youtube.com/embed/bspxhyMI6RE"
+								title="AI Identity"
+								loading="lazy"
+								allowfullscreen
+							></iframe>
+						</div>
+						<div class="p-8">
+							<p
+								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
+								data-i18n="ai_id_kicker"
+							>
+								Video Essay
+							</p>
+							<h3
+								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
+								data-i18n="ai_id_title"
+							>
+								AI and Identity
+							</h3>
+							<p
+								class="text-text-muted mb-4"
+								data-i18n="ai_id_desc"
+							>
+								A short essay on identity, ethics, and the human
+								questions behind AI.
+							</p>
+							<a
+								href="https://youtu.be/bspxhyMI6RE"
+								target="_blank"
+								class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4"
+							>
+								Watch on YouTube
+								<i
+									class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"
+								></i>
+							</a>
+						</div>
+					</div>
+
+					<!-- Video Item 4 -->
+					<div
+						class="bg-card-bg rounded-3xl overflow-hidden shadow-lg border border-black/5 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group"
+						style="transition-delay: 100ms"
+					>
+						<div class="aspect-video bg-black relative">
+							<iframe
+								class="w-full h-full absolute inset-0"
+								src="https://www.youtube.com/embed/rNhRs4DzHv4"
+								title="Commercial"
+								loading="lazy"
+								allowfullscreen
+							></iframe>
+						</div>
+						<div class="p-8">
+							<p
+								class="text-xs font-bold text-accent uppercase tracking-wider mb-2"
+								data-i18n="comm_kicker"
+							>
+								Short Film
+							</p>
+							<h3
+								class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors"
+								data-i18n="comm_title"
+							>
+								Programming Class Commercial
+							</h3>
+							<p
+								class="text-text-muted mb-4"
+								data-i18n="comm_desc"
+							>
+								A playful commercial shot and edited during my
+								exchange year. I love storytelling with camera
+								and sound.
+							</p>
+							<a
+								href="https://youtu.be/rNhRs4DzHv4"
+								target="_blank"
+								class="inline-flex items-center text-accent font-semibold hover:underline decoration-2 underline-offset-4"
+							>
+								Watch on YouTube
+								<i
+									class="fas fa-arrow-right ml-2 text-sm transition-transform group-hover:translate-x-1"
+								></i>
+							</a>
+							<div
+								class="mt-4 text-[10px] text-text-muted/30 italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+								data-i18n="quote_coding_hours"
+							>
+								Weeks of coding can save you hours of planning.
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- About Section -->
+			<section id="about" class="py-20 scroll-mt-24">
+				<div
+					class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
+				>
+					<!-- Text Content -->
+					<div class="reveal-item">
+						<h2
+							class="font-heading text-4xl text-text-main mb-6"
+							data-i18n="about_h2"
+						>
+							More Than Just Code
+						</h2>
+						<div
+							class="space-y-4 text-text-muted text-lg leading-relaxed"
+						>
+							<p data-i18n="about_p1">
+								I like technology that feels warm and
+								understandable. My path started with hardware
+								experiments and grew into software and AI.
+							</p>
+							<p data-i18n="about_p2" data-i18n-html>
+								Today, I study
+								<strong class="text-text-main"
+									>Business Informatics</strong
+								>
+								at TUM, connecting technical depth with
+								real-world impact. I care about teamwork and try
+								to make spaces where people feel comfortable
+								sharing ideas early.
+							</p>
+							<p data-i18n="about_p3">
+								Outside of tech, I enjoy organizing small
+								creative events and filming short videos with
+								friends.
+							</p>
+							<div
+								class="text-xs text-text-muted/40 italic pt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+								data-i18n="quote_tidy"
+							>
+								“Keeping things tidy is just being too lazy to
+								search.” – Sherlock Holmes
+							</div>
+						</div>
+
+						<div class="mt-10 space-y-4">
+							<h3
+								class="font-heading text-2xl text-text-main mb-4"
+								data-i18n="milestones_title"
+							>
+								Milestones
+							</h3>
+
+							<!-- Milestone Items -->
+							<div
+								class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow"
+							>
+								<i
+									class="fas fa-microscope text-2xl text-accent pt-1"
+								></i>
+								<div>
+									<h4
+										class="font-bold text-text-main"
+										data-i18n="ms_jf_title"
+									>
 										Jugend forscht 2024
 									</h4>
-									<p data-i18n="ms_jf_desc">
+									<p
+										class="text-sm text-text-muted"
+										data-i18n="ms_jf_desc"
+									>
 										2nd Prize and CIB Award for an AI
 										mindmap tool.
 									</p>
 								</div>
 							</div>
-							<div class="milestone">
+							<div
+								class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow"
+							>
 								<i
-									class="fas fa-calculator milestone-icon"
-									aria-hidden="true"
+									class="fas fa-calculator text-2xl text-accent pt-1"
 								></i>
-								<div class="milestone-content">
-									<h4 data-i18n="ms_math_title">
+								<div>
+									<h4
+										class="font-bold text-text-main"
+										data-i18n="ms_math_title"
+									>
 										Mathematics Olympiad
 									</h4>
-									<p data-i18n="ms_math_desc">
+									<p
+										class="text-sm text-text-muted"
+										data-i18n="ms_math_desc"
+									>
 										3rd Prize (2018/19) and regional
 										finalist years.
 									</p>
 								</div>
 							</div>
-							<div class="milestone">
+							<div
+								class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow"
+							>
 								<i
-									class="fas fa-users milestone-icon"
-									aria-hidden="true"
+									class="fas fa-users text-2xl text-accent pt-1"
 								></i>
-								<div class="milestone-content">
-									<h4 data-i18n="ms_eyp_title">
+								<div>
+									<h4
+										class="font-bold text-text-main"
+										data-i18n="ms_eyp_title"
+									>
 										European Youth Parliament
 									</h4>
-									<p data-i18n="ms_eyp_desc">
+									<p
+										class="text-sm text-text-muted"
+										data-i18n="ms_eyp_desc"
+									>
 										Delegate certificate (2023-24). A lesson
 										in collaboration.
 									</p>
 								</div>
 							</div>
-							<div class="milestone">
+							<div
+								class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow"
+							>
 								<i
-									class="fas fa-graduation-cap milestone-icon"
-									aria-hidden="true"
+									class="fas fa-graduation-cap text-2xl text-accent pt-1"
 								></i>
-								<div class="milestone-content">
-									<h4 data-i18n="ms_abi_title">1.0 Abitur</h4>
-									<p data-i18n="ms_abi_desc">
+								<div>
+									<h4
+										class="font-bold text-text-main"
+										data-i18n="ms_abi_title"
+									>
+										1.0 Abitur
+									</h4>
+									<p
+										class="text-sm text-text-muted"
+										data-i18n="ms_abi_desc"
+									>
 										Deutsche Schule Málaga (2025). Top of
 										class.
 									</p>
@@ -623,405 +743,615 @@
 							</div>
 						</div>
 					</div>
-					<div class="about-image sheep-container">
-						<img
-							src="./Fotos/Tom%20leaning%20against%20a%20wall.jpg"
-							class="about-img"
-							alt="Tom leaning against a wall"
-							loading="lazy"
-							decoding="async"
-						/>
+
+					<!-- Images -->
+					<div
+						class="space-y-8 reveal-item"
+						style="transition-delay: 200ms"
+					>
 						<div
-							class="sheep-tooltip"
-							data-i18n="photo_caption_wall"
-							data-i18n-html
+							class="relative group sheep-container transform rotate-2 hover:rotate-0 transition-all duration-500"
 						>
-							Chilling with a sheep.
+							<img
+								src="./Fotos/Tom%20with%20Sheep.jpg"
+								alt="Tom with sheep"
+								class="w-full rounded-[30px] shadow-xl border-4 border-white"
+							/>
+							<div
+								class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5"
+							>
+								Chilling with a sheep.
+							</div>
+						</div>
+
+						<div
+							class="relative group sheep-container transform -rotate-1 hover:rotate-0 transition-all duration-500"
+						>
+							<img
+								src="./Fotos/Tom%20leaning%20against%20a%20wall.jpg"
+								alt="Tom leaning"
+								class="w-full rounded-[30px] shadow-xl border-4 border-white"
+							/>
+							<div
+								class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5"
+							>
+								Also chilling, no sheep.
+							</div>
+							<div
+								class="text-xs text-center text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+								data-i18n="quote_pit_machine"
+							>
+								“He who digs a pit for others has a pit-digging
+								machine.” – James Bond
+							</div>
 						</div>
 					</div>
-				</section>
+				</div>
+			</section>
 
-				<section id="awards">
-					<div class="section-header reveal">
-						<p class="section-kicker" data-i18n="awards_kicker">
-							Awards
-						</p>
-						<h2 data-i18n="honors_title">
-							Awards, Certificates, and Prizes
-						</h2>
-						<p class="section-subtitle" data-i18n="awards_subtitle">
-							Highlights that reflect curiosity, persistence, and
-							teamwork.
-						</p>
+			<!-- Awards Section -->
+			<section id="awards" class="py-20">
+				<div class="text-center mb-16 reveal-item">
+					<p
+						class="text-accent font-bold tracking-widest uppercase text-xs mb-3"
+						data-i18n="awards_kicker"
+					>
+						Awards
+					</p>
+					<h2
+						class="font-heading text-4xl text-text-main mb-4"
+						data-i18n="honors_title"
+					>
+						Certificates & Prizes
+					</h2>
+					<p
+						class="text-text-muted text-lg max-w-2xl mx-auto"
+						data-i18n="awards_subtitle"
+					>
+						Highlights that reflect curiosity, persistence, and
+						teamwork.
+					</p>
+					<div
+						class="text-xs text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+						data-i18n="quote_bugs"
+					>
+						The best way to predict bugs is to design them yourself.
 					</div>
+				</div>
 
-					<div class="awards-featured">
+				<!-- Awards Grid -->
+				<div
+					class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+				>
+					<!-- Using JavaScript to populate this efficiently would be cleaner, but hardcoding for clarity in single file -->
+					<!-- Featured Award 1 -->
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+					>
 						<div
-							class="award-img-card featured reveal"
-							style="--delay: 0s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/jugend_forscht_2024.png"
-								alt="Jugend forscht 2024 certificate"
-								loading="lazy"
-								decoding="async"
+								alt="Jugend forscht 2024"
+								class="w-full h-64 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div class="caption" data-i18n="award_jf_2024">
-								Jugend forscht 2024 - 2nd Prize
-							</div>
 						</div>
+						<p
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_jf_2024"
+						>
+							Jugend forscht 2024 - 2nd Prize
+						</p>
+					</div>
+					<!-- Featured Award 2 -->
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+						style="transition-delay: 50ms"
+					>
 						<div
-							class="award-img-card featured reveal"
-							style="--delay: 0.05s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/jugend_forscht_cib_2024.png"
-								alt="Jugend forscht CIB award"
-								loading="lazy"
-								decoding="async"
+								alt="CIB Award"
+								class="w-full h-64 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div class="caption" data-i18n="award_jf_cib_2024">
-								Jugend forscht 2024 - CIB Award
-							</div>
 						</div>
+						<p
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_jf_cib_2024"
+						>
+							Jugend forscht 2024 - CIB Award
+						</p>
+					</div>
+					<!-- Featured Award 3 -->
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+						style="transition-delay: 100ms"
+					>
 						<div
-							class="award-img-card featured reveal"
-							style="--delay: 0.1s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/bwinf_2023.png"
-								alt="Bundeswettbewerb Informatik certificate"
-								loading="lazy"
-								decoding="async"
+								alt="BWINF 2023"
+								class="w-full h-64 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div class="caption" data-i18n="award_bwinf_2023">
-								Bundeswettbewerb Informatik (2022/23)
-							</div>
 						</div>
+						<p
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_bwinf_2023"
+						>
+							Bundeswettbewerb Informatik (2022/23)
+						</p>
+					</div>
+					<!-- Featured Award 4 -->
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+						style="transition-delay: 150ms"
+					>
 						<div
-							class="award-img-card featured reveal"
-							style="--delay: 0.15s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/math_olympiad_2019.png"
-								alt="Mathematics Olympiad 2019 award"
-								loading="lazy"
-								decoding="async"
+								alt="Math Olympiad"
+								class="w-full h-64 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div class="caption" data-i18n="award_math_2019">
-								Mathematics Olympiad - 3rd Prize
-							</div>
 						</div>
+						<p
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_math_2019"
+						>
+							Math Olympiad - 3rd Prize
+						</p>
+					</div>
 
+					<!-- More awards row (visual filler) -->
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+					>
 						<div
-							class="award-img-card reveal"
-							style="--delay: 0s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/eyp_2024.png"
-								alt="European Youth Parliament certificate"
-								loading="lazy"
-								decoding="async"
+								alt="EYP"
+								class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div class="caption" data-i18n="award_eyp_2024">
-								European Youth Parliament (2023/24)
-							</div>
 						</div>
+						<p
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_eyp_2024"
+						>
+							EYP Delegate (2023/24)
+						</p>
+					</div>
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+						style="transition-delay: 50ms"
+					>
 						<div
-							class="award-img-card reveal"
-							style="--delay: 0.05s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/biber_2023.png"
-								alt="Informatik Biber 2023 award"
-								loading="lazy"
-								decoding="async"
+								alt="Biber"
+								class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div class="caption" data-i18n="award_biber_2023">
-								Informatik Biber - 2nd Prize
-							</div>
 						</div>
+						<p
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_biber_2023"
+						>
+							Informatik Biber - 2nd Prize
+						</p>
+					</div>
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+						style="transition-delay: 100ms"
+					>
 						<div
-							class="award-img-card reveal"
-							style="--delay: 0.1s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/jwinf_2023.png"
-								alt="Jugendwettbewerb Informatik certificate"
-								loading="lazy"
-								decoding="async"
+								alt="JWINF"
+								class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div class="caption" data-i18n="award_jwinf_2023">
-								Jugendwettbewerb Informatik (2022/23)
-							</div>
 						</div>
+						<p
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_jwinf_2023"
+						>
+							JWINF (2022/23)
+						</p>
+					</div>
+					<div
+						class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item"
+						onclick="openLightbox(this)"
+						style="transition-delay: 150ms"
+					>
 						<div
-							class="award-img-card reveal"
-							style="--delay: 0.15s"
-							onclick="openLightbox(this)"
+							class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5"
 						>
 							<img
 								src="./Preise/images/kangaroo_2024.png"
-								alt="Kangaroo Mathematics 2024 certificate"
-								loading="lazy"
-								decoding="async"
+								alt="Kangaroo"
+								class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-105 transition-transform"
 							/>
-							<div
-								class="caption"
-								data-i18n="award_kangaroo_2024"
-							>
-								Kangaroo Mathematics (2024)
-							</div>
 						</div>
-						<div
-							class="award-img-card reveal"
-							style="--delay: 0.15s"
-							onclick="openLightbox(this)"
-						>
-							<img
-								src="./Preise/images/kangaroo_2019.png"
-								alt="Kangaroo Mathematics 2019 certificate"
-								loading="lazy"
-								decoding="async"
-							/>
-							<div
-								class="caption"
-								data-i18n="award_kangaroo_2019"
-							>
-								Kangaroo Mathematics (2019)
-							</div>
-						</div>
-					</div>
-				</section>
-
-				<section id="contact" class="contact-section">
-					<div class="section-header reveal">
-						<h2 data-i18n="contact_title">Let's Connect</h2>
 						<p
-							class="section-subtitle"
-							data-i18n="contact_subtitle"
+							class="text-center font-bold text-text-main text-sm"
+							data-i18n="award_kangaroo_2024"
 						>
-							If you are curious about my work or want to say hi,
-							I would love to hear from you.
+							Kangaroo Math (2024)
 						</p>
 					</div>
-					<div class="contact-grid">
-						<div class="contact-card reveal">
-							<div class="contact-icon">
-								<i
-									class="fas fa-paper-plane"
-									aria-hidden="true"
-								></i>
-							</div>
-							<h3 data-i18n="contact_h2">Send me a message</h3>
-							<p data-i18n="contact_p">
-								Email is the easiest way to reach me and I
-								usually reply within a day.
-							</p>
-							<a href="mailto:tom@szenessy.de" class="btn"
-								>tom@szenessy.de</a
-							>
-							<div class="contact-social">
-								<span
-									class="contact-social-label"
-									data-i18n="contact_social_label"
-									>Find me here:</span
-								>
-								<div class="contact-social-links">
-									<a
-										href="https://www.linkedin.com/in/tom-szenessy"
-										target="_blank"
-										rel="noopener"
-										aria-label="LinkedIn"
-										><i class="fab fa-linkedin"></i
-									></a>
-									<a
-										href="https://github.com/TomSzenessy"
-										target="_blank"
-										rel="noopener"
-										aria-label="GitHub"
-										><i class="fab fa-github"></i
-									></a>
-									<a
-										href="https://www.youtube.com/@tomsze"
-										target="_blank"
-										rel="noopener"
-										aria-label="YouTube"
-										><i class="fab fa-youtube"></i
-									></a>
-								</div>
-							</div>
-						</div>
+				</div>
+			</section>
+
+			<!-- Contact Section -->
+			<section id="contact" class="py-20 mb-20">
+				<div class="text-center mb-16 reveal-item">
+					<h2 class="font-heading text-4xl text-text-main mb-4">
+						Let's Connect
+					</h2>
+					<p class="text-text-muted text-lg max-w-2xl mx-auto">
+						If you are curious about my work or want to say hi, I
+						would love to hear from you.
+					</p>
+				</div>
+
+				<div
+					class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+				>
+					<!-- Direct Contact -->
+					<div
+						class="bg-white p-10 rounded-3xl shadow-lg border border-black/5 hover:shadow-xl transition-shadow reveal-item text-center md:text-left"
+					>
 						<div
-							class="contact-panel reveal"
-							style="--delay: 0.05s"
+							class="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center text-accent text-xl mb-6 mx-auto md:mx-0"
 						>
-							<h3 data-i18n="contact_topics_title">
-								What I'm excited about
-							</h3>
-							<ul class="contact-topics">
-								<li data-i18n="contact_topic_1">
-									Internships, student projects, and research
-								</li>
-								<li data-i18n="contact_topic_2">
-									AI tools that make life simpler and kinder
-								</li>
-								<li data-i18n="contact_topic_3">
-									Creative collaborations, videos, or
-									community ideas
-								</li>
-							</ul>
-							<p class="contact-note" data-i18n="contact_note">
-								If you are not sure, just say hi. I am happy to
-								chat.
-							</p>
+							<i class="fas fa-paper-plane"></i>
+						</div>
+						<h3 class="font-heading text-2xl mb-3">
+							Slide into my DMs
+						</h3>
+						<p class="text-text-muted mb-8">
+							Email is the easiest way to reach me and I usually
+							reply within a day.
+						</p>
+						<a
+							href="mailto:tom@szenessy.de"
+							class="inline-block bg-gradient-to-br from-accent to-orange-400 text-white px-8 py-3 rounded-full font-bold shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 hover:-translate-y-1 transition-all"
+						>
+							tom@szenessy.de
+						</a>
+						<div class="mt-8 pt-8 border-t border-black/5">
+							<span
+								class="text-xs font-bold text-text-muted uppercase tracking-wider block mb-4"
+								>Find me here:</span
+							>
+							<div
+								class="flex justify-center md:justify-start gap-6 text-2xl text-text-muted"
+							>
+								<a
+									href="https://www.youtube.com/@tomsze"
+									target="_blank"
+									class="text-[#ff0000] hover:scale-110 transition-transform"
+									><i class="fab fa-youtube"></i
+								></a>
+								<a
+									href="https://www.linkedin.com/in/tom-szenessy"
+									target="_blank"
+									class="text-[#0a66c2] hover:scale-110 transition-transform"
+									><i class="fab fa-linkedin"></i
+								></a>
+								<a
+									href="https://github.com/TomSzenessy"
+									target="_blank"
+									class="text-[#1f1f1f] hover:scale-110 transition-transform"
+									><i class="fab fa-github"></i
+								></a>
+							</div>
+
+							<div
+								class="text-[10px] text-text-muted/30 italic text-accent hover:opacity-100 transition-all cursor-default select-none pt-2"
+								data-i18n="quote_github_commit"
+							>
+								Life is like a GitHub Repo – it doesn’t work if
+								you don’t commit...
+							</div>
 						</div>
 					</div>
-				</section>
 
-				<footer>
-					<p data-i18n="footer_made_with">
-						Made with warmth and curiosity by Tom Szenessy &copy;
-						2026.
-					</p>
-					<p class="footer-note">Munich • tom@szenessy.de</p>
-				</footer>
-			</div>
+					<!-- Topics Panel -->
+					<div
+						class="bg-white p-10 rounded-3xl shadow-lg border border-black/5 hover:shadow-xl transition-shadow reveal-item"
+						style="transition-delay: 100ms"
+					>
+						<h3 class="font-heading text-2xl mb-6">
+							What I'm excited about
+						</h3>
+						<ul class="space-y-4">
+							<li class="flex gap-3 text-text-muted">
+								<span
+									class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"
+								></span>
+								<span
+									>Internships, student projects, and
+									research</span
+								>
+							</li>
+							<li class="flex gap-3 text-text-muted">
+								<span
+									class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"
+								></span>
+								<span
+									>AI tools that make life simpler and
+									kinder</span
+								>
+							</li>
+							<li class="flex gap-3 text-text-muted">
+								<span
+									class="w-2 h-2 rounded-full bg-accent mt-2 shrink-0"
+								></span>
+								<span
+									>Creative collaborations, videos, or
+									community ideas</span
+								>
+							</li>
+						</ul>
+						<p
+							class="mt-8 text-text-muted italic opacity-80 border-t border-black/5 pt-6"
+						>
+							If you are not sure, just say hi. I am happy to
+							chat.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<footer class="text-center pb-12 pt-12 text-text-muted/70 text-sm">
+				<p data-i18n="footer_made_with" data-i18n-html>
+					Made with warmth and curiosity by Tom Szenessy &copy; 2026.
+				</p>
+				<p class="mt-2">Munich • tom@szenessy.de</p>
+				<div
+					class="mt-4 text-[10px] italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none"
+					data-i18n="quote_chocolates"
+				>
+					“Life is like a box of chocolates. You never know what
+					you’re gonna get.” – Willy Wonka
+				</div>
+			</footer>
 		</main>
 
-		<div class="peeking-tom" id="peekingTom">
-			<div class="peeking-bubble" data-i18n="peeking_bubble">
+		<!-- Peeking Tom -->
+		<div
+			id="peekingTom"
+			class="fixed -bottom-[140px] right-6 w-28 h-28 z-50 transition-all duration-75 ease-linear pointer-events-none drop-shadow-xl"
+		>
+			<div
+				id="peekingBubble"
+				class="absolute -top-12 right-16 bg-white px-4 py-2 rounded-2xl text-sm font-bold shadow-md border border-black/5 opacity-0 transition-opacity duration-300 whitespace-nowrap after:content-[''] after:absolute after:right-4 after:-bottom-2 after:border-l-8 after:border-r-8 after:border-t-8 after:border-t-white after:border-transparent"
+				data-i18n="peeking_bubble"
+			>
 				Thanks for scrolling!
 			</div>
 			<img
 				src="./Fotos/Tom%20Passfoto.png"
-				alt="Tom peeking in"
-				loading="lazy"
-				decoding="async"
+				alt="Tom peeking"
+				class="w-full h-full object-contain"
 			/>
 		</div>
 
-		<div class="lightbox" id="lightbox">
-			<span class="lightbox-close" onclick="closeLightbox()"
-				>&times;</span
+		<!-- Lightbox -->
+		<div
+			id="lightbox"
+			class="fixed inset-0 bg-black/90 z-[60] hidden flex justify-center items-center backdrop-blur-sm opacity-0 transition-opacity duration-300"
+		>
+			<button
+				onclick="closeLightbox()"
+				class="absolute top-8 right-8 text-white text-5xl hover:text-accent transition-colors"
 			>
-			<img src="" alt="Certificate" id="lightboxImg" />
+				&times;
+			</button>
+			<img
+				id="lightboxImg"
+				src=""
+				class="max-w-[90%] max-h-[90%] rounded-lg shadow-2xl transform scale-95 transition-transform duration-300"
+			/>
 		</div>
 
-		<script src="translations.js"></script>
-		<script src="lang-switcher.js"></script>
+		<!-- Logic Script -->
 		<script>
-			const peekingTom = document.getElementById('peekingTom');
-			const peekingBubble = peekingTom.querySelector('.peeking-bubble');
+			// --- 1. Canvas Particle System ---
+			const canvas = document.getElementById('bg-canvas');
+			const ctx = canvas.getContext('2d');
+			let width, height;
+			let particles = [];
 
-			function openLightbox(card) {
-				const src = card.querySelector('img').src;
-				document.getElementById('lightboxImg').src = src;
-				document.getElementById('lightbox').classList.add('active');
+			function resize() {
+				width = canvas.width = window.innerWidth;
+				height = canvas.height = window.innerHeight;
 			}
-			function closeLightbox() {
-				document.getElementById('lightbox').classList.remove('active');
+			window.addEventListener('resize', resize);
+			resize();
+
+			class Particle {
+				constructor() {
+					this.x = Math.random() * width;
+					this.y = Math.random() * height;
+					this.vx = (Math.random() - 0.5) * 0.3; // Very slow movement
+					this.vy = (Math.random() - 0.5) * 0.3;
+					this.size = Math.random() * 2 + 1;
+				}
+				update() {
+					this.x += this.vx;
+					this.y += this.vy;
+					if (this.x < 0) this.x = width;
+					if (this.x > width) this.x = 0;
+					if (this.y < 0) this.y = height;
+					if (this.y > height) this.y = 0;
+				}
+				draw() {
+					ctx.beginPath();
+					ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+					ctx.fillStyle = 'rgba(208, 122, 61, 0.15)'; // Accent color, low opacity
+					ctx.fill();
+				}
 			}
-			document
-				.getElementById('lightbox')
-				.addEventListener('click', function (e) {
-					if (e.target === this) closeLightbox();
+
+			// Create particles
+			for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+			function animate() {
+				ctx.clearRect(0, 0, width, height);
+
+				// Draw connections
+				particles.forEach((p, i) => {
+					p.update();
+					p.draw();
+					// Connect nearby particles
+					for (let j = i + 1; j < particles.length; j++) {
+						const p2 = particles[j];
+						const dx = p.x - p2.x;
+						const dy = p.y - p2.y;
+						const dist = Math.sqrt(dx * dx + dy * dy);
+						if (dist < 150) {
+							ctx.beginPath();
+							ctx.strokeStyle = `rgba(208, 122, 61, ${0.1 - dist / 1500})`;
+							ctx.lineWidth = 1;
+							ctx.moveTo(p.x, p.y);
+							ctx.lineTo(p2.x, p2.y);
+							ctx.stroke();
+						}
+					}
 				});
+				requestAnimationFrame(animate);
+			}
+			animate();
 
+			// --- 2. Scroll Reveal Logic ---
+			const observerOptions = {
+				threshold: 0.1,
+				rootMargin: '0px 0px -50px 0px'
+			};
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('active');
+						observer.unobserve(entry.target);
+					}
+				});
+			}, observerOptions);
+
+			document
+				.querySelectorAll('.reveal-item')
+				.forEach((el) => observer.observe(el));
+
+			// --- 3. Peeking Tom & Nav Logic ---
+			const peekingTom = document.getElementById('peekingTom');
+			const peekingBubble = document.getElementById('peekingBubble');
 			const sections = document.querySelectorAll(
-				'header, section, .parallax-section'
+				'header, section, #quotes'
 			);
 			const navDots = document.querySelectorAll('.side-nav a');
 
-			const updateScrollUI = () => {
-				let current = 'home';
-				const scrollPos = window.scrollY + 150;
+			window.addEventListener(
+				'scroll',
+				() => {
+					const scrollPercent =
+						window.scrollY /
+						(document.body.scrollHeight - window.innerHeight);
 
-				sections.forEach((section) => {
-					const id = section.getAttribute('id');
-					if (id && scrollPos >= section.offsetTop) {
-						current = id;
-					}
-				});
+					// Peeking Tom Logic
+					// Start showing at 5% scroll, fully out at 70% scroll
+					const start = 0.05;
+					const end = 0.7;
+					const progress = Math.min(
+						Math.max((scrollPercent - start) / (end - start), 0),
+						1
+					);
 
-				if (
-					window.innerHeight + window.scrollY >=
-					document.body.offsetHeight - 120
-				) {
-					current = 'contact';
-				}
+					peekingTom.style.bottom = `${-140 + progress * 130}px`;
+					peekingTom.style.transform = `rotate(${progress * -10}deg)`;
+					peekingBubble.style.opacity = progress > 0.8 ? '1' : '0';
 
-				navDots.forEach((dot) => {
-					dot.classList.remove('active');
-					const targetId = dot.getAttribute('href').substring(1);
-					if (
-						targetId === current ||
-						(current === 'quotes' && targetId === 'home')
-					) {
-						dot.classList.add('active');
-					}
-				});
-
-				const scrollable =
-					document.documentElement.scrollHeight - window.innerHeight;
-				const progress =
-					scrollable > 0 ? window.scrollY / scrollable : 0;
-				const start = 0.05;
-				const end = 0.7;
-				const clamped = Math.min(
-					Math.max((progress - start) / (end - start), 0),
-					1
-				);
-
-				peekingTom.style.bottom = `${-130 + clamped * 130}px`;
-				peekingTom.style.transform = `rotate(${clamped * -10}deg)`;
-				peekingBubble.style.opacity = clamped > 0.45 ? '1' : '0';
-			};
-
-			let ticking = false;
-			const onScroll = () => {
-				if (!ticking) {
-					window.requestAnimationFrame(() => {
-						updateScrollUI();
-						ticking = false;
+					// Active Nav State
+					let current = '';
+					sections.forEach((section) => {
+						const sectionTop = section.offsetTop;
+						if (scrollY >= sectionTop - 200) {
+							current = section.getAttribute('id');
+						}
 					});
-					ticking = true;
-				}
-			};
 
-			window.addEventListener('scroll', onScroll, { passive: true });
-			window.addEventListener('resize', onScroll);
-			updateScrollUI();
+					// Handle Quotes section exception for navigation (keep Home active)
+					if (current === 'quotes') current = 'home';
 
-			const revealItems = document.querySelectorAll('.reveal');
-			const prefersReducedMotion = window.matchMedia(
-				'(prefers-reduced-motion: reduce)'
-			).matches;
+					navDots.forEach((dot) => {
+						dot.classList.remove('bg-accent', 'scale-125');
+						dot.classList.add('bg-text-muted');
+						const span = dot.querySelector('span');
+						if (span) span.classList.remove('opacity-100');
 
-			if (prefersReducedMotion) {
-				revealItems.forEach((item) => item.classList.add('in-view'));
-			} else {
-				const revealObserver = new IntersectionObserver(
-					(entries, observer) => {
-						entries.forEach((entry) => {
-							if (entry.isIntersecting) {
-								entry.target.classList.add('in-view');
-								observer.unobserve(entry.target);
-							}
-						});
-					},
-					{ threshold: 0.15 }
-				);
+						if (dot.getAttribute('href') === `#${current}`) {
+							dot.classList.remove('bg-text-muted');
+							dot.classList.add('bg-accent', 'scale-125');
+							// We don't force opacity-100 here to keep it clean, only on hover
+						}
+					});
+				},
+				{ passive: true }
+			);
 
-				revealItems.forEach((item) => revealObserver.observe(item));
+			// --- 4. Lightbox Logic ---
+			const lightbox = document.getElementById('lightbox');
+			const lightboxImg = document.getElementById('lightboxImg');
+
+			function openLightbox(el) {
+				const img = el.querySelector('img');
+				lightboxImg.src = img.src;
+				lightbox.classList.remove('hidden');
+				// Small timeout to allow display:flex to apply before opacity transition
+				setTimeout(() => {
+					lightbox.classList.remove('opacity-0');
+					lightboxImg.classList.remove('scale-95');
+					lightboxImg.classList.add('scale-100');
+				}, 10);
 			}
+
+			function closeLightbox() {
+				lightbox.classList.add('opacity-0');
+				lightboxImg.classList.remove('scale-100');
+				lightboxImg.classList.add('scale-95');
+				setTimeout(() => {
+					lightbox.classList.add('hidden');
+				}, 300);
+			}
+
+			// Close on background click
+			lightbox.addEventListener('click', (e) => {
+				if (e.target === lightbox) closeLightbox();
+			});
+
+			// Close on Escape key
+			document.addEventListener('keydown', (e) => {
+				if (e.key === 'Escape') closeLightbox();
+			});
 		</script>
+		<script src="translations.js"></script>
+		<script src="lang-switcher.js"></script>
 	</body>
 </html>

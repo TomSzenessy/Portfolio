@@ -18,20 +18,17 @@ function updateContent() {
         }
     });
 
-    // Update active state in lang selector
-    document.querySelectorAll('.lang-link').forEach(link => {
-        link.classList.toggle('active', link.getAttribute('onclick').includes(lang));
+    // Update active state in lang selector buttons
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        const btnLang = btn.getAttribute('data-lang');
+        if (btnLang === lang) {
+            btn.classList.add('text-accent', 'underline', 'underline-offset-4');
+            btn.classList.remove('text-text-muted');
+        } else {
+            btn.classList.remove('text-accent', 'underline', 'underline-offset-4');
+            btn.classList.add('text-text-muted', 'hover:text-accent');
+        }
     });
-
-    // Specific update for funny quote on home page
-    const quoteElement = document.querySelector('.parallax-quote blockquote');
-    const citeElement = document.querySelector('.parallax-quote cite');
-    if (quoteElement && langData.parallax_quote) {
-        quoteElement.innerText = langData.parallax_quote;
-    }
-    if (citeElement && langData.parallax_cite) {
-        citeElement.innerText = langData.parallax_cite;
-    }
 }
 
 function setLanguage(lang) {
