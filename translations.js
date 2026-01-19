@@ -121,7 +121,7 @@ const translations = {
 		contact_topic_3: 'Creative collaborations, videos, or community ideas',
 		contact_note: 'If you are not sure, just say hi. I am happy to chat.',
 		footer_made_with:
-			'Made with warmth and curiosity by Tom Szenessy &copy; 2026.',
+			'Made with ♥ and curiosity by Tom Szenessy &copy; 2026.',
 		footer_location: 'Munich',
 		peeking_bubble: 'Thanks for scrolling!',
 		quote_coding_hours: 'Weeks of coding can save you hours of planning.',
@@ -176,7 +176,7 @@ const translations = {
 		comm_title: 'Werbespot für Programmierkurs',
 		comm_desc:
 			'Ein spielerischer Spot, den ich während meines Austauschjahres gedreht und geschnitten habe. Ich liebe Storytelling mit Kamera und Ton.',
-		about_h2: 'Mehr als nur Code',
+		about_h2: 'Über mich',
 		about_p1:
 			'Ich mag Technologie, die warm und verständlich wirkt. Mein Weg begann mit Hardware-Experimenten und führte zu Software und KI.',
 		about_p2:
@@ -263,7 +263,7 @@ const translations = {
 		contact_note:
 			'Wenn du unsicher bist, sag einfach Hallo. Ich freue mich auf den Austausch.',
 		footer_made_with:
-			'Mit Wärme und Neugier gemacht von Tom Szenessy &copy; 2026.',
+			'Mit ♥ und Neugier gemacht von Tom Szenessy &copy; 2026.',
 		footer_location: 'München',
 		peeking_bubble: 'Danke fürs Scrollen!',
 		quote_coding_hours:
@@ -320,7 +320,7 @@ const translations = {
 		comm_title: 'Comercial de clase de programación',
 		comm_desc:
 			'Un comercial divertido grabado y editado durante mi año de intercambio. Me encanta contar historias con cámara y sonido.',
-		about_h2: 'Más que solo código',
+		about_h2: 'Sobre mí',
 		about_p1:
 			'Me gusta la tecnología que se siente cálida y comprensible. Mi camino empezó con experimentos de hardware y creció hacia el software y la IA.',
 		about_p2:
@@ -410,7 +410,7 @@ const translations = {
 		contact_note:
 			'Si no estás seguro, solo di hola. Estaré encantado de charlar.',
 		footer_made_with:
-			'Hecho con calidez y curiosidad por Tom Szenessy &copy; 2026.',
+			'Hecho con ♥ y curiosidad por Tom Szenessy &copy; 2026.',
 		footer_location: 'Múnich',
 		peeking_bubble: '¡Gracias por llegar hasta aquí!',
 		quote_coding_hours:
