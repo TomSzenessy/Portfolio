@@ -12,7 +12,7 @@ const projects = [
   {
     id: 'mino',
     youtubeId: 'b2APx-m-Ch4',
-    uploadDate: '8 Dec 2024',
+    uploadDate: '2024-12-08',
     kicker: t('mino_kicker'),
     title: t('mino_title'),
     desc: t('mino_desc'),
@@ -22,7 +22,7 @@ const projects = [
   {
     id: 'vr',
     youtubeId: 'UdyzG_m69-g',
-    uploadDate: '14 Dec 2024',
+    uploadDate: '2024-12-14',
     kicker: t('vr_kicker'),
     title: t('vr_title'),
     desc: t('vr_desc'),
@@ -31,7 +31,7 @@ const projects = [
   {
     id: 'ai_id',
     youtubeId: 'bspxhyMI6RE',
-    uploadDate: '18 May 2025',
+    uploadDate: '2025-05-18',
     kicker: t('ai_id_kicker'),
     title: t('ai_id_title'),
     desc: t('ai_id_desc'),
@@ -40,7 +40,7 @@ const projects = [
   {
     id: 'comm',
     youtubeId: 'rNhRs4DzHv4',
-    uploadDate: '17 Dec 2024',
+    uploadDate: '2024-12-17',
     kicker: t('comm_kicker'),
     title: t('comm_title'),
     desc: t('comm_desc'),
@@ -48,6 +48,17 @@ const projects = [
     delay: 100
   }
 ];
+
+// Generate JSON-LD structured data for all videos
+const videoStructuredData = projects.map(p => ({
+  "@type": "VideoObject",
+  "name": p.title,
+  "description": p.desc,
+  "thumbnailUrl": `https://i.ytimg.com/vi/${p.youtubeId}/mqdefault.jpg`,
+  "uploadDate": p.uploadDate,
+  "contentUrl": `https://www.youtube.com/watch?v=${p.youtubeId}`,
+  "embedUrl": `https://www.youtube.com/embed/${p.youtubeId}`
+}));
 ---
 
 <section id="projects" class="py-20">
@@ -67,7 +78,7 @@ const projects = [
         {projects.map(p => (
             <div class="bg-card-bg rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group" style={`transition-delay: ${p.delay}ms`}>
                 <div class="aspect-video relative overflow-hidden">
-                    <LiteYouTube videoId={p.youtubeId} title={p.title} uploadDate={p.uploadDate} />
+                    <LiteYouTube videoId={p.youtubeId} title={p.title} />
                 </div>
                 <div class="p-8">
                     <p class="text-xs font-bold text-accent uppercase tracking-wider mb-2">
@@ -94,3 +105,9 @@ const projects = [
         ))}
     </div>
 </section>
+
+<!-- Video Structured Data for SEO -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": videoStructuredData
+})} />
