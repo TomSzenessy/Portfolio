@@ -2,7 +2,7 @@
 
 A warm, human-centered personal portfolio showcasing my journey in tech, AI, and creative projects.
 
-[![Live Portfolio](https://img.shields.io/badge/Live-Portfolio-orange?style=for-the-badge)](https://szenessy.com)
+[![Live Portfolio](https://img.shields.io/badge/Live-Portfolio-orange?style=for-the-badge)](https://github.com/TomSzenessy/Portfolio)
 
 ## 🌟 About Me
 I'm a **Business Informatics student at TUM in Munich**. I love turning messy technical problems into simple, calm experiences. My work spans across AI, VR, and product design, always with a human-first approach.
