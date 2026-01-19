@@ -50,17 +50,16 @@ const translations = {
 		ms_math_title: 'Mathematics Olympiad',
 		ms_math_desc: '3rd Prize (2018/19) and regional finalist years.',
 		ms_eyp_title: 'European Youth Parliament',
-		ms_eyp_desc:
-			'Delegate certificate (2023-24). A lesson in collaboration.',
+		ms_eyp_desc: 'Delegate certificate (2023-24)',
 		ms_exchange_title: 'Exchange Year (USA)',
 		ms_exchange_desc:
 			'Class rank 24 / 829 in the United States (Grade 12, 2022-2023).',
 		ms_abi_title: '1.0 Abitur',
-		ms_abi_desc: 'Deutsche Schule Málaga (2025). Top of class.',
+		ms_abi_desc: 'Deutsche Schule Málaga (2025).',
 		experience_title: 'Experience',
 		exp_ecosia_title: 'Ecosia Internship',
 		exp_ecosia_desc:
-			'Built a chatbot prototype that answered Ecosia questions by searching FAQ pages and linking sources. Also shipped a news widget that flags clickbait with a polemic score.',
+			'Two-week internship focused on software development',
 		exp_atech_title: 'Atech Internship',
 		exp_atech_desc:
 			'One-week internship focused on computer installation and maintenance in Malaga.',
@@ -100,8 +99,6 @@ const translations = {
 		photo_caption_wall: 'Also chilling, no sheep.',
 		awards_kicker: 'Awards',
 		honors_title: 'Awards, Certificates, and Prizes',
-		awards_subtitle:
-			'Highlights that reflect curiosity, persistence, and teamwork.',
 		award_jf_2024: 'Jugend forscht 2024 - 2nd Prize',
 		award_jf_cib_2024: 'Jugend forscht 2024 - CIB Award',
 		award_bwinf_2023: 'Bundeswettbewerb Informatik (2022/23)',
@@ -193,16 +190,16 @@ const translations = {
 		ms_math_desc: '3. Preis (2018/19) und regionale Finalrunden.',
 		ms_eyp_title: 'Europäisches Jugendparlament',
 		ms_eyp_desc:
-			'Delegierten-Zertifikat (2023-24). Eine Lektion in Zusammenarbeit.',
+			'Delegierten-Zertifikat (2023-24).',
 		ms_exchange_title: 'Austauschjahr (USA)',
 		ms_exchange_desc:
 			'Klassenrang 24 / 829 in den USA (Klasse 12, 2022-2023).',
 		ms_abi_title: '1,0 Abitur',
-		ms_abi_desc: 'Deutsche Schule Málaga (2025). Jahrgangsbester.',
+		ms_abi_desc: 'Deutsche Schule Málaga (2025).',
 		experience_title: 'Erfahrung',
 		exp_ecosia_title: 'Praktikum bei Ecosia',
 		exp_ecosia_desc:
-			'Chatbot-Prototyp, der FAQ-Seiten durchsucht und Quellen verlinkt; News-Widget, das Clickbait per Polemik-Score erkennt.',
+			'Zweiwochiges Praktikum mit Fokus auf Softwareentwicklung',
 		exp_atech_title: 'Praktikum bei Atech',
 		exp_atech_desc:
 			'Einwöchiges Praktikum mit Fokus auf Installation und Wartung von Computern in Málaga.',
@@ -242,8 +239,6 @@ const translations = {
 		photo_caption_wall: 'Auch am Chillen, ohne Schaf.',
 		awards_kicker: 'Auszeichnungen',
 		honors_title: 'Auszeichnungen, Zertifikate und Preise',
-		awards_subtitle:
-			'Highlights, die Neugier, Ausdauer und Teamwork zeigen.',
 		award_jf_2024: 'Jugend forscht 2024 - 2. Preis',
 		award_jf_cib_2024: 'Jugend forscht 2024 - CIB Award',
 		award_bwinf_2023: 'Bundeswettbewerb Informatik (2022/23)',
@@ -341,16 +336,16 @@ const translations = {
 			'3er Premio (2018/19) y finalista regional durante varios años.',
 		ms_eyp_title: 'Parlamento Europeo de la Juventud',
 		ms_eyp_desc:
-			'Certificado de delegado (2023-24). Una lección de colaboración.',
+			'Certificado de delegado (2023-24).',
 		ms_exchange_title: 'Año de intercambio (EE. UU.)',
 		ms_exchange_desc:
 			'Puesto 24 / 829 en Estados Unidos (12º grado, 2022-2023).',
 		ms_abi_title: '1.0 Abitur',
-		ms_abi_desc: 'Colegio Alemán de Málaga (2025). Primero de la clase.',
+		ms_abi_desc: 'Colegio Alemán de Málaga (2025).',
 		experience_title: 'Experiencia',
 		exp_ecosia_title: 'Prácticas en Ecosia',
 		exp_ecosia_desc:
-			'Prototipo de chatbot que responde preguntas de Ecosia consultando las FAQ y enlazando fuentes. También desarrollé un widget de noticias que detecta clickbait con un puntaje de polémica.',
+			'Prácticas de dos semanas centradas en el desarrollo de software',
 		exp_atech_title: 'Prácticas en Atech',
 		exp_atech_desc:
 			'Prácticas de una semana centradas en la instalación y mantenimiento de equipos en Málaga.',
@@ -390,8 +385,6 @@ const translations = {
 		photo_caption_wall: 'También relajado, sin oveja.',
 		awards_kicker: 'Premios',
 		honors_title: 'Premios, certificados y reconocimientos',
-		awards_subtitle:
-			'Logros que reflejan curiosidad, constancia y trabajo en equipo.',
 		award_jf_2024: 'Jugend forscht 2024 - 2do Premio',
 		award_jf_cib_2024: 'Jugend forscht 2024 - Premio CIB',
 		award_bwinf_2023: 'Bundeswettbewerb Informatik (2022/23)',
