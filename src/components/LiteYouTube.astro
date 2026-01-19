@@ -7,7 +7,7 @@ interface Props {
 const { videoId, title } = Astro.props;
 ---
 
-<div class="lite-youtube relative aspect-video bg-black cursor-pointer group rounded-xl overflow-hidden shadow-lg border border-black/5" data-id={videoId} data-title={title}>
+<div class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg" data-id={videoId} data-title={title}>
     <!-- Poster Image -->
     <img 
         src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} 
