@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Tom Szenessy</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <a href="index.html" class="logo">tom.szenessy</a>
+            <div class="nav-links">
+                <a href="projects.html" data-i18n="nav_projects">Projects</a>
+                <a href="about.html" data-i18n="nav_about">About</a>
+                <a href="awards.html">Awards</a>
+                <a href="contact.html" class="active" data-i18n="nav_contact">Contact</a>
+            </div>
+            <div class="lang-switcher">
+                <span class="lang-link active" onclick="setLanguage('en')">EN</span>
+                <span class="lang-link" onclick="setLanguage('de')">DE</span>
+                <span class="lang-link" onclick="setLanguage('es')">ES</span>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@tomsze" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/TomSzenessy" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </nav>
+
+        <header style="padding: 4rem 0;">
+            <h1 data-i18n="contact_title">Let's Connect</h1>
+            <p class="hero-text" data-i18n="contact_subtitle">I'm always open to discussing new projects, ideas, or opportunities.</p>
+        </header>
+
+        <section id="contact" style="padding-top: 0;">
+            <div style="text-align: center; max-width: 600px; margin: 0 auto; background: white; padding: 3rem; border-radius: 12px; box-shadow: var(--card-shadow);">
+                <div style="margin-bottom: 2rem;">
+                    <i class="fas fa-paper-plane" style="font-size: 3rem; color: var(--accent-warm);"></i>
+                </div>
+                <h2 style="font-size: 1.8rem; margin-bottom: 1rem;" data-i18n="contact_h2">Get in Touch</h2>
+                <p style="margin-bottom: 2rem; color: var(--text-secondary);" data-i18n="contact_p">
+                    The best way to reach me is via email. I try to respond to all inquiries within 24 hours.
+                </p>
+                <a href="mailto:tom@szenessy.de" class="btn" style="font-size: 1.1rem; padding: 1rem 2rem;">tom@szenessy.de</a>
+                
+                <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #eee;">
+                    <p style="font-size: 0.9rem; margin-bottom: 1rem; color: var(--text-secondary);">Or connect with me on social media:</p>
+                    <div style="display: flex; gap: 1.5rem; justify-content: center;">
+                        <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" style="color: #0A66C2; font-size: 1.5rem; text-decoration: none;"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/TomSzenessy" target="_blank" style="color: #181717; font-size: 1.5rem; text-decoration: none;"><i class="fab fa-github"></i></a>
+                        <a href="https://www.youtube.com/@tomsze" target="_blank" style="color: #FF0000; font-size: 1.5rem; text-decoration: none;"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p data-i18n="footer_made_with">Made with warmth by Tom Szenessy &copy; 2026.</p>
+            <p style="margin-top: 0.5rem;">Munich • tom@szenessy.de</p>
+        </footer>
+
+        <script src="translations.js"></script>
+        <script src="lang-switcher.js"></script>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tom Szenessy | Student & Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Side Navigation Dots -->
+    <div class="side-nav">
+        <a href="#home" data-title="Home" class="active"></a>
+        <a href="#projects" data-title="Projects"></a>
+        <a href="#about" data-title="About"></a>
+        <a href="#awards" data-title="Awards"></a>
+        <a href="#contact" data-title="Contact"></a>
+    </div>
+
+    <div class="container">
+        <!-- Navigation -->
+        <nav>
+            <a href="#home" class="logo">tom.szenessy</a>
+            <div class="nav-links">
+                <a href="#projects" data-i18n="nav_projects">Projects</a>
+                <a href="#about" data-i18n="nav_about">About</a>
+                <a href="#awards">Awards</a>
+                <a href="#contact" data-i18n="nav_contact">Contact</a>
+            </div>
+            <div class="lang-switcher">
+                <span class="lang-link active" onclick="setLanguage('en')">EN</span>
+                <span class="lang-link" onclick="setLanguage('de')">DE</span>
+                <span class="lang-link" onclick="setLanguage('es')">ES</span>
+            </div>
+            <div class="social-icons">
+                <a href="https://www.youtube.com/@tomsze" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/TomSzenessy" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </nav>
+
+        <!-- Section 1: Home/Hero -->
+        <header id="home">
+            <div class="profile-img-container">
+                <img src="./Fotos/Tom Passfoto.jpg" alt="Tom Szenessy" class="profile-img">
+            </div>
+            <span class="hero-pre" data-i18n="hero_pre">Hi, I'm Tom</span>
+            <h1 data-i18n="hero_title" data-i18n-html>Building with Heart<br>& Logic</h1>
+            <p class="hero-text" data-i18n="hero_text" data-i18n-html>
+                I'm a <strong>Business Informatics student at TUM</strong> with a passion for solving problems and turning abstract ideas into real-world projects. 
+                Whether it's AI research, competitive math, or petting sheep-I'm just a chill guy who loves solving problems.
+            </p>
+            <div>
+                <a href="#projects" class="btn" data-i18n="btn_see_work">See My Work</a>
+                <a href="#about" class="btn btn-secondary" data-i18n="btn_more_about">More About Me</a>
+            </div>
+        </header>
+    </div> <!-- End Hero Container -->
+
+    <!-- "Experience" Section: Full-Width Parallax Quote -->
+    <div class="parallax-section" id="quotes">
+        <div class="parallax-quote">
+            <div style="margin-bottom: 1.5rem;">
+                <img src="./Fotos/Tom with Sheep.jpg" alt="Sheep Context" style="width: 80px; height: 80px; border-radius: 50%; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+            </div>
+            <blockquote data-i18n="parallax_quote">"I'll be back."</blockquote>
+            <cite data-i18n="parallax_cite">— Christoph Kolumbus</cite>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Section 2: Projects -->
+        <section id="projects">
+            <h1 data-i18n="projects_title">Selected Projects</h1>
+            <p class="hero-text" data-i18n="projects_subtitle">A collection of experiments, products, and ideas I've brought to life.</p>
+            
+            <div class="video-grid" style="margin-top: 3rem;">
+                <!-- Mino -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/b2APx-m-Ch4?si=pWQPqJAvP3h6YDLq" title="Mino Notes App" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 data-i18n="mino_title">Mino Notes App</h3>
+                        <p data-i18n="mino_desc">AI-powered note-taking that reads your mind (almost).</p>
+                    </div>
+                </div>
+                <!-- VR -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/UdyzG_m69-g?si=uaUZdumWvmJvfjIi" title="VR World" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 data-i18n="vr_title">VR World from 3D Scan</h3>
+                        <p data-i18n="vr_desc">Walked into a 3D scan. Literally.</p>
+                    </div>
+                </div>
+                <!-- AI Travel -->
+                <div class="video-card">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/hHTIdMAS61U?si=Hh31gw2e9mIrq5Zu" title="Travel Agent" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <div class="video-info">
+                        <h3 data-i18n="travel_title">AI Travel Agent</h3>
+                        <p data-i18n="travel_desc">A prototype that finds the best deals via chat.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: About -->
+        <section id="about">
+            <div class="about-split">
+                <div class="about-text">
+                    <h2 data-i18n="about_h2">More Than Just Code</h2>
+                    <p style="margin-bottom: 1.5rem;" data-i18n="about_p1">I believe the best technology comes from genuinely understanding the world and the people in it.</p>
+                    <p style="margin-bottom: 2rem;" data-i18n="about_p2" data-i18n-html>Today, I study <strong>Business Informatics</strong> at TUM, bridging the gap between technical complexity and real-world value.</p>
+                    
+                    <h3 data-i18n="milestones_title">Milestones</h3>
+                    <div class="milestone-list">
+                        <div class="milestone">
+                            <i class="fas fa-microscope milestone-icon"></i>
+                            <div class="milestone-content">
+                                <h4 data-i18n="ms_jf_title">Jugend forscht 2024</h4>
+                                <p data-i18n="ms_jf_desc">2nd Prize & CIB Award for AI mindmaps.</p>
+                            </div>
+                        </div>
+                        <div class="milestone">
+                            <i class="fas fa-graduation-cap milestone-icon"></i>
+                            <div class="milestone-content">
+                                <h4 data-i18n="ms_abi_title">1.0 Abitur</h4>
+                                <p data-i18n="ms_abi_desc">Deutsche Schule Málaga (2025). Top of class.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image sheep-container">
+                    <img src="./Fotos/Tom with Sheep.jpg" alt="Tom & Sheep" class="about-img">
+                    <div class="sheep-tooltip" data-i18n="sheep_tooltip" data-i18n-html>
+                        <strong>Strategy:</strong><br>The sheep is the expert. 🐑
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Awards Gallery -->
+        <section id="awards">
+            <h1 style="text-align: center;" data-i18n="honors_title">Awards & Certificates</h1>
+            <div class="awards-gallery" style="margin-top: 3rem;">
+                <div class="award-img-card" onclick="openLightbox(this)">
+                    <img src="./Preise/images/jugend_forscht_2024.png" alt="JF 2024">
+                    <div class="caption" data-i18n="award_jf_2024">Jugend forscht – 2nd Prize</div>
+                </div>
+                <div class="award-img-card" onclick="openLightbox(this)">
+                    <img src="./Preise/images/math_olympiad_2019.png" alt="Math 2019">
+                    <div class="caption" data-i18n="award_math_2019">Math Olympiad – 3rd Prize</div>
+                </div>
+                <div class="award-img-card" onclick="openLightbox(this)">
+                    <img src="./Preise/images/eyp_2024.png" alt="EYP 2024">
+                    <div class="caption" data-i18n="ms_eyp_title">European Youth Parliament</div>
+                </div>
+                <div class="award-img-card" onclick="openLightbox(this)">
+                    <img src="./Preise/images/bwinf_2023.png" alt="BwInf 2023">
+                    <div class="caption" data-i18n="award_bwinf_title">BwInf – CS Competition</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Contact -->
+        <section id="contact" style="text-align: center; padding: 6rem 0;">
+            <h1 data-i18n="contact_title">Let's Connect</h1>
+            <p class="hero-text" data-i18n="contact_subtitle">Always open to new ideas.</p>
+            <div style="margin-top: 3rem; font-size: 1.5rem;">
+                <a href="mailto:tom@szenessy.de" style="color: var(--accent-warm); text-decoration: none; font-weight: 700;">tom@szenessy.de</a>
+            </div>
+        </section>
+
+        <footer>
+            <p data-i18n="footer_made_with">Made with warmth by Tom Szenessy &copy; 2026.</p>
+            <p style="margin-top: 0.5rem;">Munich • tom@szenessy.de</p>
+        </footer>
+
+        <!-- Peeking Tom -->
+        <div class="peeking-tom" id="peekingTom">
+            <div class="peeking-bubble" data-i18n="peeking_bubble">Thanks for scrolling! 👋</div>
+            <img src="./Fotos/Tom Passfoto.jpg" alt="Peeking Tom">
+        </div>
+
+        <!-- Lightbox -->
+        <div class="lightbox" id="lightbox">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <img src="" alt="Certificate" id="lightboxImg">
+        </div>
+
+        <script src="translations.js"></script>
+        <script src="lang-switcher.js"></script>
+        <script>
+            // Peeking Tom Logic
+            const peekingTom = document.getElementById('peekingTom');
+            const peekingBubble = peekingTom.querySelector('.peeking-bubble');
+
+            // Lightbox Logic
+            function openLightbox(card) {
+                const src = card.querySelector('img').src;
+                document.getElementById('lightboxImg').src = src;
+                document.getElementById('lightbox').classList.add('active');
+            }
+            function closeLightbox() {
+                document.getElementById('lightbox').classList.remove('active');
+            }
+            document.getElementById('lightbox').addEventListener('click', function(e) {
+                if (e.target === this) closeLightbox();
+            });
+
+            // Scroll Spy & Side Nav Logic
+            const sections = document.querySelectorAll('header, section');
+            const navDots = document.querySelectorAll('.side-nav a');
+
+            window.addEventListener('scroll', () => {
+                let current = "home";
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (window.scrollY >= (sectionTop - sectionHeight / 3)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navDots.forEach(dot => {
+                    dot.classList.remove('active');
+                    const targetId = dot.getAttribute('href').substring(1);
+                    if (targetId === current || (current === 'quotes' && targetId === 'home')) {
+                        dot.classList.add('active');
+                    }
+                });
+
+                // Peeking Tom Reveal
+                const scrollPos = window.scrollY + window.innerHeight;
+                const totalHeight = document.body.offsetHeight;
+                const triggerPoint = totalHeight - 600; 
+                
+                if (scrollPos > triggerPoint) {
+                    const progress = Math.min((scrollPos - triggerPoint) / 500, 1);
+                    peekingTom.style.bottom = `${-150 + (progress * 130)}px`;
+                    peekingTom.style.transform = `rotate(${progress * -15}deg)`;
+                    peekingBubble.style.opacity = progress > 0.7 ? '1' : '0';
+                } else {
+                    peekingTom.style.bottom = '-150px';
+                    peekingBubble.style.opacity = '0';
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
