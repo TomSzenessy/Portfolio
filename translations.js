@@ -7,7 +7,7 @@ const translations = {
 		nav_contact: 'Contact',
 		hero_title: "Hi, I'm Tom<br />",
 		hero_text:
-			'<strong>Business Informatics student @ TUM</strong> in Munich. I love turning messy technical problems into simple, calm experiences.',
+			'<strong>Business Informatics student @ TUM</strong> in Munich. I love solving messy technical problems and starting new projects',
 		hero_note:
 			'Still learning, always curious, and grateful for opportunities to collaborate.',
 		btn_see_work: 'See My Work',
@@ -147,7 +147,7 @@ const translations = {
 		nav_contact: 'Kontakt',
 		hero_title: 'Hi, ich bin Tom<br />',
 		hero_text:
-			'<strong>Wirtschaftsinformatik-Student an der TUM</strong> in München. Ich liebe es, komplexe technische Probleme zu lösen.',
+			'<strong>Wirtschaftsinformatik-Student an der TUM</strong> in München. Ich liebe es, komplexe technische Probleme zu lösen und neue Projekte zu starten.',
 		hero_note:
 			'Immer am Lernen, immer neugierig und dankbar für Möglichkeiten zur Zusammenarbeit.',
 		btn_see_work: 'Meine Projekte',
@@ -291,7 +291,7 @@ const translations = {
 		nav_contact: 'Contacto',
 		hero_title: 'Hola, soy Tom<br />',
 		hero_text:
-			'<strong>Estudiante de Informática en la TUM</strong> en Múnich. Me encanta convertir problemas técnicos complejos en experiencias sencillas y tranquilas.',
+			'<strong>Estudiante de Informática en la TUM</strong> en Múnich. Me encanta resolver problemas técnicos complejos y empezar nuevos proyectos.',
 		hero_note:
 			'Sigo aprendiendo, siempre curioso y agradecido por las oportunidades de colaborar.',
 		btn_see_work: 'Ver mis proyectos',
