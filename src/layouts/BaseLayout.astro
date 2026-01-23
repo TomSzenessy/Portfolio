@@ -14,7 +14,17 @@ const {
 } = Astro.props;
 
 const siteURL = "https://szenessy.com";
-const ogImage = `${siteURL}/favicon.webp`; // Use favicon as default og:image
+// Note: Using favicon as og:image is a placeholder. For optimal social media sharing,
+// consider creating a dedicated 1200x630px image
+const ogImage = `${siteURL}/favicon.webp`;
+
+// JSON-LD Structured Data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Tom Szenessy",
+  "url": siteURL
+};
 
 import '../styles/global.css';
 ---
@@ -48,14 +58,7 @@ import '../styles/global.css';
         <meta name="twitter:description" content={description} />
         
         <!-- JSON-LD Structured Data -->
-        <script type="application/ld+json">
-        {
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Tom Szenessy",
-          "url": "https://szenessy.com"
-        }
-        </script>
+        <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
