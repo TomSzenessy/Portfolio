@@ -1,16 +1,163 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import ParallaxQuote from '../components/ParallaxQuote.astro';
+import Projects from '../components/Projects.astro';
+import About from '../components/About.astro';
+import Awards from '../components/Awards.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import PeekingTom from '../components/PeekingTom.astro';
+import { translations } from '../i18n/translations';
+import { useTranslations } from '../i18n/utils';
+
+const lang = 'en';
+const t = useTranslations(lang);
+const canonicalURL = new URL('en/', Astro.site || 'https://szenessy.com').href;
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tom Szenessy</title>
-    <meta name="description" content="Tom Szenessy is a friendly Business Informatics student at TUM in Munich, building creative projects with AI, VR, and product design." />
-    <link rel="canonical" href="https://szenessy.com/en/" />
-    <meta http-equiv="refresh" content="0;url=/en/" />
-</head>
-<body>
-    <p>Redirecting to <a href="/en/">English version</a>...</p>
-</body>
-</html>
+
+<BaseLayout 
+    lang={lang} 
+    canonicalURL={canonicalURL}
+    title={t('meta_title')}
+    description={t('meta_description')}
+>
+    <Navigation t={t} lang={lang} />
+    
+    <main class="relative z-10 w-full">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <Hero t={t} />
+        </div>
+        
+        <ParallaxQuote t={t} />
+        
+        <div class="container mx-auto px-6 max-w-6xl">
+            <Projects t={t} />
+            <About t={t} />
+            <Awards t={t} />
+            <Contact t={t} />
+            <Footer t={t} />
+        </div>
+    </main>
+
+    <PeekingTom t={t} />
+
+    <script>
+        // Reveal Animation Observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal-item').forEach(el => observer.observe(el));
+
+        // Canvas Particle System with Connections (Constellation Effect)
+        const canvas = document.getElementById('bg-canvas');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+                let width, height;
+                let particles = [];
+
+                function resize() {
+                    width = canvas.width = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                }
+
+                window.addEventListener('resize', resize);
+                resize();
+
+                class Particle {
+                    constructor() {
+                        this.x = Math.random() * width;
+                        this.y = Math.random() * height;
+                        this.vx = (Math.random() - 0.5) * 0.3;
+                        this.vy = (Math.random() - 0.5) * 0.3;
+                        this.size = Math.random() * 2 + 1;
+                    }
+
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        if (this.x < 0) this.x = width;
+                        if (this.x > width) this.x = 0;
+                        if (this.y < 0) this.y = height;
+                        if (this.y > height) this.y = 0;
+                    }
+
+                    draw() {
+                        if (!ctx) return;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                        ctx.fillStyle = 'rgba(208, 122, 61, 0.15)';
+                        ctx.fill();
+                    }
+                }
+
+                for (let i = 0; i < 40; i++) particles.push(new Particle());
+
+                function animate() {
+                    if (!ctx) return;
+                    ctx.clearRect(0, 0, width, height);
+                    particles.forEach((p, i) => {
+                        p.update();
+                        p.draw();
+                        for (let j = i + 1; j < particles.length; j++) {
+                            const p2 = particles[j];
+                            const dx = p.x - p2.x;
+                            const dy = p.y - p2.y;
+                            const dist = Math.sqrt(dx * dx + dy * dy);
+                            if (dist < 150) {
+                                ctx.beginPath();
+                                ctx.strokeStyle = `rgba(208, 122, 61, ${0.1 - dist / 1500})`;
+                                ctx.lineWidth = 1;
+                                ctx.moveTo(p.x, p.y);
+                                ctx.lineTo(p2.x, p2.y);
+                                ctx.stroke();
+                            }
+                        }
+                    });
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            }
+        }
+
+        // Active Nav State logic
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('header, section, #quotes');
+            const navDots = document.querySelectorAll('.side-nav a');
+            let current = '';
+
+            sections.forEach((section) => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            if (current === 'quotes') current = 'home';
+
+            navDots.forEach((dot) => {
+                dot.classList.remove('bg-accent', 'scale-125');
+                dot.classList.add('bg-text-muted');
+                const span = dot.querySelector('span');
+                if (span) span.classList.remove('opacity-100');
+
+                if (dot.getAttribute('target') !== '_blank' && dot.getAttribute('href') === `#${current}`) {
+                    dot.classList.remove('bg-text-muted');
+                    dot.classList.add('bg-accent', 'scale-125');
+                }
+            });
+        }, { passive: true });
+    </script>
+</BaseLayout>
