@@ -25,7 +25,12 @@ const t = useTranslations(lang as keyof typeof translations);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://szenessy.com').href;
 ---
 
-<BaseLayout lang={lang || 'en'} canonicalURL={canonicalURL}>
+<BaseLayout 
+    lang={lang || 'en'} 
+    canonicalURL={canonicalURL}
+    title={t('meta_title')}
+    description={t('meta_description')}
+>
     <Navigation t={t} lang={lang || 'en'} />
     
     <main class="relative z-10 w-full">
