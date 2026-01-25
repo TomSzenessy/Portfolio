@@ -21,9 +21,20 @@ const ogImage = `${siteURL}/favicon.webp`;
 // JSON-LD Structured Data
 const structuredData = {
   "@context": "https://schema.org",
-  "@type": "WebSite",
+  "@type": "Person",
   "name": "Tom Szenessy",
-  "url": siteURL
+  "url": siteURL,
+  "jobTitle": "Business Informatics Student",
+  "affiliation": {
+    "@type": "Organization",
+    "name": "Technical University of Munich"
+  },
+  "sameAs": [
+    "https://github.com/TomSzenessy",
+    "https://www.linkedin.com/in/tom-szenessy-ab34a6276",
+    "https://www.youtube.com/channel/UCqy-iXx82rhNv9QFqLnVvzQ",
+    "https://drontom.com"
+  ]
 };
 
 import '../styles/global.css';
@@ -56,6 +67,7 @@ import '../styles/global.css';
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
         
         <!-- JSON-LD Structured Data -->
         <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
