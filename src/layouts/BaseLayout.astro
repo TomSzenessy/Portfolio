@@ -2,24 +2,75 @@
 interface Props {
   title?: string;
   description?: string;
+  lang?: string;
+  canonicalURL?: string;
 }
 
 const { 
   title = "Tom Szenessy | Just a chill, friendly Business Informatics Student",
-  description = "Tom Szenessy is a friendly Business Informatics student at TUM in Munich, building creative projects with AI, VR, and product design."
+  description = "Tom Szenessy is a friendly Business Informatics student at TUM in Munich, building creative projects with AI, VR, and product design.",
+  lang = "en",
+  canonicalURL
 } = Astro.props;
+
+const siteURL = "https://szenessy.com";
+// Note: Using favicon as og:image is a placeholder. For optimal social media sharing,
+// consider creating a dedicated 1200x630px image
+const ogImage = `${siteURL}/favicon.webp`;
+
+// JSON-LD Structured Data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Tom Szenessy",
+  "url": siteURL,
+  "jobTitle": "Business Informatics Student",
+  "affiliation": {
+    "@type": "Organization",
+    "name": "Technical University of Munich"
+  },
+  "sameAs": [
+    "https://github.com/TomSzenessy",
+    "https://www.linkedin.com/in/tom-szenessy-ab34a6276",
+    "https://www.youtube.com/channel/UCqy-iXx82rhNv9QFqLnVvzQ",
+    "https://drontom.com"
+  ]
+};
 
 import '../styles/global.css';
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth">
+<html lang={lang} class="scroll-smooth">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
-        <link rel="icon" type="image/webp" href="/favicon.webp" />
         <meta name="description" content={description} />
+        
+        <!-- Favicon -->
+        <link rel="icon" type="image/webp" href="/favicon.webp" />
+        <link rel="shortcut icon" type="image/webp" href="/favicon.webp" />
+        
+        <!-- Canonical URL -->
+        {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+        
+        <!-- Open Graph -->
+        <meta property="og:site_name" content="Tom Szenessy" />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        {canonicalURL && <meta property="og:url" content={canonicalURL} />}
+        <meta property="og:image" content={ogImage} />
+        
+        <!-- Twitter Cards -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={ogImage} />
+        
+        <!-- JSON-LD Structured Data -->
+        <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,5 +1,7 @@
 export const translations = {
 	en: {
+		meta_title: 'Tom Szenessy | Just a chill, friendly Business Informatics Student',
+		meta_description: 'Tom Szenessy is a friendly Business Informatics student at TUM in Munich, building creative projects with AI, VR, and product design.',
 		nav_home: 'Home',
 		nav_projects: 'Projects',
 		nav_about: 'About',
@@ -140,6 +142,8 @@ export const translations = {
 		quote_mom_wake_up: '“Getting up is healthy!” – Mom'
 	},
 	de: {
+		meta_title: 'Tom Szenessy | Wirtschaftsinformatik-Student & Entwickler',
+		meta_description: 'Tom Szenessy ist Wirtschaftsinformatik-Student an der TUM in München. Er entwickelt kreative Projekte mit KI, VR und Produktdesign.',
 		nav_home: 'Start',
 		nav_projects: 'Projekte',
 		nav_about: 'Über mich',
@@ -284,6 +288,8 @@ export const translations = {
 		quote_mom_wake_up: '„Aufstehen ist gesund!“ – Mama'
 	},
 	es: {
+		meta_title: 'Tom Szenessy | Estudiante de Informática de Gestión',
+		meta_description: 'Tom Szenessy es estudiante de Informática de Gestión en la TUM en Múnich, creando proyectos creativos con IA, VR y diseño de producto.',
 		nav_home: 'Inicio',
 		nav_projects: 'Proyectos',
 		nav_about: 'Sobre mí',
