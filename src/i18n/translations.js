@@ -17,7 +17,7 @@ export const translations = {
 		hero_badge_tum: 'TUM Business Informatics',
 		hero_badge_location: 'Based in Munich',
 		hero_badge_focus: 'Dreamer and problem-solver',
-		parallax_quote: '“Let me cook.”',
+		parallax_quote: '“the journey is the reward.”',
 
 		projects_kicker: 'Projects & Videos',
 		projects_title: 'Selected Projects & Videos',
