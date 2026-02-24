@@ -182,7 +182,7 @@ export const translations = {
 			'Ein spielerischer Spot, den ich während meines Austauschjahres gedreht und geschnitten habe. Ich liebe Storytelling mit Kamera und Ton.',
 		about_h2: 'Über mich',
 		about_p1:
-			'Ich mag Technologie, die warm und verständlich wirkt. Mein Weg begann mit Hardware-Experimenten und führte zu Software und KI.',
+			'Ich mag alles was mit Technik zu tun hat arbeite gerne mit Software und KI.',
 		about_p2:
 			'Heute studiere ich <strong>Wirtschaftsinformatik</strong> an der TUM, und verwende KI um meinen Horizont zu erweitern.',
 		about_p3:
@@ -328,7 +328,7 @@ export const translations = {
 			'Un comercial divertido grabado y editado durante mi año de intercambio. Me encanta contar historias con cámara y sonido.',
 		about_h2: 'Sobre mí',
 		about_p1:
-			'Me gusta la tecnología que se siente cálida y comprensible. Mi camino empezó con experimentos de hardware y creció hacia el software y la IA.',
+			'Me gusta todo lo que tiene que ver con tecnología y me encanta experimentar con software e IA.',
 		about_p2:
 			'Hoy estudio <strong>Informática de Gestión</strong> en la TUM, y uso IA para aprender y ampliar mi horizonte.',
 		about_p3:
