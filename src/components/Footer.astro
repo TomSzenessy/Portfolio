@@ -1,9 +1,10 @@
 ---
 interface Props {
   t: (key: string) => string;
+  lang: string;
 }
 
-const { t } = Astro.props;
+const { t, lang } = Astro.props;
 ---
 
 <footer class="text-center pb-12 pt-12 text-text-muted/70 text-sm">
@@ -12,6 +13,13 @@ const { t } = Astro.props;
         <a href="mailto:tom@szenessy.de" class="hover:text-accent">tom@szenessy.de</a>
         <p class="mt-2">{t('footer_location')}</p>
     </div>
+
+    <div class="mt-5 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs">
+        <a href={`/${lang}/privacy-policy/`} class="hover:text-accent">{t('footer_privacy')}</a>
+        <a href={`/${lang}/terms-of-service/`} class="hover:text-accent">{t('footer_terms')}</a>
+        <a href={`/${lang}/impressum/`} class="hover:text-accent">{t('footer_impressum')}</a>
+    </div>
+
     <div class="mt-4 text-[10px] italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
         {t('quote_chocolates')}
     </div>

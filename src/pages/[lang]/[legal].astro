@@ -1,0 +1,345 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { translations } from '../../i18n/translations';
+import { useTranslations } from '../../i18n/utils';
+
+const legalPages = {
+  en: {
+    'privacy-policy': {
+      title: 'Privacy Policy | Tom Szenessy',
+      description: 'Privacy policy for the tom.szenessy portfolio website.',
+      heading: 'Privacy Policy',
+      sections: [
+        {
+          title: '1. Controller',
+          body: [
+            'Tom Szenessy, Willi-Graf-Straße 17, Wohnung 406, 80805 München, Deutschland',
+            'Email: tom.szenessy@tum.de',
+          ],
+        },
+        {
+          title: '2. Data Processing on this Website',
+          body: [
+            'This website does not include forms, user accounts, analytics scripts, or advertising trackers. No personal data is actively collected on the page itself.',
+            'Fonts are hosted locally. No external font providers are called.',
+          ],
+        },
+        {
+          title: '3. Hosting and Technical Logs',
+          body: [
+            'The site is hosted via Cloudflare Pages. When you visit this website, technical server logs (for example IP address, time of request, browser metadata) may be processed by the hosting infrastructure to deliver and secure the site.',
+            'These logs are processed based on legitimate interest in secure and stable website operation (Art. 6(1)(f) GDPR).',
+          ],
+        },
+        {
+          title: '4. Search Engine Visibility',
+          body: [
+            'Google Search Console is used to monitor indexing and visibility in Google Search. Search Console data is provided by Google in aggregated form for website operators.',
+            'No additional user profiling is performed on this site by the website operator.',
+          ],
+        },
+      ],
+    },
+    'terms-of-service': {
+      title: 'Terms of Service | Tom Szenessy',
+      description: 'Terms of service for the tom.szenessy portfolio website.',
+      heading: 'Terms of Service',
+      sections: [
+        {
+          title: '1. Scope',
+          body: ['These terms govern the use of this personal portfolio website.'],
+        },
+        {
+          title: '2. Informational Purpose',
+          body: [
+            'The content is provided for general information about projects, education, and experience.',
+            'No guarantee is given for completeness, accuracy, or permanent availability of content.',
+          ],
+        },
+        {
+          title: '3. Intellectual Property',
+          body: [
+            'Unless otherwise indicated, texts, design, and media on this website are the property of Tom Szenessy.',
+            'Any reuse requires prior permission unless legally permitted.',
+          ],
+        },
+        {
+          title: '4. External Links',
+          body: [
+            'This website may link to third-party platforms (for example YouTube, LinkedIn, GitHub). The respective providers are responsible for their own content and privacy practices.',
+          ],
+        },
+        {
+          title: '5. Liability',
+          body: [
+            'Liability for slight negligence is excluded to the extent permitted by law. Mandatory legal liability remains unaffected.',
+          ],
+        },
+      ],
+    },
+    impressum: {
+      title: 'Impressum | Tom Szenessy',
+      description: 'Legal notice (Impressum) for tom.szenessy.',
+      heading: 'Impressum',
+      sections: [
+        {
+          title: 'Information according to § 5 TMG',
+          body: [
+            'Tom Szenessy',
+            'Willi-Graf-Straße 17, Wohnung 406',
+            '80805 München',
+            'Deutschland',
+            'Email: tom.szenessy@tum.de',
+          ],
+        },
+        {
+          title: 'Responsible for content according to § 18 Abs. 2 MStV',
+          body: [
+            'Tom Szenessy',
+            'Willi-Graf-Straße 17, Wohnung 406, 80805 München, Deutschland',
+          ],
+        },
+      ],
+    },
+  },
+  de: {
+    'privacy-policy': {
+      title: 'Datenschutzerklärung | Tom Szenessy',
+      description: 'Datenschutzerklärung für die Website von Tom Szenessy.',
+      heading: 'Datenschutzerklärung',
+      sections: [
+        {
+          title: '1. Verantwortlicher',
+          body: [
+            'Tom Szenessy, Willi-Graf-Straße 17, Wohnung 406, 80805 München, Deutschland',
+            'E-Mail: tom.szenessy@tum.de',
+          ],
+        },
+        {
+          title: '2. Datenverarbeitung auf dieser Website',
+          body: [
+            'Auf dieser Website gibt es keine Formulare, Benutzerkonten, Analyse-Skripte oder Werbetracker. Auf der Seite selbst werden keine personenbezogenen Daten aktiv erhoben.',
+            'Die verwendeten Schriftarten werden lokal gehostet. Es werden keine externen Font-Dienste eingebunden.',
+          ],
+        },
+        {
+          title: '3. Hosting und technische Protokolle',
+          body: [
+            'Die Website wird über Cloudflare Pages bereitgestellt. Beim Aufruf können technisch notwendige Server-Logdaten (z. B. IP-Adresse, Zeitpunkt, Browser-Metadaten) durch die Hosting-Infrastruktur verarbeitet werden.',
+            'Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem und stabilem Betrieb).',
+          ],
+        },
+        {
+          title: '4. Sichtbarkeit in Suchmaschinen',
+          body: [
+            'Google Search Console wird zur Überwachung der Indexierung und Auffindbarkeit in der Google-Suche verwendet.',
+            'Eine darüber hinausgehende Nutzerprofilbildung durch den Websitebetreiber findet nicht statt.',
+          ],
+        },
+      ],
+    },
+    'terms-of-service': {
+      title: 'Nutzungsbedingungen | Tom Szenessy',
+      description: 'Nutzungsbedingungen für die Website von Tom Szenessy.',
+      heading: 'Nutzungsbedingungen',
+      sections: [
+        {
+          title: '1. Geltungsbereich',
+          body: ['Diese Bedingungen regeln die Nutzung dieser persönlichen Portfolio-Website.'],
+        },
+        {
+          title: '2. Informationscharakter',
+          body: [
+            'Die Inhalte dienen der allgemeinen Information über Projekte, Ausbildung und Erfahrungen.',
+            'Für Vollständigkeit, Aktualität und dauerhafte Verfügbarkeit wird keine Gewähr übernommen.',
+          ],
+        },
+        {
+          title: '3. Urheberrecht',
+          body: [
+            'Soweit nicht anders gekennzeichnet, liegen Texte, Design und Medien bei Tom Szenessy.',
+            'Eine weitergehende Nutzung bedarf der vorherigen Zustimmung, sofern gesetzlich nicht anders erlaubt.',
+          ],
+        },
+        {
+          title: '4. Externe Links',
+          body: [
+            'Diese Website kann auf Plattformen Dritter verlinken (z. B. YouTube, LinkedIn, GitHub). Für deren Inhalte und Datenschutzpraktiken sind ausschließlich die jeweiligen Anbieter verantwortlich.',
+          ],
+        },
+        {
+          title: '5. Haftung',
+          body: [
+            'Die Haftung für leichte Fahrlässigkeit ist im gesetzlich zulässigen Umfang ausgeschlossen. Zwingende gesetzliche Haftung bleibt unberührt.',
+          ],
+        },
+      ],
+    },
+    impressum: {
+      title: 'Impressum | Tom Szenessy',
+      description: 'Impressum für die Website von Tom Szenessy.',
+      heading: 'Impressum',
+      sections: [
+        {
+          title: 'Angaben gemäß § 5 TMG',
+          body: [
+            'Tom Szenessy',
+            'Willi-Graf-Straße 17, Wohnung 406',
+            '80805 München',
+            'Deutschland',
+            'E-Mail: tom.szenessy@tum.de',
+          ],
+        },
+        {
+          title: 'Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV',
+          body: [
+            'Tom Szenessy',
+            'Willi-Graf-Straße 17, Wohnung 406, 80805 München, Deutschland',
+          ],
+        },
+      ],
+    },
+  },
+  es: {
+    'privacy-policy': {
+      title: 'Política de privacidad | Tom Szenessy',
+      description: 'Política de privacidad del sitio web de Tom Szenessy.',
+      heading: 'Política de privacidad',
+      sections: [
+        {
+          title: '1. Responsable',
+          body: [
+            'Tom Szenessy, Willi-Graf-Straße 17, Wohnung 406, 80805 München, Alemania',
+            'Correo electrónico: tom.szenessy@tum.de',
+          ],
+        },
+        {
+          title: '2. Tratamiento de datos en este sitio web',
+          body: [
+            'Este sitio no incluye formularios, cuentas de usuario, scripts de analítica ni rastreadores publicitarios. No se recopilan datos personales activamente en la propia página.',
+            'Las fuentes se alojan localmente. No se cargan proveedores externos de tipografías.',
+          ],
+        },
+        {
+          title: '3. Hosting y registros técnicos',
+          body: [
+            'El sitio está alojado en Cloudflare Pages. Al visitar este sitio, la infraestructura de hosting puede procesar registros técnicos (por ejemplo IP, hora de acceso y metadatos del navegador) para entregar y proteger el servicio.',
+            'La base jurídica es el interés legítimo en la operación segura y estable del sitio (art. 6.1.f RGPD).',
+          ],
+        },
+        {
+          title: '4. Visibilidad en buscadores',
+          body: [
+            'Se utiliza Google Search Console para supervisar la indexación y visibilidad en Google Search.',
+            'El operador del sitio no realiza perfiles adicionales de usuarios.',
+          ],
+        },
+      ],
+    },
+    'terms-of-service': {
+      title: 'Términos de servicio | Tom Szenessy',
+      description: 'Términos de servicio del sitio web de Tom Szenessy.',
+      heading: 'Términos de servicio',
+      sections: [
+        {
+          title: '1. Alcance',
+          body: ['Estos términos regulan el uso de este sitio web personal de portfolio.'],
+        },
+        {
+          title: '2. Finalidad informativa',
+          body: [
+            'El contenido se publica con fines informativos sobre proyectos, formación y experiencia.',
+            'No se garantiza la integridad, exactitud ni disponibilidad permanente de los contenidos.',
+          ],
+        },
+        {
+          title: '3. Propiedad intelectual',
+          body: [
+            'Salvo indicación contraria, los textos, el diseño y los recursos del sitio pertenecen a Tom Szenessy.',
+            'Cualquier reutilización requiere autorización previa salvo que la ley permita lo contrario.',
+          ],
+        },
+        {
+          title: '4. Enlaces externos',
+          body: [
+            'Este sitio puede incluir enlaces a plataformas de terceros (por ejemplo YouTube, LinkedIn, GitHub). Cada proveedor es responsable de su propio contenido y privacidad.',
+          ],
+        },
+        {
+          title: '5. Responsabilidad',
+          body: [
+            'La responsabilidad por negligencia leve queda excluida en la medida permitida por la ley. La responsabilidad legal obligatoria no se ve afectada.',
+          ],
+        },
+      ],
+    },
+    impressum: {
+      title: 'Aviso legal | Tom Szenessy',
+      description: 'Aviso legal (Impressum) del sitio web de Tom Szenessy.',
+      heading: 'Aviso legal (Impressum)',
+      sections: [
+        {
+          title: 'Información conforme al § 5 TMG',
+          body: [
+            'Tom Szenessy',
+            'Willi-Graf-Straße 17, Wohnung 406',
+            '80805 München',
+            'Alemania',
+            'Correo electrónico: tom.szenessy@tum.de',
+          ],
+        },
+        {
+          title: 'Responsable del contenido según § 18 Abs. 2 MStV',
+          body: [
+            'Tom Szenessy',
+            'Willi-Graf-Straße 17, Wohnung 406, 80805 München, Alemania',
+          ],
+        },
+      ],
+    },
+  },
+} as const;
+
+export function getStaticPaths() {
+  const langs = ['en', 'de', 'es'];
+  const legal = ['privacy-policy', 'terms-of-service', 'impressum'];
+  return langs.flatMap((lang) => legal.map((page) => ({ params: { lang, legal: page } })));
+}
+
+const lang = (Astro.params.lang || 'en') as keyof typeof legalPages;
+const legal = Astro.params.legal as keyof (typeof legalPages)['en'];
+const t = useTranslations(lang as keyof typeof translations);
+const langPages = legalPages[lang];
+if (!langPages || !(legal in langPages)) {
+  throw new Error('Invalid legal page route');
+}
+const page = langPages[legal];
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://szenessy.com').href;
+---
+
+<BaseLayout lang={lang} canonicalURL={canonicalURL} title={page.title} description={page.description}>
+  <main class="relative z-10 w-full">
+    <div class="container mx-auto px-6 max-w-4xl py-16">
+      <h1 class="font-heading text-4xl md:text-5xl text-text-main mb-10">{page.heading}</h1>
+
+      <div class="space-y-8 text-text-main/90">
+        {page.sections.map((section) => (
+          <section>
+            <h2 class="font-heading text-2xl mb-3">{section.title}</h2>
+            <div class="space-y-2 text-base leading-relaxed">
+              {section.body.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <div class="mt-12">
+        <a href={`/${lang}/`} class="inline-block text-accent hover:underline decoration-2 underline-offset-4">
+          ← {t('legal_back_home')}
+        </a>
+      </div>
+    </div>
+  </main>
+</BaseLayout>
