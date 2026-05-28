@@ -7,7 +7,7 @@ const legalPages = {
   en: {
     'privacy-policy': {
       title: 'Privacy Policy | Tom Szenessy',
-      description: 'Privacy policy for tom.szenessy portfolio website.',
+      description: 'Privacy policy for the tom.szenessy portfolio website.',
       heading: 'Privacy Policy',
       sections: [
         {
@@ -42,7 +42,7 @@ const legalPages = {
     },
     'terms-of-service': {
       title: 'Terms of Service | Tom Szenessy',
-      description: 'Terms of service for tom.szenessy portfolio website.',
+      description: 'Terms of service for the tom.szenessy portfolio website.',
       heading: 'Terms of Service',
       sections: [
         {
@@ -309,7 +309,11 @@ export function getStaticPaths() {
 const lang = (Astro.params.lang || 'en') as keyof typeof legalPages;
 const legal = Astro.params.legal as keyof (typeof legalPages)['en'];
 const t = useTranslations(lang as keyof typeof translations);
-const page = legalPages[lang]?.[legal] || legalPages.en['privacy-policy'];
+const langPages = legalPages[lang];
+if (!langPages || !(legal in langPages)) {
+  throw new Error('Invalid legal page route');
+}
+const page = langPages[legal];
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://szenessy.com').href;
 ---
 
