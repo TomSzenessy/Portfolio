@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/fraunces";
 
 @theme {
   --color-bg: #f6eee2;

@@ -125,6 +125,10 @@ export const translations = {
 		footer_made_with:
 			'Made with ♥ and curiosity by Tom Szenessy &copy; 2026.',
 		footer_location: 'Munich',
+		footer_privacy: 'Privacy Policy',
+		footer_terms: 'Terms of Service',
+		footer_impressum: 'Impressum',
+		legal_back_home: 'Back to homepage',
 		peeking_bubble: 'Thanks for scrolling!',
 		quote_coding_hours: 'Weeks of coding can save you hours of planning.',
 		quote_bugs: 'The best way to predict bugs is to design them yourself.',
@@ -269,6 +273,10 @@ export const translations = {
 		footer_made_with:
 			'Mit ♥ und Neugier gemacht von Tom Szenessy &copy; 2026.',
 		footer_location: 'München',
+		footer_privacy: 'Datenschutzerklärung',
+		footer_terms: 'Nutzungsbedingungen',
+		footer_impressum: 'Impressum',
+		legal_back_home: 'Zurück zur Startseite',
 		peeking_bubble: 'Danke fürs Scrollen!',
 		quote_coding_hours:
 			'Wochenlanges Programmieren kann dir Stunden der Planung ersparen.',
@@ -418,6 +426,10 @@ export const translations = {
 		footer_made_with:
 			'Hecho con ♥ y curiosidad por Tom Szenessy &copy; 2026.',
 		footer_location: 'Múnich',
+		footer_privacy: 'Política de privacidad',
+		footer_terms: 'Términos de servicio',
+		footer_impressum: 'Aviso legal',
+		legal_back_home: 'Volver al inicio',
 		peeking_bubble: '¡Gracias por llegar hasta aquí!',
 		quote_coding_hours:
 			'Semanas de programación pueden ahorrarte horas de planificación.',

@@ -21,17 +21,18 @@ export function getStaticPaths() {
 }
 
 const { lang } = Astro.params;
-const t = useTranslations(lang as keyof typeof translations);
+const currentLang = lang || 'en';
+const t = useTranslations(currentLang as keyof typeof translations);
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://szenessy.com').href;
 ---
 
 <BaseLayout 
-    lang={lang || 'en'} 
+    lang={currentLang} 
     canonicalURL={canonicalURL}
     title={t('meta_title')}
     description={t('meta_description')}
 >
-    <Navigation t={t} lang={lang || 'en'} />
+    <Navigation t={t} lang={currentLang} />
     
     <main class="relative z-10 w-full">
         <div class="container mx-auto px-6 max-w-6xl">
@@ -45,7 +46,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://szenessy
             <About t={t} />
             <Awards t={t} />
             <Contact t={t} />
-            <Footer t={t} />
+            <Footer t={t} lang={currentLang} />
         </div>
     </main>
 
