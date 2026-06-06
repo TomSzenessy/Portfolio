@@ -12,6 +12,7 @@ const projects = [
   {
     id: 'mino',
     youtubeId: 'b2APx-m-Ch4',
+    thumbnailSrc: '/videos/thumbnails/mino.svg',
     uploadDate: '2024-12-08',
     kicker: t('mino_kicker'),
     title: t('mino_title'),
@@ -22,6 +23,7 @@ const projects = [
   {
     id: 'vr',
     youtubeId: 'UdyzG_m69-g',
+    thumbnailSrc: '/videos/thumbnails/vr.svg',
     uploadDate: '2024-12-14',
     kicker: t('vr_kicker'),
     title: t('vr_title'),
@@ -31,6 +33,7 @@ const projects = [
   {
     id: 'ai_id',
     youtubeId: 'bspxhyMI6RE',
+    thumbnailSrc: '/videos/thumbnails/ai_id.svg',
     uploadDate: '2025-05-18',
     kicker: t('ai_id_kicker'),
     title: t('ai_id_title'),
@@ -40,6 +43,7 @@ const projects = [
   {
     id: 'comm',
     youtubeId: 'rNhRs4DzHv4',
+    thumbnailSrc: '/videos/thumbnails/comm.svg',
     uploadDate: '2024-12-17',
     kicker: t('comm_kicker'),
     title: t('comm_title'),
@@ -54,7 +58,7 @@ const videoStructuredData = projects.map(p => ({
   "@type": "VideoObject",
   "name": p.title,
   "description": p.desc,
-  "thumbnailUrl": `https://i.ytimg.com/vi/${p.youtubeId}/mqdefault.jpg`,
+  "thumbnailUrl": p.thumbnailSrc,
   "uploadDate": p.uploadDate,
   "contentUrl": `https://www.youtube.com/watch?v=${p.youtubeId}`,
   "embedUrl": `https://www.youtube.com/embed/${p.youtubeId}`
@@ -78,7 +82,15 @@ const videoStructuredData = projects.map(p => ({
         {projects.map(p => (
             <div class="bg-card-bg rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group" style={`transition-delay: ${p.delay}ms`}>
                 <div class="aspect-video relative overflow-hidden">
-                    <LiteYouTube videoId={p.youtubeId} title={p.title} />
+                    <LiteYouTube
+                        videoId={p.youtubeId}
+                        title={p.title}
+                        thumbnailSrc={p.thumbnailSrc}
+                        consentTitle={t('youtube_consent_title')}
+                        consentBody={t('youtube_consent_body')}
+                        consentAccept={t('youtube_consent_accept')}
+                        consentCancel={t('youtube_consent_cancel')}
+                    />
                 </div>
                 <div class="p-8">
                     <p class="text-xs font-bold text-accent uppercase tracking-wider mb-2">

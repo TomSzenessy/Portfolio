@@ -24,6 +24,11 @@ export const translations = {
 		projects_subtitle:
 			'Small experiments, student projects, and videos that taught me a lot.',
 		video_watch: 'Watch on YouTube',
+		youtube_consent_title: 'Load YouTube video?',
+		youtube_consent_body:
+			'Only after your consent, this site loads YouTube and data may be sent to Google (e.g. IP address). Your choice is saved locally in this browser.',
+		youtube_consent_accept: 'Allow YouTube',
+		youtube_consent_cancel: 'Not now',
 		mino_kicker: 'AI productivity prototype',
 		mino_title: 'Mino Notes App',
 		mino_desc:
@@ -168,6 +173,11 @@ export const translations = {
 		projects_subtitle:
 			'Kleine Experimente, Studienprojekte und Videos, die mir viel beigebracht haben.',
 		video_watch: 'Auf YouTube ansehen',
+		youtube_consent_title: 'YouTube-Video laden?',
+		youtube_consent_body:
+			'Erst nach deiner Zustimmung wird YouTube geladen und es können Daten an Google übertragen werden (z. B. IP-Adresse). Deine Auswahl wird lokal im Browser gespeichert.',
+		youtube_consent_accept: 'YouTube erlauben',
+		youtube_consent_cancel: 'Nicht jetzt',
 		mino_kicker: 'KI-Produktivität-Prototyp',
 		mino_title: 'Mino Notiz-App',
 		mino_desc:
@@ -318,6 +328,11 @@ export const translations = {
 		projects_subtitle:
 			'Pequeños experimentos, proyectos de estudiante y vídeos que me enseñaron mucho.',
 		video_watch: 'Ver en YouTube',
+		youtube_consent_title: '¿Cargar vídeo de YouTube?',
+		youtube_consent_body:
+			'Solo tras tu consentimiento se cargará YouTube y podrán enviarse datos a Google (p. ej., dirección IP). Tu elección se guarda localmente en este navegador.',
+		youtube_consent_accept: 'Permitir YouTube',
+		youtube_consent_cancel: 'Ahora no',
 		mino_kicker: 'Prototipo de productividad con IA',
 		mino_title: 'Mino Notes App',
 		mino_desc:
