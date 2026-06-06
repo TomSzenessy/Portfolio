@@ -71,6 +71,9 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
         renderIframe() {
             const videoId = this.dataset.id;
             const title = this.dataset.title;
+            if (!videoId || !/^[a-zA-Z0-9_-]+$/.test(videoId)) {
+                return;
+            }
             const iframe = document.createElement('iframe');
             
             iframe.setAttribute('frameborder', '0');
@@ -100,14 +103,33 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
 
                 const dialog = document.createElement('div');
                 dialog.className = 'yt-consent-dialog max-w-md w-full rounded-2xl bg-card-bg border border-white/10 p-6 text-text-main shadow-2xl';
-                dialog.innerHTML = `
-                    <h3 class="font-heading text-2xl mb-3">${title}</h3>
-                    <p class="text-sm text-text-muted mb-6">${body}</p>
-                    <div class="flex gap-3 justify-end">
-                        <button type="button" class="yt-consent-cancel px-4 py-2 rounded-lg border border-white/20 text-sm hover:border-white/40 transition-colors">${cancelLabel}</button>
-                        <button type="button" class="yt-consent-accept px-4 py-2 rounded-lg bg-accent text-white text-sm font-semibold hover:bg-orange-400 transition-colors">${acceptLabel}</button>
-                    </div>
-                `;
+
+                const heading = document.createElement('h3');
+                heading.className = 'font-heading text-2xl mb-3';
+                heading.textContent = title;
+
+                const paragraph = document.createElement('p');
+                paragraph.className = 'text-sm text-text-muted mb-6';
+                paragraph.textContent = body;
+
+                const actions = document.createElement('div');
+                actions.className = 'flex gap-3 justify-end';
+
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'yt-consent-cancel px-4 py-2 rounded-lg border border-white/20 text-sm hover:border-white/40 transition-colors';
+                cancelBtn.textContent = cancelLabel;
+
+                const acceptBtn = document.createElement('button');
+                acceptBtn.type = 'button';
+                acceptBtn.className = 'yt-consent-accept px-4 py-2 rounded-lg bg-accent text-white text-sm font-semibold hover:bg-orange-400 transition-colors';
+                acceptBtn.textContent = acceptLabel;
+
+                actions.appendChild(cancelBtn);
+                actions.appendChild(acceptBtn);
+                dialog.appendChild(heading);
+                dialog.appendChild(paragraph);
+                dialog.appendChild(actions);
 
                 overlay.appendChild(dialog);
                 document.body.appendChild(overlay);
