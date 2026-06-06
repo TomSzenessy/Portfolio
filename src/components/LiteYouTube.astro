@@ -25,7 +25,6 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
     <img 
         src={thumbnailSrc}
         alt={title}
-        loading="eager"
         class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
     />
     
@@ -51,6 +50,22 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
         isValidVideoId = true;
         isIframeRendered = false;
 
+        static hasConsent() {
+            try {
+                return localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
+            } catch {
+                return false;
+            }
+        }
+
+        static storeConsent() {
+            try {
+                localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
+            } catch {
+                // Ignore storage failures and keep consent for current interaction only.
+            }
+        }
+
         constructor() {
             super();
         }
@@ -62,19 +77,16 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
                 console.warn('Invalid YouTube video ID:', videoId);
                 return;
             }
-            if (localStorage.getItem(LiteYouTube.consentStorageKey) === 'true') {
-                this.renderIframe(false);
-            }
             this.addEventListener('click', () => this.addIframe());
         }
 
         async addIframe() {
             if (!this.isValidVideoId) return;
-            const hasConsent = localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
+            const hasConsent = LiteYouTube.hasConsent();
             if (!hasConsent) {
                 const granted = await this.requestConsent();
                 if (!granted) return;
-                localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
+                LiteYouTube.storeConsent();
                 LiteYouTube.renderAllIframes(this);
                 return;
             }
