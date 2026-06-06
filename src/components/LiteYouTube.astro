@@ -2,15 +2,28 @@
 interface Props {
   videoId: string;
   title: string;
+  thumbnailSrc: string;
+  consentTitle: string;
+  consentBody: string;
+  consentAccept: string;
+  consentCancel: string;
 }
 
-const { videoId, title } = Astro.props;
+const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, consentCancel } = Astro.props;
 ---
 
-<lite-youtube class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block" data-id={videoId} data-title={title}>
+<lite-youtube
+    class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block"
+    data-id={videoId}
+    data-title={title}
+    data-consent-title={consentTitle}
+    data-consent-body={consentBody}
+    data-consent-accept={consentAccept}
+    data-consent-cancel={consentCancel}
+>
     <!-- Poster Image -->
     <img 
-        src={`https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`} 
+        src={thumbnailSrc}
         alt={title}
         loading="lazy"
         class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
@@ -33,15 +46,38 @@ const { videoId, title } = Astro.props;
 
 <script>
     class LiteYouTube extends HTMLElement {
+        static consentStorageKey = 'youtube-consent-granted';
+        static consentDialogPromise = null;
+        isValidVideoId = true;
+
         constructor() {
             super();
         }
 
         connectedCallback() {
+            const videoId = this.dataset.id;
+            this.isValidVideoId = Boolean(videoId && /^[a-zA-Z0-9_-]+$/.test(videoId));
+            if (!this.isValidVideoId) {
+                console.warn('Invalid YouTube video ID:', videoId);
+                return;
+            }
             this.addEventListener('click', () => this.addIframe());
         }
 
-        addIframe() {
+        async addIframe() {
+            if (!this.isValidVideoId) return;
+            const hasConsent = localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
+            if (!hasConsent) {
+                const granted = await this.requestConsent();
+                if (!granted) return;
+                localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
+            }
+
+            this.renderIframe();
+        }
+
+        renderIframe() {
+            if (!this.isValidVideoId) return;
             const videoId = this.dataset.id;
             const title = this.dataset.title;
             const iframe = document.createElement('iframe');
@@ -50,11 +86,74 @@ const { videoId, title } = Astro.props;
             iframe.setAttribute('allowfullscreen', '1');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
             iframe.setAttribute('title', title || 'YouTube Video');
-            iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1`);
+            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`);
             iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
             
             this.innerHTML = '';
             this.appendChild(iframe);
+        }
+
+        requestConsent() {
+            if (LiteYouTube.consentDialogPromise) {
+                return LiteYouTube.consentDialogPromise;
+            }
+
+            const title = this.dataset.consentTitle || 'Load YouTube?';
+            const body = this.dataset.consentBody || 'By playing this video, a connection to YouTube will be established.';
+            const acceptLabel = this.dataset.consentAccept || 'Allow YouTube';
+            const cancelLabel = this.dataset.consentCancel || 'Cancel';
+
+            LiteYouTube.consentDialogPromise = new Promise((resolve) => {
+                const overlay = document.createElement('div');
+                overlay.className = 'yt-consent-overlay fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center p-4';
+
+                const dialog = document.createElement('div');
+                dialog.className = 'yt-consent-dialog max-w-md w-full rounded-2xl bg-card-bg border border-white/10 p-6 text-text-main shadow-2xl';
+
+                const heading = document.createElement('h3');
+                heading.className = 'font-heading text-2xl mb-3';
+                heading.textContent = title;
+
+                const paragraph = document.createElement('p');
+                paragraph.className = 'text-sm text-text-muted mb-6';
+                paragraph.textContent = body;
+
+                const actions = document.createElement('div');
+                actions.className = 'flex gap-3 justify-end';
+
+                const cancelBtn = document.createElement('button');
+                cancelBtn.type = 'button';
+                cancelBtn.className = 'yt-consent-cancel px-4 py-2 rounded-lg border border-white/20 text-sm hover:border-white/40 transition-colors';
+                cancelBtn.textContent = cancelLabel;
+
+                const acceptBtn = document.createElement('button');
+                acceptBtn.type = 'button';
+                acceptBtn.className = 'yt-consent-accept px-4 py-2 rounded-lg bg-accent text-white text-sm font-semibold hover:bg-orange-400 transition-colors';
+                acceptBtn.textContent = acceptLabel;
+
+                actions.appendChild(cancelBtn);
+                actions.appendChild(acceptBtn);
+                dialog.appendChild(heading);
+                dialog.appendChild(paragraph);
+                dialog.appendChild(actions);
+
+                overlay.appendChild(dialog);
+                document.body.appendChild(overlay);
+
+                const cleanup = (value) => {
+                    overlay.remove();
+                    LiteYouTube.consentDialogPromise = null;
+                    resolve(value);
+                };
+
+                dialog.querySelector('.yt-consent-cancel').addEventListener('click', () => cleanup(false));
+                dialog.querySelector('.yt-consent-accept').addEventListener('click', () => cleanup(true));
+                overlay.addEventListener('click', (event) => {
+                    if (event.target === overlay) cleanup(false);
+                });
+            });
+
+            return LiteYouTube.consentDialogPromise;
         }
     }
 
