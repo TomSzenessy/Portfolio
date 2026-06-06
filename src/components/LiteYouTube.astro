@@ -48,16 +48,24 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
     class LiteYouTube extends HTMLElement {
         static consentStorageKey = 'youtube-consent-granted';
         static consentDialogPromise = null;
+        isValidVideoId = true;
 
         constructor() {
             super();
         }
 
         connectedCallback() {
+            const videoId = this.dataset.id;
+            this.isValidVideoId = Boolean(videoId && /^[a-zA-Z0-9_-]+$/.test(videoId));
+            if (!this.isValidVideoId) {
+                console.warn('Invalid YouTube video ID:', videoId);
+                return;
+            }
             this.addEventListener('click', () => this.addIframe());
         }
 
         async addIframe() {
+            if (!this.isValidVideoId) return;
             const hasConsent = localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
             if (!hasConsent) {
                 const granted = await this.requestConsent();
@@ -69,11 +77,9 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
         }
 
         renderIframe() {
+            if (!this.isValidVideoId) return;
             const videoId = this.dataset.id;
             const title = this.dataset.title;
-            if (!videoId || !/^[a-zA-Z0-9_-]+$/.test(videoId)) {
-                return;
-            }
             const iframe = document.createElement('iframe');
             
             iframe.setAttribute('frameborder', '0');
@@ -140,8 +146,8 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
                     resolve(value);
                 };
 
-                dialog.querySelector('.yt-consent-cancel')?.addEventListener('click', () => cleanup(false));
-                dialog.querySelector('.yt-consent-accept')?.addEventListener('click', () => cleanup(true));
+                dialog.querySelector('.yt-consent-cancel').addEventListener('click', () => cleanup(false));
+                dialog.querySelector('.yt-consent-accept').addEventListener('click', () => cleanup(true));
                 overlay.addEventListener('click', (event) => {
                     if (event.target === overlay) cleanup(false);
                 });

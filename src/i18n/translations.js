@@ -178,7 +178,7 @@ export const translations = {
 			'Erst nach deiner Zustimmung wird YouTube geladen und es können Daten an Google übertragen werden (z. B. IP-Adresse). Deine Auswahl wird lokal im Browser gespeichert.',
 		youtube_consent_accept: 'YouTube erlauben',
 		youtube_consent_cancel: 'Nicht jetzt',
-		mino_kicker: 'KI-Produktivität-Prototyp',
+		mino_kicker: 'KI-Produktivitäts-Prototyp',
 		mino_title: 'Mino Notiz-App',
 		mino_desc:
 			'Eine KI-Notiz-App, die grobe Gedanken in klare Mindmaps verwandelt. Gebaut für Jugend forscht, inspiriert von chaotischen Notizbüchern.',
