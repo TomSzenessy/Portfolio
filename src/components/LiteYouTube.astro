@@ -25,7 +25,6 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
     <img 
         src={thumbnailSrc}
         alt={title}
-        loading="lazy"
         class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
     />
     
@@ -49,6 +48,23 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
         static consentStorageKey = 'youtube-consent-granted';
         static consentDialogPromise = null;
         isValidVideoId = true;
+        isIframeRendered = false;
+
+        static hasConsent() {
+            try {
+                return localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
+            } catch {
+                return false;
+            }
+        }
+
+        static storeConsent() {
+            try {
+                localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
+            } catch {
+                // Ignore storage failures and keep consent for current interaction only.
+            }
+        }
 
         constructor() {
             super();
@@ -66,18 +82,28 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
 
         async addIframe() {
             if (!this.isValidVideoId) return;
-            const hasConsent = localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
+            const hasConsent = LiteYouTube.hasConsent();
             if (!hasConsent) {
                 const granted = await this.requestConsent();
                 if (!granted) return;
-                localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
+                LiteYouTube.storeConsent();
+                LiteYouTube.renderAllIframes(this);
+                return;
             }
 
-            this.renderIframe();
+            this.renderIframe(true);
         }
 
-        renderIframe() {
-            if (!this.isValidVideoId) return;
+        static renderAllIframes(clickedElement) {
+            document.querySelectorAll('lite-youtube').forEach((element) => {
+                if (element instanceof LiteYouTube) {
+                    element.renderIframe(element === clickedElement);
+                }
+            });
+        }
+
+        renderIframe(autoplay = false) {
+            if (!this.isValidVideoId || this.isIframeRendered) return;
             const videoId = this.dataset.id;
             const title = this.dataset.title;
             const iframe = document.createElement('iframe');
@@ -86,11 +112,12 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
             iframe.setAttribute('allowfullscreen', '1');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
             iframe.setAttribute('title', title || 'YouTube Video');
-            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`);
+            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=${autoplay ? '1' : '0'}&rel=0`);
             iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
             
             this.innerHTML = '';
             this.appendChild(iframe);
+            this.isIframeRendered = true;
         }
 
         requestConsent() {
