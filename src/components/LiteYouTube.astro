@@ -2,18 +2,17 @@
 interface Props {
   videoId: string;
   title: string;
-  thumbnailSrc: string;
   consentTitle: string;
   consentBody: string;
   consentAccept: string;
   consentCancel: string;
 }
 
-const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, consentCancel } = Astro.props;
+const { videoId, title, consentTitle, consentBody, consentAccept, consentCancel } = Astro.props;
 ---
 
 <lite-youtube
-    class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block"
+    class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block bg-[#2d231c]"
     data-id={videoId}
     data-title={title}
     data-consent-title={consentTitle}
@@ -21,26 +20,27 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
     data-consent-accept={consentAccept}
     data-consent-cancel={consentCancel}
 >
-    <!-- Poster Image -->
-    <img 
-        src={thumbnailSrc}
-        alt={title}
-        loading="lazy"
-        class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-    />
-    
-    <!-- Play Button Overlay -->
-    <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white text-2xl shadow-xl group-hover:scale-110 group-hover:bg-orange-400 transition-all duration-300">
-            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+    <!-- Local poster: shown until the visitor grants third-party consent.
+         Deliberately NOT a YouTube URL, so nothing reaches Google early. -->
+    <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center bg-gradient-to-br from-[#3d3028] to-[#241c16]">
+        <div class="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
                 <path d="M8 5.14v14l11-7-11-7z" />
             </svg>
         </div>
+        <span class="text-white/70 text-xs font-semibold tracking-wide">YouTube</span>
     </div>
 
-    <!-- YouTube Logo for Branding -->
-    <div class="absolute bottom-4 right-4 text-white/50 text-xs font-bold pointer-events-none group-hover:text-white/80 transition-colors">
-        YouTube
+    <!-- Real thumbnail: injected only after consent -->
+    <img class="yt-thumb absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500" alt="" aria-hidden="true" loading="lazy" />
+
+    <!-- Play Button Overlay -->
+    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white text-2xl shadow-xl group-hover:scale-110 group-hover:bg-orange-400 transition-all duration-300">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true">
+                <path d="M8 5.14v14l11-7-11-7z" />
+            </svg>
+        </div>
     </div>
 </lite-youtube>
 
@@ -62,12 +62,34 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
                 return;
             }
             this.addEventListener('click', () => this.addIframe());
+            this.syncThumb();
+        }
+
+        hasConsent() {
+            return localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
+        }
+
+        /** Show the real YouTube thumbnail once consent exists (and refresh it if consent was granted later). */
+        syncThumb() {
+            if (!this.hasConsent()) return;
+            const img = this.querySelector<HTMLImageElement>('.yt-thumb');
+            if (!img) return;
+            img.src = `https://i.ytimg.com/vi/${this.dataset.id}/maxresdefault.jpg`;
+            img.addEventListener('load', () => {
+                img.classList.remove('opacity-0');
+                img.classList.add('opacity-100');
+            }, { once: true });
+            // Some uploads lack maxres; fall back to a smaller guaranteed asset.
+            img.addEventListener('error', () => {
+                img.src = `https://i.ytimg.com/vi/${this.dataset.id}/hqdefault.jpg`;
+                img.classList.remove('opacity-0');
+                img.classList.add('opacity-100');
+            }, { once: true });
         }
 
         async addIframe() {
             if (!this.isValidVideoId) return;
-            const hasConsent = localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
-            if (!hasConsent) {
+            if (!this.hasConsent()) {
                 const granted = await this.requestConsent();
                 if (!granted) return;
                 localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
@@ -81,14 +103,14 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
             const videoId = this.dataset.id;
             const title = this.dataset.title;
             const iframe = document.createElement('iframe');
-            
+
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allowfullscreen', '1');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
             iframe.setAttribute('title', title || 'YouTube Video');
             iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`);
             iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
-            
+
             this.innerHTML = '';
             this.appendChild(iframe);
         }
@@ -157,7 +179,6 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
         }
     }
 
-    // Register as a custom element if it hasn't been already
     if (!customElements.get('lite-youtube')) {
         customElements.define('lite-youtube', LiteYouTube);
     }

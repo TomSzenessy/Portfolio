@@ -90,15 +90,25 @@
 /* Language switcher active state */
 .lang-btn {
     color: #6a5c52;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    border-radius: 9999px;
 }
 .lang-btn:hover {
     color: #d07a3d;
+    background-color: rgba(208, 122, 61, 0.1);
 }
-.lang-btn.is-active {
+.lang-btn.is-active,
+.lang-btn[aria-current="true"] {
     color: #d07a3d;
     text-decoration-line: underline;
     text-underline-offset: 4px;
+}
+
+/* Keyboard focus visibility across the site */
+:focus-visible {
+    outline: 3px solid #d07a3d;
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
 .skill-chip {
@@ -109,7 +119,7 @@
     border-radius: 9999px;
     background: rgba(208, 122, 61, 0.12);
     color: #2d231c;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
 }
 .skill-dot {

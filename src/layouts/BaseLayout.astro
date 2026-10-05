@@ -14,9 +14,7 @@ const {
 } = Astro.props;
 
 const siteURL = "https://szenessy.com";
-// Note: Using favicon as og:image is a placeholder. For optimal social media sharing,
-// consider creating a dedicated 1200x630px image
-const ogImage = `${siteURL}/favicon.webp`;
+const ogImage = `${siteURL}/og-image.png`;
 
 // JSON-LD Structured Data
 const structuredData = {
@@ -32,8 +30,7 @@ const structuredData = {
   "sameAs": [
     "https://github.com/TomSzenessy",
     "https://www.linkedin.com/in/tom-szenessy-ab34a6276",
-    "https://www.youtube.com/channel/UCqy-iXx82rhNv9QFqLnVvzQ",
-    "https://drontom.com"
+    "https://www.youtube.com/@tomsze"
   ]
 };
 
@@ -48,9 +45,12 @@ import '../styles/global.css';
         <title>{title}</title>
         <meta name="description" content={description} />
         
-        <!-- Favicon -->
-        <link rel="icon" type="image/webp" href="/favicon.webp" />
-        <link rel="shortcut icon" type="image/webp" href="/favicon.webp" />
+        <!-- Favicon: square 512 master, downscaled by the browser -->
+        <link rel="icon" type="image/webp" href="/favicon.webp" sizes="any" />
+        <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+        <link rel="icon" type="image/png" sizes="256x256" href="/favicon-256.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+        <meta name="theme-color" content="#f6eee2" />
         
         <!-- Canonical URL -->
         {canonicalURL && <link rel="canonical" href={canonicalURL} />}

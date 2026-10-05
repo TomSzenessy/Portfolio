@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# generated video ranking data (rebuilt by prebuild)
+# keep it: the site needs it when building offline
