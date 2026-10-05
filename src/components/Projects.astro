@@ -123,10 +123,10 @@ const videoStructuredData = topVideos.map(v => ({
                             </span>
                         )}
                     </div>
-                    <h3 class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent transition-colors">
+                    <h3 class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent-text-text transition-colors">
                         {v.title}
                     </h3>
-                    <a href={v.watchUrl} target="_blank" rel="noopener" class="inline-flex items-center py-2 text-accent font-semibold hover:underline decoration-2 underline-offset-4">
+                    <a href={v.watchUrl} target="_blank" rel="noopener" class="inline-flex items-center py-2 text-accent-text font-semibold hover:underline decoration-2 underline-offset-4">
                         <span>{t('video_watch')}</span>
                         <Icon name="arrow-right" class="ml-2 text-sm transition-transform group-hover:translate-x-1" />
                     </a>
@@ -158,7 +158,7 @@ const videoStructuredData = topVideos.map(v => ({
                         <p class="text-xs font-bold text-accent uppercase tracking-wider mb-1.5">
                             {p.kicker}
                         </p>
-                        <h4 class="font-heading text-xl text-text-main mb-2 group-hover:text-accent transition-colors">
+                        <h4 class="font-heading text-xl text-text-main mb-2 group-hover:text-accent-text-text transition-colors">
                             {p.title}
                         </h4>
                         <p class="text-sm text-text-muted mb-3">
@@ -178,7 +178,7 @@ const videoStructuredData = topVideos.map(v => ({
     </div>
 
     <div class="mt-10 text-center reveal-item">
-        <a href="https://github.com/TomSzenessy" target="_blank" rel="noopener" class="inline-flex items-center gap-2 py-2.5 px-4 text-accent font-semibold hover:underline decoration-2 underline-offset-4">
+        <a href="https://github.com/TomSzenessy" target="_blank" rel="noopener" class="inline-flex items-center gap-2 py-2.5 px-4 text-accent-text font-semibold hover:underline decoration-2 underline-offset-4">
             <Icon name="github" />
             <span>{t('projects_more_github')}</span>
         </a>

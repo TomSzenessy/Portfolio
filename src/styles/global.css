@@ -8,13 +8,19 @@
   --color-text-main: #2d231c;
   --color-text-muted: #6a5c52;
   --color-accent: #d07a3d;
+  /* Text-safe accent. #d07a3d is only 2.79:1 on cream and fails WCAG AA.
+     #a15420 gives 4.80:1 on cream and 5.52:1 on white. */
+  --color-accent-text: #a15420;
   --color-accent-soft: #f3c8a0;
   --color-accent-sage: #8aa39a;
   --color-card-bg: #ffffff;
   --color-border-main: rgba(0, 0, 0, 0.05);
 
-  --font-heading: "Fraunces", serif;
-  --font-body: "Bricolage Grotesque", sans-serif;
+  /* Names MUST match @fontsource-variable's declared font-family exactly:
+     "Fraunces Variable" and "Bricolage Grotesque Variable".
+     Using "Fraunces"/"Bricolage Grotesque" silently falls back to generic serif. */
+  --font-heading: "Fraunces Variable", Georgia, serif;
+  --font-body: "Bricolage Grotesque Variable", system-ui, sans-serif;
 
   --animate-float: float 6s ease-in-out infinite;
 
@@ -128,4 +134,23 @@
     border-radius: 9999px;
     background: #d07a3d;
     flex-shrink: 0;
+}
+
+/* YouTube poster/thumbnail behaviour
+   The thumbnail is revealed by JS on consent. The base class must stay
+   visible on touch devices, where there is no hover to trigger a CSS fade. */
+.lite-youtube .yt-thumb {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.lite-youtube .yt-thumb.is-loaded {
+    opacity: 1;
+}
+
+/* Award card images: keep the lightbox affordance obvious on touch too */
+@media (hover: none) {
+    .sheep-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

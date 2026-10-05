@@ -32,7 +32,7 @@ const { videoId, title, consentTitle, consentBody, consentAccept, consentCancel 
     </div>
 
     <!-- Real thumbnail: injected only after consent -->
-    <img class="yt-thumb absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500" alt="" aria-hidden="true" loading="lazy" />
+    <img class="yt-thumb absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" loading="lazy" />
 
     <!-- Play Button Overlay -->
     <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -75,15 +75,11 @@ const { videoId, title, consentTitle, consentBody, consentAccept, consentCancel 
             const img = this.querySelector<HTMLImageElement>('.yt-thumb');
             if (!img) return;
             img.src = `https://i.ytimg.com/vi/${this.dataset.id}/maxresdefault.jpg`;
-            img.addEventListener('load', () => {
-                img.classList.remove('opacity-0');
-                img.classList.add('opacity-100');
-            }, { once: true });
-            // Some uploads lack maxres; fall back to a smaller guaranteed asset.
+            img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+            // Some uploads lack a maxres asset; fall back to a guaranteed smaller size.
             img.addEventListener('error', () => {
                 img.src = `https://i.ytimg.com/vi/${this.dataset.id}/hqdefault.jpg`;
-                img.classList.remove('opacity-0');
-                img.classList.add('opacity-100');
+                img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
             }, { once: true });
         }
 

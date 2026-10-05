@@ -1,5 +1,6 @@
 export const translations = {
 	en: {
+		hero_greeting: 'Hi, I\'m Tom',
 		meta_title: 'Tom Szenessy | Just a chill, friendly Business Informatics Student',
 		meta_description: 'Tom Szenessy is a Business Informatics student at TUM in Munich who builds and ships full-stack products — games, plugins and self-hosted platforms in TypeScript, Python and Cloudflare Workers.',
 		nav_home: 'Home',
@@ -182,8 +183,12 @@ export const translations = {
 
 
 		award_hackatum_2025: 'hackaTUM 2025 — Participation',
+
+		hero_h1: 'Business Informatics student at TUM.',
+		hero_subline: 'I build and ship full-stack products — games, plugins, and self-hosted platforms.',
 	},
 	de: {
+		hero_greeting: 'Hi, ich bin Tom',
 		parallax_quote: '„Der Weg ist das Ziel.“',
 		meta_title: 'Tom Szenessy | Wirtschaftsinformatik-Student & Entwickler',
 		meta_description: 'Tom Szenessy ist Wirtschaftsinformatik-Student an der TUM in München und baut Full-Stack-Produkte — Spiele, Plugins und selbst gehostete Plattformen mit TypeScript, Python und Cloudflare Workers.',
@@ -369,8 +374,12 @@ export const translations = {
 
 
 		award_hackatum_2025: 'hackaTUM 2025 — Teilnahme',
+
+		hero_h1: 'Wirtschaftsinformatik-Student an der TUM.',
+		hero_subline: 'Ich baue und veröffentliche Full-Stack-Produkte — Spiele, Plugins und selbst gehostete Plattformen.',
 	},
 	es: {
+		hero_greeting: 'Hola, soy Tom',
 		parallax_quote: '«El camino es la recompensa.»',
 		meta_title: 'Tom Szenessy | Estudiante de Informática de Gestión',
 		meta_description: 'Tom Szenessy es estudiante de Informática de Gestión en la TUM de Múnich y construye productos full-stack — juegos, plugins y plataformas autoalojadas con TypeScript, Python y Cloudflare Workers.',
@@ -558,5 +567,8 @@ export const translations = {
 		skills_cloud_title: 'Cloud e infraestructura',
 
 		award_hackatum_2025: 'hackaTUM 2025 — Participación',
+
+		hero_h1: 'Estudiante de Informática de Gestión en la TUM.',
+		hero_subline: 'Construyo y lanzo productos full-stack — juegos, plugins y plataformas autoalojadas.',
 	}
 };

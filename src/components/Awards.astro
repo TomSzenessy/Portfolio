@@ -140,13 +140,12 @@ const awards = [
         if (e.target === lightbox) closeLightbox();
     });
 
-    // Strategy: Preload all full images after page is fully loaded and idle
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            awardCards.forEach(card => {
-                const fullImg = card.getAttribute('data-full-img');
-                if (fullImg) preloadImage(fullImg);
-            });
-        }, 3000); // Wait 3 seconds after load to not interfere with initial performance
+    // NOTE: no idle preload of the full-size images on purpose. The visible
+    // award thumbnails are already optimised WebP (~10-22 KB each); the
+    // full-size PNGs are 0.3-2.3 MB each and were being fetched for every
+    // visitor straight after load, which dominated the page weight.
+    // The full image is now fetched only when a card is actually opened.
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
     });
 </script>
