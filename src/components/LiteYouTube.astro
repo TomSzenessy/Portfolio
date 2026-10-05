@@ -61,6 +61,20 @@ const { videoId, title } = Astro.props;
 
     class LiteYouTube extends HTMLElement {
         isValidVideoId = true;
+        hoverPreview: HTMLIFrameElement | null = null;
+        /** Set on the first real mouse event, so touch taps never start a preview. */
+        seenMouse = false;
+
+        constructor() {
+            super();
+            window.addEventListener(
+                'mousemove',
+                () => {
+                    this.seenMouse = true;
+                },
+                { once: true, passive: true }
+            );
+        }
 
         connectedCallback() {
             const videoId = this.dataset.id;
@@ -69,14 +83,81 @@ const { videoId, title } = Astro.props;
                 console.warn('Invalid YouTube video ID:', videoId);
                 return;
             }
+
             this.addEventListener('click', (e) => {
                 if ((e.target as HTMLElement).closest('a')) return;
                 this.addIframe();
             });
 
+            // Play on hover, the way YouTube's own previews behave: on a
+            // pointer device, hovering swaps the thumbnail for a muted,
+            // looping, click-free preview. Leaving restores the thumbnail.
+            //
+            // Attach unconditionally and decide inside the handler rather than
+            // gating on a media query at load time: `hover: hover` is only
+            // trustworthy after the first real pointer event, and some
+            // environments (embedded webviews, headless, certain Linux
+            // setups) report `hover: none` even for a desktop mouse. On a
+            // touch device the media query still blocks the preview, so the
+            // tap-to-play behaviour is unchanged.
+            let hoverTimer: number | undefined;
+            this.addEventListener('mouseenter', () => {
+                if (this.dataset.played === 'true') return;
+                this.seenMouse = true;
+                if (!this.canHover()) return;
+                hoverTimer = window.setTimeout(() => this.startHoverPreview(), 400);
+            });
+            this.addEventListener('mouseleave', () => {
+                window.clearTimeout(hoverTimer);
+                if (this.dataset.played !== 'true') this.stopHoverPreview();
+            });
+
             // React to consent given at any time on this page.
             document.addEventListener('yt-consent-change', () => this.syncThumb());
             this.syncThumb();
+        }
+
+        /**
+         * True only on a device that both reports hover support and has
+         * actually produced a mouse event. Touch devices return false, so the
+         * preview never starts there.
+         */
+        canHover() {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return false;
+            return this.seenMouse === true;
+        }
+
+        /** Consent-gated: never create a Google request the visitor refused. */
+        canLoadYouTube() {
+            return LiteYouTube.hasConsent();
+        }
+
+        /** Muted, looping, no-controls preview that is torn down on mouse-leave. */
+        startHoverPreview() {
+            if (!this.isValidVideoId || !this.canLoadYouTube()) return;
+            if (this.dataset.played === 'true' || this.hoverPreview) return;
+
+            const iframe = document.createElement('iframe');
+            iframe.className = 'yt-hover absolute inset-0 w-full h-full border-0';
+            iframe.setAttribute('tabindex', '-1');
+            iframe.setAttribute('aria-hidden', 'true');
+            iframe.setAttribute('title', '');
+            iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+            iframe.src =
+                `https://www.youtube-nocookie.com/embed/${this.dataset.id}` +
+                `?autoplay=1&mute=1&controls=0&loop=1&playlist=${this.dataset.id}&rel=0&modestbranding=1&playsinline=1&iv_loading=0`;
+
+            this.hoverPreview = iframe;
+            this.appendChild(iframe);
+            this.classList.add('is-hovering');
+        }
+
+        stopHoverPreview() {
+            const iframe = this.hoverPreview;
+            if (!iframe) return;
+            this.hoverPreview = null;
+            iframe.remove();
+            this.classList.remove('is-hovering');
         }
 
         static readConsent(): string | null {
@@ -144,6 +225,11 @@ const { videoId, title } = Astro.props;
 
         renderIframe() {
             if (!this.isValidVideoId) return;
+
+            // A hover preview in flight becomes the real player on click.
+            this.stopHoverPreview();
+            this.dataset.played = 'true';
+
             const videoId = this.dataset.id;
             const iframe = document.createElement('iframe');
 
@@ -302,5 +388,21 @@ const { videoId, title } = Astro.props;
 <style>
     .lite-youtube iframe {
         border-radius: inherit;
+    }
+
+    /* Hover preview sits above the thumbnail; the poster and play button are
+       hidden by JS only while it is active. */
+    .lite-youtube.is-hovering .yt-hover {
+        z-index: 2;
+    }
+    .lite-youtube.is-hovering .yt-thumb,
+    .lite-youtube.is-hovering .yt-play {
+        visibility: hidden;
+    }
+    /* Touch devices: no hover preview, so keep the affordance obvious. */
+    @media (hover: none) {
+        .lite-youtube .yt-play {
+            opacity: 1;
+        }
     }
 </style>

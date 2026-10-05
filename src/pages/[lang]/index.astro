@@ -163,14 +163,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://szenessy
             if (current === 'quotes') current = 'home';
 
             navDots.forEach((dot: any) => {
-                dot.classList.remove('bg-accent', 'scale-125');
-                dot.classList.add('bg-text-muted');
-                const span = dot.querySelector('span');
-                if (span) span.classList.remove('opacity-100');
+                // The <a> is a transparent 44px tap target; the visible dot is
+                // its inner <span>. State classes must go on the dot itself,
+                // otherwise the whole 44px block gets a background colour.
+                const dotEl: HTMLElement | null = dot.querySelector('span');
+                dotEl?.classList.remove('bg-accent', 'scale-125');
+                dotEl?.classList.add('bg-text-muted');
+
+                const label = dotEl?.nextElementSibling;
+                label?.classList.remove('opacity-100');
 
                 if (dot.getAttribute('target') !== '_blank' && dot.getAttribute('href') === `#${current}`) {
-                    dot.classList.remove('bg-text-muted');
-                    dot.classList.add('bg-accent', 'scale-125');
+                    dotEl?.classList.remove('bg-text-muted');
+                    dotEl?.classList.add('bg-accent', 'scale-125');
                 }
             });
         }, { passive: true });
