@@ -2,41 +2,40 @@
 interface Props {
   videoId: string;
   title: string;
-  consentTitle: string;
-  consentBody: string;
-  consentAccept: string;
-  consentCancel: string;
 }
 
-const { videoId, title, consentTitle, consentBody, consentAccept, consentCancel } = Astro.props;
+const { videoId, title } = Astro.props;
 ---
 
 <lite-youtube
     class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block bg-[#2d231c]"
     data-id={videoId}
     data-title={title}
-    data-consent-title={consentTitle}
-    data-consent-body={consentBody}
-    data-consent-accept={consentAccept}
-    data-consent-cancel={consentCancel}
 >
-    <!-- Local poster: shown until the visitor grants third-party consent.
-         Deliberately NOT a YouTube URL, so nothing reaches Google early. -->
-    <div class="absolute inset-0 flex flex-col items-center justify-center gap-3 px-6 text-center bg-gradient-to-br from-[#3d3028] to-[#241c16]">
-        <div class="w-14 h-14 rounded-full bg-accent flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300">
-            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
-                <path d="M8 5.14v14l11-7-11-7z" />
-            </svg>
+    <!-- Local poster: stands in for the thumbnail until the visitor accepts
+         third-party content. Deliberately NOT a YouTube URL, so nothing reaches
+         Google before consent. The blurry background gives the card depth. -->
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#3d3028] to-[#241c16]"></div>
+        <div class="absolute inset-0 opacity-25" aria-hidden="true" style="background-image:radial-gradient(circle at 30% 30%,#d07a3d,transparent 55%),radial-gradient(circle at 75% 70%,#8aa39a,transparent 55%)"></div>
+        <div class="absolute inset-0 flex items-center justify-center">
+            <div class="flex flex-col items-center gap-2.5 text-center px-6">
+                <div class="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300">
+                    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true">
+                        <path d="M8 5.14v14l11-7-11-7z" />
+                    </svg>
+                </div>
+                <span class="text-white/60 text-xs font-semibold tracking-wide">YouTube</span>
+            </div>
         </div>
-        <span class="text-white/70 text-xs font-semibold tracking-wide">YouTube</span>
     </div>
 
-    <!-- Real thumbnail: injected only after consent -->
+    <!-- Real thumbnail: injected only after the site-wide consent exists -->
     <img class="yt-thumb absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" loading="lazy" />
 
-    <!-- Play Button Overlay -->
-    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white text-2xl shadow-xl group-hover:scale-110 group-hover:bg-orange-400 transition-all duration-300">
+    <!-- Play Button Overlay (hidden once the thumbnail is showing) -->
+    <div class="yt-play absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white shadow-xl group-hover:scale-110 group-hover:bg-orange-400 transition-all duration-300">
             <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true">
                 <path d="M8 5.14v14l11-7-11-7z" />
             </svg>
@@ -45,14 +44,23 @@ const { videoId, title, consentTitle, consentBody, consentAccept, consentCancel 
 </lite-youtube>
 
 <script>
-    class LiteYouTube extends HTMLElement {
-        static consentStorageKey = 'youtube-consent-granted';
-        static consentDialogPromise = null;
-        isValidVideoId = true;
+    /**
+     * Consent model (site-wide, once):
+     *   - On the FIRST visit the visitor gets one dialog explaining that
+     *     accepting loads YouTube (Google) content under Google's terms.
+     *   - Nothing is requested from Google before they accept.
+     *   - Accepting stores a single flag in localStorage; from then on every
+     *     video thumbnail loads and every video plays with no further prompt,
+     *     including after a reload.
+     *   - Declining stores the refusal, so the site never asks again. Videos
+     *     then stay on the local poster and simply link out to YouTube.
+     */
+    const CONSENT_KEY = 'yt-consent-v2';
+    const ACCEPTED = 'accepted';
+    const DECLINED = 'declined';
 
-        constructor() {
-            super();
-        }
+    class LiteYouTube extends HTMLElement {
+        isValidVideoId = true;
 
         connectedCallback() {
             const videoId = this.dataset.id;
@@ -61,34 +69,74 @@ const { videoId, title, consentTitle, consentBody, consentAccept, consentCancel 
                 console.warn('Invalid YouTube video ID:', videoId);
                 return;
             }
-            this.addEventListener('click', () => this.addIframe());
+            this.addEventListener('click', (e) => {
+                if ((e.target as HTMLElement).closest('a')) return;
+                this.addIframe();
+            });
+
+            // React to consent given at any time on this page.
+            document.addEventListener('yt-consent-change', () => this.syncThumb());
             this.syncThumb();
         }
 
-        hasConsent() {
-            return localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
+        static readConsent(): string | null {
+            try {
+                return localStorage.getItem(CONSENT_KEY);
+            } catch {
+                return null;
+            }
         }
 
-        /** Show the real YouTube thumbnail once consent exists (and refresh it if consent was granted later). */
+        static setConsent(value: string) {
+            try {
+                localStorage.setItem(CONSENT_KEY, value);
+            } catch {
+                /* storage blocked: fall back to per-session consent */
+            }
+            document.dispatchEvent(new CustomEvent('yt-consent-change'));
+        }
+
+        static hasConsent(): boolean {
+            return LiteYouTube.readConsent() === ACCEPTED;
+        }
+
+        /** Show the real YouTube thumbnail once consent exists. */
         syncThumb() {
-            if (!this.hasConsent()) return;
+            if (!LiteYouTube.hasConsent()) return;
             const img = this.querySelector<HTMLImageElement>('.yt-thumb');
+            const poster = this.querySelector('.absolute.inset-0.overflow-hidden');
+            const play = this.querySelector<HTMLElement>('.yt-play');
             if (!img) return;
+
             img.src = `https://i.ytimg.com/vi/${this.dataset.id}/maxresdefault.jpg`;
-            img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
-            // Some uploads lack a maxres asset; fall back to a guaranteed smaller size.
-            img.addEventListener('error', () => {
-                img.src = `https://i.ytimg.com/vi/${this.dataset.id}/hqdefault.jpg`;
-                img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
-            }, { once: true });
+            img.addEventListener(
+                'load',
+                () => {
+                    img.classList.add('is-loaded');
+                    poster?.setAttribute('hidden', '');
+                    play?.setAttribute('hidden', '');
+                },
+                { once: true }
+            );
+            // Some uploads lack a maxres asset; fall back to a smaller guaranteed size.
+            img.addEventListener(
+                'error',
+                () => {
+                    img.src = `https://i.ytimg.com/vi/${this.dataset.id}/hqdefault.jpg`;
+                    img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+                },
+                { once: true }
+            );
         }
 
         async addIframe() {
             if (!this.isValidVideoId) return;
-            if (!this.hasConsent()) {
-                const granted = await this.requestConsent();
-                if (!granted) return;
-                localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
+
+            // No consent yet: run the one site-wide gate. Until it is answered
+            // there is nothing to play, so do not fall through to an embed.
+            if (!LiteYouTube.hasConsent()) {
+                await ensureConsentDialog();
+                if (!LiteYouTube.hasConsent()) return;
             }
 
             this.renderIframe();
@@ -97,86 +145,157 @@ const { videoId, title, consentTitle, consentBody, consentAccept, consentCancel 
         renderIframe() {
             if (!this.isValidVideoId) return;
             const videoId = this.dataset.id;
-            const title = this.dataset.title;
             const iframe = document.createElement('iframe');
 
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allowfullscreen', '1');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('title', title || 'YouTube Video');
+            iframe.setAttribute('title', this.dataset.title || 'YouTube Video');
             iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`);
             iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
 
             this.innerHTML = '';
             this.appendChild(iframe);
         }
-
-        requestConsent() {
-            if (LiteYouTube.consentDialogPromise) {
-                return LiteYouTube.consentDialogPromise;
-            }
-
-            const title = this.dataset.consentTitle || 'Load YouTube?';
-            const body = this.dataset.consentBody || 'By playing this video, a connection to YouTube will be established.';
-            const acceptLabel = this.dataset.consentAccept || 'Allow YouTube';
-            const cancelLabel = this.dataset.consentCancel || 'Cancel';
-
-            LiteYouTube.consentDialogPromise = new Promise((resolve) => {
-                const overlay = document.createElement('div');
-                overlay.className = 'yt-consent-overlay fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center p-4';
-
-                const dialog = document.createElement('div');
-                dialog.className = 'yt-consent-dialog max-w-md w-full rounded-2xl bg-card-bg border border-white/10 p-6 text-text-main shadow-2xl';
-
-                const heading = document.createElement('h3');
-                heading.className = 'font-heading text-2xl mb-3';
-                heading.textContent = title;
-
-                const paragraph = document.createElement('p');
-                paragraph.className = 'text-sm text-text-muted mb-6';
-                paragraph.textContent = body;
-
-                const actions = document.createElement('div');
-                actions.className = 'flex gap-3 justify-end';
-
-                const cancelBtn = document.createElement('button');
-                cancelBtn.type = 'button';
-                cancelBtn.className = 'yt-consent-cancel px-4 py-2 rounded-lg border border-white/20 text-sm hover:border-white/40 transition-colors';
-                cancelBtn.textContent = cancelLabel;
-
-                const acceptBtn = document.createElement('button');
-                acceptBtn.type = 'button';
-                acceptBtn.className = 'yt-consent-accept px-4 py-2 rounded-lg bg-accent text-white text-sm font-semibold hover:bg-orange-400 transition-colors';
-                acceptBtn.textContent = acceptLabel;
-
-                actions.appendChild(cancelBtn);
-                actions.appendChild(acceptBtn);
-                dialog.appendChild(heading);
-                dialog.appendChild(paragraph);
-                dialog.appendChild(actions);
-
-                overlay.appendChild(dialog);
-                document.body.appendChild(overlay);
-
-                const cleanup = (value) => {
-                    overlay.remove();
-                    LiteYouTube.consentDialogPromise = null;
-                    resolve(value);
-                };
-
-                dialog.querySelector('.yt-consent-cancel').addEventListener('click', () => cleanup(false));
-                dialog.querySelector('.yt-consent-accept').addEventListener('click', () => cleanup(true));
-                overlay.addEventListener('click', (event) => {
-                    if (event.target === overlay) cleanup(false);
-                });
-            });
-
-            return LiteYouTube.consentDialogPromise;
-        }
     }
 
     if (!customElements.get('lite-youtube')) {
         customElements.define('lite-youtube', LiteYouTube);
+    }
+
+    /* ------------------------------------------------------------------ */
+    /* The single site-wide consent dialog                                  */
+    /* ------------------------------------------------------------------ */
+    let dialogPromise: Promise<void> | null = null;
+
+    function ensureConsentDialog(): Promise<void> {
+        if (dialogPromise) return dialogPromise;
+
+        dialogPromise = new Promise<void>((resolve) => {
+            const overlay = document.createElement('div');
+            overlay.className = 'yt-consent-overlay fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto';
+
+            const dialog = document.createElement('div');
+            dialog.setAttribute('role', 'dialog');
+            dialog.setAttribute('aria-modal', 'true');
+            dialog.setAttribute('aria-labelledby', 'yt-consent-title');
+            dialog.className = 'yt-consent-dialog max-w-lg w-full rounded-3xl bg-card-bg border border-accent/20 p-7 md:p-8 text-text-main shadow-2xl my-auto';
+
+            const copy = {
+                title: 'Load YouTube videos?',
+                body: 'The videos below are hosted on YouTube, a service provided by Google. Loading them sends your IP address and browsing data to Google, which may use it for its own purposes, including personalised advertising. This happens under Google’s Terms of Service and Privacy Policy, which I do not control.',
+                detail: 'Nothing is loaded from YouTube or Google until you choose. If you accept, I remember that choice on this device and the videos will play straight away from now on. If you decline, you can still watch them on YouTube itself.',
+                accept: 'Accept and load videos',
+                decline: 'No thanks',
+                link: 'Google Privacy Policy',
+            };
+
+            const heading = document.createElement('h3');
+            heading.id = 'yt-consent-title';
+            heading.className = 'font-heading text-2xl md:text-3xl mb-3';
+            heading.textContent = copy.title;
+
+            const para = document.createElement('p');
+            para.className = 'text-[15px] leading-relaxed text-text-main/90 mb-3';
+            para.textContent = copy.body;
+
+            const para2 = document.createElement('p');
+            para2.className = 'text-sm leading-relaxed text-text-muted mb-6';
+            para2.textContent = copy.detail;
+
+            const policy = document.createElement('a');
+            policy.href = 'https://policies.google.com/privacy';
+            policy.target = '_blank';
+            policy.rel = 'noopener noreferrer';
+            policy.className = 'text-accent-text font-medium underline underline-offset-2 hover:opacity-80 inline-block mb-6';
+            policy.textContent = copy.link;
+
+            const actions = document.createElement('div');
+            actions.className = 'flex flex-col-reverse sm:flex-row gap-3 sm:justify-end';
+
+            const declineBtn = document.createElement('button');
+            declineBtn.type = 'button';
+            declineBtn.className = 'yt-consent-decline px-5 py-3 rounded-full border border-text-muted/40 text-text-main font-medium hover:bg-text-main/5 transition-colors';
+            declineBtn.textContent = copy.decline;
+
+            const acceptBtn = document.createElement('button');
+            acceptBtn.type = 'button';
+            acceptBtn.className = 'yt-consent-accept px-5 py-3 rounded-full bg-accent text-white font-semibold hover:bg-orange-400 transition-colors';
+            acceptBtn.textContent = copy.accept;
+
+            actions.appendChild(declineBtn);
+            actions.appendChild(acceptBtn);
+
+            dialog.append(heading, para, para2, policy, actions);
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+
+            const previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+
+            const finish = (value: string) => {
+                LiteYouTube.setConsent(value);
+                overlay.remove();
+                document.body.style.overflow = previousOverflow;
+                dialogPromise = null;
+                resolve();
+            };
+
+            declineBtn.addEventListener('click', () => finish(DECLINED));
+            acceptBtn.addEventListener('click', () => finish(ACCEPTED));
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) finish(DECLINED);
+            });
+
+            // Keep focus inside the dialog and let Escape count as "decline"
+            // so dismissing never silently records consent.
+            const onKey = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') {
+                    finish(DECLINED);
+                    return;
+                }
+                if (e.key !== 'Tab') return;
+                const focusable = dialog.querySelectorAll<HTMLElement>('button, a[href]');
+                if (!focusable.length) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            };
+            document.addEventListener('keydown', onKey);
+            overlay.addEventListener('remove', () => document.removeEventListener('keydown', onKey));
+            acceptBtn.focus();
+        });
+
+        return dialogPromise;
+    }
+
+    /**
+     * Ask once per device, on the first visit, as soon as the page is idle —
+     * not on the first click, which interrupts the visitor mid-scroll.
+     * Only offered if there is at least one video on the page.
+     */
+    function initConsentGate() {
+        if (LiteYouTube.readConsent()) return;
+        if (!document.querySelector('lite-youtube')) return;
+
+        const open = () => ensureConsentDialog();
+        if ('requestIdleCallback' in window) {
+            (window as any).requestIdleCallback(open, { timeout: 2500 });
+        } else {
+            window.setTimeout(open, 1200);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initConsentGate);
+    } else {
+        initConsentGate();
     }
 </script>
 

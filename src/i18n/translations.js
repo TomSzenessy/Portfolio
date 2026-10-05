@@ -186,6 +186,10 @@ export const translations = {
 
 		hero_h1: 'Business Informatics student at TUM.',
 		hero_subline: 'I build and ship full-stack products — games, plugins, and self-hosted platforms.',
+
+		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
+
+		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
 	},
 	de: {
 		hero_greeting: 'Hi, ich bin Tom',
@@ -377,6 +381,8 @@ export const translations = {
 
 		hero_h1: 'Wirtschaftsinformatik-Student an der TUM.',
 		hero_subline: 'Ich baue und veröffentliche Full-Stack-Produkte — Spiele, Plugins und selbst gehostete Plattformen.',
+
+		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
 	},
 	es: {
 		hero_greeting: 'Hola, soy Tom',
@@ -570,5 +576,7 @@ export const translations = {
 
 		hero_h1: 'Estudiante de Informática de Gestión en la TUM.',
 		hero_subline: 'Construyo y lanzo productos full-stack — juegos, plugins y plataformas autoalojadas.',
+
+		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
 	}
 };
