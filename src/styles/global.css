@@ -79,9 +79,15 @@
     z-index: 5;
 }
 
-/* Hide scrollbar for clean look */
+/* Custom scrollbar — cream track, brand thumb (matches main).
+   Standard properties cover Firefox; the webkit block covers Chrome/Safari. */
+html {
+    scrollbar-color: #d07a3d #f6eee2;
+    scrollbar-width: thin;
+}
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 ::-webkit-scrollbar-track {
     background: #f6eee2;
@@ -89,6 +95,37 @@
 ::-webkit-scrollbar-thumb {
     background: #d07a3d;
     border-radius: 4px;
+}
+::-webkit-scrollbar-corner {
+    background: #f6eee2;
+}
+/* Dark overlays scroll with a dark scrollbar — the cream one over the
+   consent modal and the award lightbox looked broken. */
+.yt-consent-overlay,
+#lightbox {
+    scrollbar-color: #d07a3d rgba(0, 0, 0, 0.4);
+}
+.yt-consent-overlay::-webkit-scrollbar-track,
+#lightbox::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Reduced motion: honour the OS setting across all animation. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .reveal-item {
+        opacity: 1;
+        transform: none;
+    }
 }
 
 /* Reveal Animation Classes */

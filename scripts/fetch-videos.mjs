@@ -15,7 +15,8 @@
  * Output: src/data/videos.json
  */
 
-import { writeFileSync, mkdirSync } from 'node:fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -26,11 +27,6 @@ const CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID || 'UCqy-iXx82rhNv9QFqLnVvzQ';
 
 // How many videos to keep in videos.json (the site shows the first 4).
 const KEEP = 12;
-
-// A Short has no landscape 16:9 thumbnail. Anything without a
-// maxresdefault.jpg at >=16:9 is treated as a Short and skipped.
-const MAXRES_MIN_W = 16;
-const MAXRES_MIN_H = 9;
 
 async function hasLandscapeThumb(id) {
     const controller = new AbortController();
@@ -58,6 +54,31 @@ async function detectShorts(candidates) {
         if (!flags[i]) shorts.add(v.id);
     });
     return shorts;
+}
+
+/** Best signal: the feed entry itself links to /shorts/ID for Shorts. */
+function feedShorts(candidates) {
+    const shorts = new Set();
+    for (const v of candidates) {
+        if (v.isShort) shorts.add(v.id);
+    }
+    return shorts;
+}
+
+/** Duration like "15:42" via yt-dlp (present on the build machine). */
+function fetchDuration(id) {
+    try {
+        const out = execFileSync(
+            'yt-dlp',
+            ['--no-playlist', '--skip-download', '--print', '%(duration_string)s', `https://www.youtube.com/watch?v=${id}`],
+            { timeout: 30000, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }
+        );
+        const d = out.trim().split('\n').pop() || '';
+        // YouTube badges always show m:ss — plain seconds come back as "30".
+        return /^\d+$/.test(d) ? `0:${String(d).padStart(2, '0')}` : d || undefined;
+    } catch {
+        return undefined;
+    }
 }
 
 // Videos to exclude from ranking entirely (unlisted, mistakes, etc).
@@ -88,7 +109,8 @@ function parseFeed(xml) {
             title: pick('title'),
             published: pick('published'),
             views: views ? Number(views) : null,
-            thumbnail
+            thumbnail,
+            isShort: /\/shorts\//.test(entry)
         };
     });
 }
@@ -122,24 +144,56 @@ async function main() {
 
     const candidates = videos.filter((v) => v.id && !EXCLUDE_IDS.has(v.id));
 
-    const shortIds = await detectShorts(candidates);
+    // Shorts are excluded via two signals: the feed entry URL (/shorts/ID)
+    // and the thumbnail probe (a Short has no landscape maxres asset).
+    const shortIds = feedShorts(candidates);
+    for (const id of await detectShorts(candidates)) shortIds.add(id);
     if (shortIds.size) {
         console.log(`[videos] skipping ${shortIds.size} Short(s): ${[...shortIds].join(', ')}`);
+    }
+
+    // Manual fields (duration, channelName, …) must survive future builds.
+    let previous = new Map();
+    if (existsSync(OUT)) {
+        try {
+            for (const v of JSON.parse(readFileSync(OUT, 'utf8'))) previous.set(v.id, v);
+        } catch {
+            /* unreadable cache: start fresh */
+        }
     }
 
     videos = candidates
         .filter((v) => !shortIds.has(v.id))
         .sort((a, b) => (b.views ?? 0) - (a.views ?? 0))
         .slice(0, KEEP)
-        .map((v, i) => ({
-            rank: i + 1,
-            id: v.id,
-            title: v.title,
-            views: v.views,
-            published: v.published.slice(0, 10),
-            watchUrl: `https://www.youtube.com/watch?v=${v.id}`,
-            embedId: v.id
-        }));
+        .map((v, i) => {
+            const prev = previous.get(v.id) || {};
+            return {
+                rank: i + 1,
+                id: v.id,
+                title: v.title,
+                views: v.views,
+                published: v.published.slice(0, 10),
+                watchUrl: `https://www.youtube.com/watch?v=${v.id}`,
+                embedId: v.id,
+                channelName: prev.channelName || 'Tom Szenessy',
+                thumbnailUrl: `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`,
+                ...(prev.duration ? { duration: prev.duration } : {})
+            };
+        });
+
+    // Fill missing durations once (yt-dlp); the merge above keeps them forever.
+    for (const v of videos) {
+        if (!v.duration) {
+            const d = fetchDuration(v.id);
+            if (d) {
+                v.duration = d;
+                console.log(`[videos] duration ${v.id}: ${d}`);
+            } else {
+                console.warn(`[videos] duration missing for ${v.id} — fill videos.json manually`);
+            }
+        }
+    }
 
     if (!videos.length) {
         console.warn('[videos] no videos resolved — leaving existing videos.json untouched');

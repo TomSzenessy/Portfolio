@@ -51,13 +51,14 @@ const hackathons = [
     title: t('hack_hackatum_title'),
     desc: t('hack_hackatum_desc'),
     icon: 'users',
-    href: 'https://github.com/TomSzenessy/MunichPulse'
+    // The owner keeps the hackathon project (MunichPulse) unlinked on purpose.
+    href: null
   },
   {
     title: t('hack_makeathon_title'),
     desc: t('hack_makeathon_desc'),
     icon: 'code',
-    href: 'https://sidestroll.com/'
+    href: 'https://makeathon.tum-ai.com/'
   }
 ];
 
@@ -189,17 +190,31 @@ const milestones = [
             </h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {hackathons.map(h => (
-                    <a href={h.href} target="_blank" rel="noopener" class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow group">
-                        <Icon name={h.icon} class="text-2xl text-accent pt-1 shrink-0" />
-                        <div>
-                            <h4 class="font-bold text-text-main group-hover:text-accent-text-text transition-colors">
-                                {h.title}
-                            </h4>
-                            <p class="text-sm text-text-muted mt-1">
-                                {h.desc}
-                            </p>
+                    h.href ? (
+                        <a href={h.href} target="_blank" rel="noopener" class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow group">
+                            <Icon name={h.icon} class="text-2xl text-accent pt-1 shrink-0" />
+                            <div>
+                                <h4 class="font-bold text-text-main group-hover:text-accent-text transition-colors">
+                                    {h.title}
+                                </h4>
+                                <p class="text-sm text-text-muted mt-1">
+                                    {h.desc}
+                                </p>
+                            </div>
+                        </a>
+                    ) : (
+                        <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5">
+                            <Icon name={h.icon} class="text-2xl text-accent pt-1 shrink-0" />
+                            <div>
+                                <h4 class="font-bold text-text-main">
+                                    {h.title}
+                                </h4>
+                                <p class="text-sm text-text-muted mt-1">
+                                    {h.desc}
+                                </p>
+                            </div>
                         </div>
-                    </a>
+                    )
                 ))}
             </div>
         </div>

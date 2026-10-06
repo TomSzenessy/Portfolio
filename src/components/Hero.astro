@@ -12,8 +12,9 @@ const { t } = Astro.props;
 
 <header id="home" class="flex items-center justify-center py-14 md:py-16 mt-6">
     <div class="bg-card-bg/90 backdrop-blur-sm p-8 md:p-12 rounded-[40px] shadow-2xl border border-accent/10 text-center max-w-4xl w-full relative reveal-item active">
-        <!-- Profile Image: square crop, so the face fills the circle evenly -->
-        <div class="w-32 h-32 md:w-40 md:h-40 mx-auto -mt-28 md:-mt-32 mb-6 rounded-full border-8 border-white shadow-lg overflow-hidden relative z-10">
+        <!-- Profile Image: aspect-true square asset on a soft brand backdrop,
+             so the cut-out face no longer floats on white -->
+        <div class="w-32 h-32 md:w-40 md:h-40 mx-auto -mt-28 md:-mt-32 mb-6 rounded-full border-8 border-white bg-accent-soft shadow-lg overflow-hidden relative z-10">
             <Image
                 src={profileImage}
                 alt="Tom Szenessy"
@@ -46,22 +47,22 @@ const { t } = Astro.props;
                     <span class="relative z-10">{t('btn_see_work')}</span>
                     <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                 </a>
-                <a href="#about" class="px-7 py-3.5 bg-transparent border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all">
+                <a href="#contact" class="px-7 py-3.5 bg-transparent border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all">
                     <span>{t('btn_more_about')}</span>
                 </a>
             </div>
 
             <div class="flex flex-wrap justify-center gap-2 pt-3">
                 <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
-                    <Icon name="graduation-cap" class="text-accent-text" />
+                    <Icon name="trophy" class="text-accent-text" />
                     <span>{t('hero_badge_tum')}</span>
                 </span>
                 <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
-                    <Icon name="location-dot" class="text-accent-text" />
+                    <Icon name="graduation-cap" class="text-accent-text" />
                     <span>{t('hero_badge_location')}</span>
                 </span>
                 <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
-                    <Icon name="heart" class="text-accent-text" />
+                    <Icon name="location-dot" class="text-accent-text" />
                     <span>{t('hero_badge_focus')}</span>
                 </span>
             </div>

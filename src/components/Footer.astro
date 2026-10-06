@@ -19,9 +19,17 @@ const { t, lang } = Astro.props;
         <a href={`/${lang}/privacy-policy/`} class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text">{t('footer_privacy')}</a>
         <a href={`/${lang}/terms-of-service/`} class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text">{t('footer_terms')}</a>
         <a href={`/${lang}/impressum/`} class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text">{t('footer_impressum')}</a>
+        <!-- GDPR Art. 7(3): withdrawing video consent must be as easy as giving it -->
+        <button type="button" id="yt-consent-reset" class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text cursor-pointer">{t('footer_video_prefs')}</button>
     </div>
 
     <div class="mt-4 text-[10px] italic hover:text-accent-text hover:opacity-100 transition-all cursor-default select-none">
         {t('quote_chocolates')}
     </div>
 </footer>
+
+<script>
+    document.getElementById('yt-consent-reset')?.addEventListener('click', () => {
+        (window as any).__ytConsentReset?.();
+    });
+</script>

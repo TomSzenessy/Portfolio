@@ -7,8 +7,8 @@ interface Props {
 }
 
 const { 
-  title = "Tom Szenessy | Just a chill, friendly Business Informatics Student",
-  description = "Tom Szenessy is a friendly Business Informatics student at TUM in Munich, building creative projects with AI, VR, and product design.",
+  title = "Tom Szenessy — Business Informatics @ TUM | Projects & Videos",
+  description = "Tom Szenessy is a Business Informatics student at TU Munich who builds and ships full-stack products — games, plugins and self-hosted platforms. Projects, awards and videos.",
   lang = "en",
   canonicalURL
 } = Astro.props;
@@ -16,20 +16,40 @@ const {
 const siteURL = "https://szenessy.com";
 const ogImage = `${siteURL}/og-image.png`;
 
-// JSON-LD Structured Data
+// Language alternates for hreflang: derive the same path in each language.
+const rest = Astro.url.pathname.replace(/^\/(en|de|es)(?=\/|$)/, '') || '/';
+const altUrls = {
+  en: `${siteURL}/en${rest}`,
+  de: `${siteURL}/de${rest}`,
+  es: `${siteURL}/es${rest}`
+};
+
+// JSON-LD Structured Data — every fact here also exists as visible prose
+// (LLMs read text, not JSON-LD), and every claim links to third-party proof.
 const structuredData = {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": `${siteURL}/#person`,
   "name": "Tom Szenessy",
   "url": siteURL,
+  "image": ogImage,
   "jobTitle": "Business Informatics Student",
   "affiliation": {
     "@type": "Organization",
     "name": "Technical University of Munich"
   },
+  "alumniOf": [
+    { "@type": "CollegeOrUniversity", "name": "Technical University of Munich" },
+    { "@type": "EducationalOrganization", "name": "Deutsche Schule Málaga" }
+  ],
+  "knowsAbout": [
+    "TypeScript", "Python", "Go", "Kotlin", "React", "Node.js",
+    "Kubernetes", "Cloudflare", "PostgreSQL", "Machine Learning",
+    "Full-Stack Development", "Self-Hosting"
+  ],
   "sameAs": [
     "https://github.com/TomSzenessy",
-    "https://www.linkedin.com/in/tom-szenessy-ab34a6276",
+    "https://www.linkedin.com/in/tom-szenessy",
     "https://www.youtube.com/@tomsze"
   ]
 };
@@ -45,8 +65,11 @@ import '../styles/global.css';
         <title>{title}</title>
         <meta name="description" content={description} />
         
-        <!-- Favicon: square 512 master, downscaled by the browser -->
-        <link rel="icon" type="image/webp" href="/favicon.webp" sizes="any" />
+        <!-- Favicon: face in a cream rounded-square tile. favicon.ico first for
+             the classic /favicon.ico probe; favicon-v2.webp is cache-busted so
+             browsers drop the old squished icon. -->
+        <link rel="icon" href="/favicon.ico" sizes="48x48" />
+        <link rel="icon" type="image/webp" href="/favicon-v2.webp" sizes="any" />
         <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
         <link rel="icon" type="image/png" sizes="256x256" href="/favicon-256.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -54,6 +77,12 @@ import '../styles/global.css';
         
         <!-- Canonical URL -->
         {canonicalURL && <link rel="canonical" href={canonicalURL} />}
+
+        <!-- Language alternates (EN/DE/ES) -->
+        <link rel="alternate" hreflang="en" href={altUrls.en} />
+        <link rel="alternate" hreflang="de" href={altUrls.de} />
+        <link rel="alternate" hreflang="es" href={altUrls.es} />
+        <link rel="alternate" hreflang="x-default" href={altUrls.en} />
         
         <!-- Open Graph -->
         <meta property="og:site_name" content="Tom Szenessy" />

@@ -12,6 +12,27 @@ const { t } = Astro.props;
 const SHOW = 4;
 const topVideos = (videos as any[]).slice(0, SHOW);
 
+// Page locale for number/date formatting (site serves /en /de /es).
+const localeTag =
+    (Astro.url.pathname.match(/^\/(de|es)(\/|$)/) || [])[1] === 'de' ? 'de-DE'
+    : (Astro.url.pathname.match(/^\/(de|es)(\/|$)/) || [])[1] === 'es' ? 'es-ES'
+    : 'en-US';
+
+const formatViews = (n: number) =>
+    new Intl.NumberFormat(localeTag, { notation: 'compact', maximumFractionDigits: 1 }).format(n);
+
+const formatAge = (iso: string) => {
+    const days = Math.round((Date.now() - new Date(iso).getTime()) / 86400000);
+    const rtf = new Intl.RelativeTimeFormat(localeTag, { numeric: 'auto' });
+    if (days < 30) return rtf.format(-days, 'day');
+    if (days < 365) return rtf.format(-Math.round(days / 30), 'month');
+    return rtf.format(-Math.round(days / 365), 'year');
+};
+
+// The Agentic Trading Bot card links to a repo that is not public yet —
+// hidden until the sanitized repo ships (its GitHub URL currently 404s).
+const SHOW_TRADING_BOT = false;
+
 const projects = [
   {
     id: 'roadtax',
@@ -75,14 +96,19 @@ const projects = [
   }
 ];
 
-// JSON-LD for the videos actually shown
+// JSON-LD for the videos actually shown (description + thumbnailUrl are
+// required for Google video rich results)
 const videoStructuredData = topVideos.map(v => ({
   "@type": "VideoObject",
   "name": v.title,
+  "description": `${v.title} — a video by Tom Szenessy.`,
+  "thumbnailUrl": `https://i.ytimg.com/vi/${v.embedId}/maxresdefault.jpg`,
   "uploadDate": v.published,
   "contentUrl": v.watchUrl,
   "embedUrl": `https://www.youtube.com/embed/${v.embedId}`
 }));
+
+const visibleProjects = projects.filter(p => SHOW_TRADING_BOT || p.id !== 'bot');
 ---
 
 <section id="projects" class="py-20 scroll-mt-24">
@@ -98,33 +124,39 @@ const videoStructuredData = topVideos.map(v => ({
         </p>
     </div>
 
-    <!-- Videos: ranked by view count, fetched at build time -->
+    <!-- Videos: ranked by view count, fetched at build time. The card copies
+         YouTube's own embed anatomy: red play button + duration badge on the
+         thumbnail, channel/title/views row beneath. -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mb-24">
         {topVideos.map((v, i) => (
-            <div class="bg-card-bg rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group" style={`transition-delay: ${i % 2 === 0 ? 0 : 100}ms`}>
-                <div class="aspect-video relative overflow-hidden">
-                    <LiteYouTube
-                        videoId={v.embedId}
-                        title={v.title}
-                    />
-                </div>
-                <div class="p-8">
-                    <div class="flex items-center gap-3 mb-2">
-                        <span class="text-sm font-semibold text-accent uppercase tracking-wider">
-                            {t('video_label')}
-                        </span>
-                        {v.views != null && (
-                            <span class="text-sm text-text-muted">
-                                {new Intl.NumberFormat('en').format(v.views)} {t('video_views')}
-                            </span>
-                        )}
+            <div class="bg-card-bg rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 reveal-item group" style={`transition-delay: ${i % 2 === 0 ? 0 : 100}ms`}>
+                <LiteYouTube
+                    videoId={v.embedId}
+                    title={v.title}
+                    duration={v.duration}
+                />
+                <div class="flex items-start gap-3 p-4">
+                    <div class="w-9 h-9 shrink-0 rounded-full bg-accent/15 flex items-center justify-center text-accent-text font-bold text-sm">
+                        T
                     </div>
-                    <h3 class="font-heading text-2xl text-text-main mb-3 group-hover:text-accent-text-text transition-colors">
-                        {v.title}
-                    </h3>
-                    <a href={v.watchUrl} target="_blank" rel="noopener" class="inline-flex items-center py-2 text-accent-text font-semibold hover:underline decoration-2 underline-offset-4">
+                    <div class="min-w-0 flex-1">
+                        <h3 class="font-semibold text-[15px] leading-snug text-text-main line-clamp-2 group-hover:text-accent-text transition-colors">
+                            {v.title}
+                        </h3>
+                        <p class="text-[13px] text-text-muted mt-1">
+                            Tom Szenessy
+                            {v.views != null && <> · {formatViews(v.views)} {t('video_views')}</>}
+                            {v.published && <> · {formatAge(v.published)}</>}
+                        </p>
+                    </div>
+                    <a
+                        href={v.watchUrl}
+                        target="_blank"
+                        rel="noopener"
+                        class="shrink-0 inline-flex items-center text-[13px] text-accent-text font-semibold hover:underline underline-offset-2"
+                    >
                         <span>{t('video_watch')}</span>
-                        <Icon name="arrow-right" class="ml-2 text-sm transition-transform group-hover:translate-x-1" />
+                        <Icon name="arrow-right" class="ml-1 text-xs transition-transform group-hover:translate-x-1" />
                     </a>
                 </div>
             </div>
@@ -138,7 +170,7 @@ const videoStructuredData = topVideos.map(v => ({
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {projects.map((p, i) => (
+        {visibleProjects.map((p, i) => (
             <a
                 href={p.href}
                 target="_blank"
@@ -154,7 +186,7 @@ const videoStructuredData = topVideos.map(v => ({
                         <p class="text-xs font-bold text-accent uppercase tracking-wider mb-1.5">
                             {p.kicker}
                         </p>
-                        <h4 class="font-heading text-xl text-text-main mb-2 group-hover:text-accent-text-text transition-colors">
+                        <h4 class="font-heading text-xl text-text-main mb-2 group-hover:text-accent-text transition-colors">
                             {p.title}
                         </h4>
                         <p class="text-sm text-text-muted mb-3">

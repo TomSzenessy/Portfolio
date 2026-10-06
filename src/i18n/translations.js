@@ -1,8 +1,8 @@
 export const translations = {
 	en: {
-		hero_greeting: 'Hi, I\'m Tom',
-		meta_title: 'Tom Szenessy | Just a chill, friendly Business Informatics Student',
-		meta_description: 'Tom Szenessy is a Business Informatics student at TUM in Munich who builds and ships full-stack products — games, plugins and self-hosted platforms in TypeScript, Python and Cloudflare Workers.',
+		hero_greeting: 'Tom Szenessy',
+		meta_title: 'Tom Szenessy — Business Informatics @ TUM | Projects & Videos',
+		meta_description: 'Tom Szenessy is a Business Informatics student at TU Munich who builds and ships full-stack products — games, plugins and self-hosted platforms. Projects, awards and videos.',
 		nav_home: 'Home',
 		nav_projects: 'Projects',
 		nav_about: 'About',
@@ -14,10 +14,10 @@ export const translations = {
 		hero_note:
 			'Still learning, always curious, and grateful for opportunities to collaborate.',
 		btn_see_work: 'See My Work',
-		btn_more_about: 'More About Me',
-		hero_badge_tum: 'TUM Business Informatics',
-		hero_badge_location: 'Based in Munich',
-		hero_badge_focus: 'Dreamer and problem-solver',
+		btn_more_about: 'Get in touch',
+		hero_badge_tum: 'Jugend forscht 2024 — 2nd prize + CIB Special Prize',
+		hero_badge_location: '1.0 Abitur',
+		hero_badge_focus: 'Based in Munich',
 		parallax_quote: '“the journey is the reward.”',
 
 		projects_kicker: 'Projects & Videos',
@@ -50,7 +50,7 @@ export const translations = {
 		experience_title: 'Experience',
 		exp_ecosia_title: 'Ecosia Internship',
 		exp_ecosia_desc:
-			'Two-week internship focused on software development',
+			'Two-week internship. Built an FAQ chatbot prototype with source links and a news widget that flags clickbait.',
 		exp_atech_title: 'Atech Internship',
 		exp_atech_desc:
 			'One-week internship focused on computer installation and maintenance in Malaga.',
@@ -117,6 +117,7 @@ export const translations = {
 		footer_privacy: 'Privacy Policy',
 		footer_terms: 'Terms of Service',
 		footer_impressum: 'Impressum',
+		footer_video_prefs: 'Change video preference',
 		legal_back_home: 'Back to homepage',
 		peeking_bubble: 'Thanks for scrolling!',
 		quote_bugs: 'The best way to predict bugs is to design them yourself.',
@@ -147,7 +148,7 @@ export const translations = {
 		proj_mindmap_desc: 'A mind-mapping plugin for Obsidian Canvas. Auto-layout, linked topics and export — installable on desktop and phone.',
 		proj_sidestroll_kicker: 'Hackathon Project',
 		proj_sidestroll_title: 'SideStroll',
-		proj_sidestroll_desc: 'An AI quest engine that turns your interests, weather and free time into a real-world outing. Built with a team of five in 48 hours.',
+		proj_sidestroll_desc: 'An AI quest engine that turns your interests, weather and free time into a real-world outing. Built with a team of five in 48 hours at the TUM.ai Makeathon 2026.',
 		proj_mino_kicker: 'Award Winner',
 		proj_mino_title: 'Mino',
 		proj_mino_desc: 'An AI-first notes app that turns rough thoughts into mindmaps, then lets you ask them questions. Two prizes at Jugend forscht.',
@@ -168,7 +169,7 @@ export const translations = {
 		hack_makeathon_title: 'TUM.ai Makeathon 2026 — European Hackathon League',
 		hack_makeathon_desc: '500+ participants, 48 hours, working app at submission. Lost to an unrehearsed demo on stage, wrote down why on the way home, kept building.',
 		beyond_title: 'Beyond the Screen',
-		beyond_p: 'Volleyball, table tennis and padel. Six years of martial arts — three years taekwondo, two judo, one karate. Piano, poker, board games, and making videos nobody asked me to make.',
+		beyond_p: 'Volleyball, tennis, table tennis and padel. Six years of martial arts — three years taekwondo, two judo, one karate. Piano, board games, making videos nobody asked me to make — and running a student stand-up comedy club, StuStandUp.',
 		skill_llm: 'LLM Integration',
 		skill_astro: 'Astro',
 		skill_cloudflare: 'Cloudflare',
@@ -185,17 +186,15 @@ export const translations = {
 		award_hackatum_2025: 'hackaTUM 2025 — Participation',
 
 		hero_h1: 'Business Informatics student at TUM.',
-		hero_subline: 'I build and ship full-stack products — games, plugins, and self-hosted platforms.',
-
-		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
+		hero_subline: 'Business Informatics student at TUM (Munich). I build and ship full-stack products — games, plugins and self-hosted platforms.',
 
 		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
 	},
 	de: {
-		hero_greeting: 'Hi, ich bin Tom',
+		hero_greeting: 'Tom Szenessy',
 		parallax_quote: '„Der Weg ist das Ziel.“',
-		meta_title: 'Tom Szenessy | Wirtschaftsinformatik-Student & Entwickler',
-		meta_description: 'Tom Szenessy ist Wirtschaftsinformatik-Student an der TUM in München und baut Full-Stack-Produkte — Spiele, Plugins und selbst gehostete Plattformen mit TypeScript, Python und Cloudflare Workers.',
+		meta_title: 'Tom Szenessy — Wirtschaftsinformatik @ TUM | Projekte & Videos',
+		meta_description: 'Tom Szenessy ist Wirtschaftsinformatik-Student an der TU München und baut Full-Stack-Produkte — Spiele, Plugins und selbst gehostete Plattformen. Projekte, Auszeichnungen und Videos.',
 		nav_home: 'Start',
 		nav_projects: 'Projekte',
 		nav_about: 'Über mich',
@@ -207,10 +206,10 @@ export const translations = {
 		hero_note:
 			'Immer am Lernen, immer neugierig und dankbar für Möglichkeiten zur Zusammenarbeit.',
 		btn_see_work: 'Meine Projekte',
-		btn_more_about: 'Mehr über mich',
-		hero_badge_tum: 'TUM Wirtschaftsinformatik',
-		hero_badge_location: 'München',
-		hero_badge_focus: 'Entdecker und Problemlöser',
+		btn_more_about: 'Kontakt aufnehmen',
+		hero_badge_tum: 'Jugend forscht 2024 — 2. Preis + CIB Sonderpreis',
+		hero_badge_location: 'Abitur 1,0',
+		hero_badge_focus: 'In München',
 		projects_kicker: 'Projekte & Videos',
 		projects_title: 'Projekte & Videos',
 		projects_subtitle: 'Was ich gebaut, ausgeliefert und mit meinem Namen versehen habe. Videos nach echten Aufrufzahlen sortiert.',
@@ -222,7 +221,7 @@ export const translations = {
 		youtube_consent_cancel: 'Nicht jetzt',
 		about_h2: 'Über mich',
 		about_p1:
-			'Ich mag alles was mit Technik zu tun hat arbeite gerne mit Software und KI.',
+			'Ich mag alles, was mit Technik zu tun hat, und arbeite gerne mit Software und KI.',
 		about_p2:
 			'Heute studiere ich <strong>Wirtschaftsinformatik</strong> an der TUM, und verwende KI um meinen Horizont zu erweitern.',
 		about_p3:
@@ -243,7 +242,7 @@ export const translations = {
 		experience_title: 'Erfahrung',
 		exp_ecosia_title: 'Praktikum bei Ecosia',
 		exp_ecosia_desc:
-			'Zweiwochiges Praktikum mit Fokus auf Softwareentwicklung',
+			'Zweiwöchiges Praktikum. Prototyp eines FAQ-Chatbots mit Quellenangaben und ein News-Widget, das Clickbait erkennt.',
 		exp_atech_title: 'Praktikum bei Atech',
 		exp_atech_desc:
 			'Einwöchiges Praktikum mit Fokus auf Installation und Wartung von Computern in Málaga.',
@@ -312,6 +311,7 @@ export const translations = {
 		footer_privacy: 'Datenschutzerklärung',
 		footer_terms: 'Nutzungsbedingungen',
 		footer_impressum: 'Impressum',
+		footer_video_prefs: 'Video-Einstellungen ändern',
 		legal_back_home: 'Zurück zur Startseite',
 		peeking_bubble: 'Danke fürs Scrollen!',
 		quote_bugs:
@@ -343,7 +343,7 @@ export const translations = {
 		proj_mindmap_desc: 'Ein Mindmap-Plugin für Obsidian Canvas. Auto-Layout, verknüpfte Themen und Export — auf Desktop und Handy installierbar.',
 		proj_sidestroll_kicker: 'Hackathon-Projekt',
 		proj_sidestroll_title: 'SideStroll',
-		proj_sidestroll_desc: 'Eine KI-Quest-Engine, die aus Interessen, Wetter und Freizeit eine echte Aktivität macht. Mit einem Team aus fünf in 48 Stunden gebaut.',
+		proj_sidestroll_desc: 'Eine KI-Quest-Engine, die aus Interessen, Wetter und Freizeit eine echte Aktivität macht. Mit einem Team aus fünf in 48 Stunden beim TUM.ai Makeathon 2026 gebaut.',
 		proj_mino_kicker: 'Preisträger',
 		proj_mino_title: 'Mino',
 		proj_mino_desc: 'Eine KI-Notiz-App, die aus Gedanken Mindmaps macht und dann erlaubt, ihnen Fragen zu stellen. Zwei Preise bei Jugend forscht.',
@@ -364,7 +364,7 @@ export const translations = {
 		hack_makeathon_title: 'TUM.ai Makeathon 2026 — European Hackathon League',
 		hack_makeathon_desc: '500+ Teilnehmende, 48 Stunden, lauffähige App zur Abgabe. An einer ungeprobten Demo auf der Bühne verloren, auf dem Heimweg aufgeschrieben warum, weitergemacht.',
 		beyond_title: 'Abseits des Bildschirms',
-		beyond_p: 'Volleyball, Tischtennis und Padel. Sechs Jahre Kampfsport — drei Jahre Taekwondo, zwei Jahre Judo, ein Jahr Karate. Klavier, Poker, Brettspiele und Videos, die mir niemand abverlangt hat.',
+		beyond_p: 'Volleyball, Tennis, Tischtennis und Padel. Sechs Jahre Kampfsport — drei Jahre Taekwondo, zwei Jahre Judo, ein Jahr Karate. Klavier, Brettspiele, Videos, die mir niemand abverlangt hat — und ein Stand-up-Comedy-Club für Studierende: StuStandUp.',
 		skill_llm: 'LLM-Integration',
 		skill_astro: 'Astro',
 		skill_cloudflare: 'Cloudflare',
@@ -380,15 +380,15 @@ export const translations = {
 		award_hackatum_2025: 'hackaTUM 2025 — Teilnahme',
 
 		hero_h1: 'Wirtschaftsinformatik-Student an der TUM.',
-		hero_subline: 'Ich baue und veröffentliche Full-Stack-Produkte — Spiele, Plugins und selbst gehostete Plattformen.',
+		hero_subline: 'Wirtschaftsinformatik-Student an der TUM (München). Ich baue und veröffentliche Full-Stack-Produkte — Spiele, Plugins und selbst gehostete Plattformen.',
 
 		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
 	},
 	es: {
-		hero_greeting: 'Hola, soy Tom',
+		hero_greeting: 'Tom Szenessy',
 		parallax_quote: '«El camino es la recompensa.»',
-		meta_title: 'Tom Szenessy | Estudiante de Informática de Gestión',
-		meta_description: 'Tom Szenessy es estudiante de Informática de Gestión en la TUM de Múnich y construye productos full-stack — juegos, plugins y plataformas autoalojadas con TypeScript, Python y Cloudflare Workers.',
+		meta_title: 'Tom Szenessy — Informática de Gestión @ TUM | Proyectos y vídeos',
+		meta_description: 'Tom Szenessy es estudiante de Informática de Gestión en la TU de Múnich y construye productos full-stack — juegos, plugins y plataformas autoalojadas. Proyectos, premios y vídeos.',
 		nav_home: 'Inicio',
 		nav_projects: 'Proyectos',
 		nav_about: 'Sobre mí',
@@ -400,10 +400,10 @@ export const translations = {
 		hero_note:
 			'Sigo aprendiendo, siempre curioso y agradecido por las oportunidades de colaborar.',
 		btn_see_work: 'Ver mis proyectos',
-		btn_more_about: 'Más sobre mí',
-		hero_badge_tum: 'TUM Informática de Gestión',
-		hero_badge_location: 'En Múnich',
-		hero_badge_focus: 'Desarrollador',
+		btn_more_about: 'Contactar',
+		hero_badge_tum: 'Jugend forscht 2024 — 2.º premio + Premio Especial CIB',
+		hero_badge_location: 'Abitur 1,0',
+		hero_badge_focus: 'En Múnich',
 		projects_kicker: 'Proyectos y vídeos',
 		projects_title: 'Proyectos y vídeos',
 		projects_subtitle: 'Lo que he construido, publicado y firmado. Vídeos ordenados por visitas reales.',
@@ -438,7 +438,7 @@ export const translations = {
 		experience_title: 'Experiencia',
 		exp_ecosia_title: 'Prácticas en Ecosia',
 		exp_ecosia_desc:
-			'Prácticas de dos semanas centradas en el desarrollo de software',
+			'Prácticas de dos semanas. Prototipo de un chatbot de FAQ con enlaces a fuentes y un widget de noticias que detecta clickbait.',
 		exp_atech_title: 'Prácticas en Atech',
 		exp_atech_desc:
 			'Prácticas de una semana centradas en la instalación y mantenimiento de equipos en Málaga.',
@@ -485,8 +485,8 @@ export const translations = {
 		award_eyp_2024: 'Parlamento Europeo de la Juventud (2023/24)',
 		award_biber_2023: 'Informatik Biber - 2do Premio',
 		award_jwinf_2023: 'Jugendwettbewerb Informatik (2022/23)',
-		award_kangaroo_2024: 'Kangaroo Mathematics (2024)',
-		award_kangaroo_2019: 'Kangaroo Mathematics (2019)',
+		award_kangaroo_2024: 'Canguro de Matemáticas (2024)',
+		award_kangaroo_2019: 'Canguro de Matemáticas (2019)',
 		contact_title: 'Conectemos',
 		contact_subtitle:
 			'Si tienes curiosidad por mi trabajo o quieres saludar, me encantaría saber de ti.',
@@ -508,6 +508,7 @@ export const translations = {
 		footer_privacy: 'Política de privacidad',
 		footer_terms: 'Términos de servicio',
 		footer_impressum: 'Aviso legal',
+		footer_video_prefs: 'Cambiar preferencia de vídeo',
 		legal_back_home: 'Volver al inicio',
 		peeking_bubble: '¡Gracias por llegar hasta aquí!',
 		quote_bugs:
@@ -539,7 +540,7 @@ export const translations = {
 		proj_mindmap_desc: 'Un plugin de mapas mentales para Obsidian Canvas. Auto-organización, temas enlazados y exportación; instalable en escritorio y móvil.',
 		proj_sidestroll_kicker: 'Proyecto de hackathon',
 		proj_sidestroll_title: 'SideStroll',
-		proj_sidestroll_desc: 'Un motor de misiones con IA que convierte tus intereses, el tiempo y el clima en una salida real. Creado por un equipo de cinco en 48 horas.',
+		proj_sidestroll_desc: 'Un motor de misiones con IA que convierte tus intereses, el tiempo y el clima en una salida real. Creado por un equipo de cinco en 48 horas en el TUM.ai Makeathon 2026.',
 		proj_mino_kicker: 'Premio',
 		proj_mino_title: 'Mino',
 		proj_mino_desc: 'Una app de notas con IA que convierte ideas sueltas en mapas mentales y luego deja preguntárselas. Dos premios en Jugend forscht.',
@@ -560,7 +561,7 @@ export const translations = {
 		hack_makeathon_title: 'TUM.ai Makeathon 2026 — European Hackathon League',
 		hack_makeathon_desc: 'Más de 500 participantes, 48 horas, app funcionando en la entrega. Perdí contra una demo sin ensayar, lo anoté al volver y seguimos.',
 		beyond_title: 'Más allá de la pantalla',
-		beyond_p: 'Voleibol, tenis de mesa y pádel. Seis años de artes marciales — tres de taekwondo, dos de judo, uno de karate. Piano, póquer, juegos de mesa y hacer vídeos que nadie me pidió.',
+		beyond_p: 'Vóley, tenis, tenis de mesa y pádel. Seis años de artes marciales — tres de taekwondo, dos de judo, uno de karate. Piano, juegos de mesa, vídeos que nadie me pidió — y un club de comedia stand-up para estudiantes: StuStandUp.',
 		skill_llm: 'Integración con LLM',
 		skill_astro: 'Astro',
 		skill_cloudflare: 'Cloudflare',
@@ -575,7 +576,7 @@ export const translations = {
 		award_hackatum_2025: 'hackaTUM 2025 — Participación',
 
 		hero_h1: 'Estudiante de Informática de Gestión en la TUM.',
-		hero_subline: 'Construyo y lanzo productos full-stack — juegos, plugins y plataformas autoalojadas.',
+		hero_subline: 'Estudiante de Informática de Gestión en la TUM (Múnich). Construyo y lanzo productos full-stack — juegos, plugins y plataformas autoalojadas.',
 
 		hero_stack: 'TypeScript · Python · Go · Cloudflare Workers · React · Node.js · Kotlin · PostgreSQL',
 	}

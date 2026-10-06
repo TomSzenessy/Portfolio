@@ -6,7 +6,10 @@
     "views": 3678,
     "published": "2026-08-22",
     "watchUrl": "https://www.youtube.com/watch?v=vk_cRaYkFk4",
-    "embedId": "vk_cRaYkFk4"
+    "embedId": "vk_cRaYkFk4",
+    "channelName": "Tom Szenessy",
+    "thumbnailUrl": "https://i.ytimg.com/vi/vk_cRaYkFk4/maxresdefault.jpg",
+    "duration": "15:41"
   },
   {
     "rank": 2,
@@ -15,60 +18,45 @@
     "views": 637,
     "published": "2026-04-13",
     "watchUrl": "https://www.youtube.com/watch?v=DzsaaPO4tBY",
-    "embedId": "DzsaaPO4tBY"
+    "embedId": "DzsaaPO4tBY",
+    "channelName": "Tom Szenessy",
+    "thumbnailUrl": "https://i.ytimg.com/vi/DzsaaPO4tBY/maxresdefault.jpg",
+    "duration": "9:46"
   },
   {
     "rank": 3,
-    "id": "6lSBNAODqDE",
-    "title": "You Haven’t Discovered Everything You’ll Love Yet",
-    "views": 494,
-    "published": "2026-08-24",
-    "watchUrl": "https://www.youtube.com/watch?v=6lSBNAODqDE",
-    "embedId": "6lSBNAODqDE"
-  },
-  {
-    "rank": 4,
     "id": "bspxhyMI6RE",
     "title": "P5 Inwiefern kann eine KI Anspruch auf eine Identität erheben? - John Locke",
     "views": 74,
     "published": "2025-05-17",
     "watchUrl": "https://www.youtube.com/watch?v=bspxhyMI6RE",
-    "embedId": "bspxhyMI6RE"
+    "embedId": "bspxhyMI6RE",
+    "channelName": "Tom Szenessy",
+    "thumbnailUrl": "https://i.ytimg.com/vi/bspxhyMI6RE/maxresdefault.jpg",
+    "duration": "8:54"
   },
   {
-    "rank": 5,
+    "rank": 4,
     "id": "rNhRs4DzHv4",
     "title": "Comercial for Programming Class",
     "views": 71,
     "published": "2024-12-17",
     "watchUrl": "https://www.youtube.com/watch?v=rNhRs4DzHv4",
-    "embedId": "rNhRs4DzHv4"
+    "embedId": "rNhRs4DzHv4",
+    "channelName": "Tom Szenessy",
+    "thumbnailUrl": "https://i.ytimg.com/vi/rNhRs4DzHv4/maxresdefault.jpg",
+    "duration": "0:30"
   },
   {
-    "rank": 6,
-    "id": "06M5Chz70h4",
-    "title": "If Nobody Knew, Would You Still Do It?",
-    "views": 30,
-    "published": "2026-08-23",
-    "watchUrl": "https://www.youtube.com/watch?v=06M5Chz70h4",
-    "embedId": "06M5Chz70h4"
-  },
-  {
-    "rank": 7,
+    "rank": 5,
     "id": "UdyzG_m69-g",
     "title": "Generated Videogame out of 3D Model",
     "views": 29,
     "published": "2024-12-14",
     "watchUrl": "https://www.youtube.com/watch?v=UdyzG_m69-g",
-    "embedId": "UdyzG_m69-g"
-  },
-  {
-    "rank": 8,
-    "id": "TAFKqs6RYpA",
-    "title": "The entire train wagon just turned into a beer tent #oktoberfest #bayern #munich",
-    "views": 12,
-    "published": "2026-10-03",
-    "watchUrl": "https://www.youtube.com/watch?v=TAFKqs6RYpA",
-    "embedId": "TAFKqs6RYpA"
+    "embedId": "UdyzG_m69-g",
+    "channelName": "Tom Szenessy",
+    "thumbnailUrl": "https://i.ytimg.com/vi/UdyzG_m69-g/maxresdefault.jpg",
+    "duration": "3:29"
   }
 ]

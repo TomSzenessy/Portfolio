@@ -2,45 +2,45 @@
 interface Props {
   videoId: string;
   title: string;
+  /** Duration badge text, e.g. "15:42". Hidden when missing. */
+  duration?: string;
 }
 
-const { videoId, title } = Astro.props;
+const { videoId, title, duration } = Astro.props;
 ---
 
 <lite-youtube
-    class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block bg-[#2d231c]"
+    class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden block bg-[#2d231c]"
     data-id={videoId}
     data-title={title}
 >
     <!-- Local poster: stands in for the thumbnail until the visitor accepts
          third-party content. Deliberately NOT a YouTube URL, so nothing reaches
          Google before consent. The blurry background gives the card depth. -->
-    <div class="absolute inset-0 overflow-hidden">
+    <div class="yt-poster absolute inset-0 overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-br from-[#3d3028] to-[#241c16]"></div>
         <div class="absolute inset-0 opacity-25" aria-hidden="true" style="background-image:radial-gradient(circle at 30% 30%,#d07a3d,transparent 55%),radial-gradient(circle at 75% 70%,#8aa39a,transparent 55%)"></div>
-        <div class="absolute inset-0 flex items-center justify-center">
-            <div class="flex flex-col items-center gap-2.5 text-center px-6">
-                <div class="w-16 h-16 rounded-full bg-accent flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform duration-300">
-                    <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true">
-                        <path d="M8 5.14v14l11-7-11-7z" />
-                    </svg>
-                </div>
-                <span class="text-white/60 text-xs font-semibold tracking-wide">YouTube</span>
-            </div>
-        </div>
     </div>
 
     <!-- Real thumbnail: injected only after the site-wide consent exists -->
     <img class="yt-thumb absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" loading="lazy" />
 
-    <!-- Play Button Overlay (hidden once the thumbnail is showing) -->
+    <!-- YouTube's own embed play button: red rounded rectangle, white triangle.
+         Stays visible over the thumbnail, exactly like a real YouTube embed. -->
     <div class="yt-play absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white shadow-xl group-hover:scale-110 group-hover:bg-orange-400 transition-all duration-300">
-            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor" aria-hidden="true">
+        <div class="w-[68px] h-[48px] bg-[#ff0000] rounded-[12px] flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:bg-[#ff0000] transition-transform duration-200">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
                 <path d="M8 5.14v14l11-7-11-7z" />
             </svg>
         </div>
     </div>
+
+    <!-- Duration badge (bottom-right), the way YouTube draws it -->
+    {duration && (
+        <span class="yt-duration absolute bottom-2 right-2 bg-black/80 text-white text-xs font-semibold px-1.5 py-0.5 rounded">
+            {duration}
+        </span>
+    )}
 </lite-youtube>
 
 <script>
@@ -52,18 +52,23 @@ const { videoId, title } = Astro.props;
      *   - Accepting stores a single flag in localStorage; from then on every
      *     video thumbnail loads and every video plays with no further prompt,
      *     including after a reload.
-     *   - Declining stores the refusal, so the site never asks again. Videos
-     *     then stay on the local poster and simply link out to YouTube.
+     *   - Declining stores the refusal: the site NEVER asks again and never
+     *     loads Google content. Cards become quiet link-outs to youtube.com.
+     *     A footer control lets the visitor change their mind later.
      */
     const CONSENT_KEY = 'yt-consent-v2';
     const ACCEPTED = 'accepted';
     const DECLINED = 'declined';
+
+    /** How long a hover preview is kept alive after the pointer leaves. */
+    const PREVIEW_KEEPALIVE_MS = 15000;
 
     class LiteYouTube extends HTMLElement {
         isValidVideoId = true;
         hoverPreview: HTMLIFrameElement | null = null;
         /** Set on the first real mouse event, so touch taps never start a preview. */
         seenMouse = false;
+        private hoverIdleTimer: number | undefined;
 
         constructor() {
             super();
@@ -91,7 +96,8 @@ const { videoId, title } = Astro.props;
 
             // Play on hover, the way YouTube's own previews behave: on a
             // pointer device, hovering swaps the thumbnail for a muted,
-            // looping, click-free preview. Leaving restores the thumbnail.
+            // looping, click-free preview. Leaving keeps the preview warm for
+            // a while so re-hovering is instant.
             //
             // Attach unconditionally and decide inside the handler rather than
             // gating on a media query at load time: `hover: hover` is only
@@ -100,16 +106,23 @@ const { videoId, title } = Astro.props;
             // setups) report `hover: none` even for a desktop mouse. On a
             // touch device the media query still blocks the preview, so the
             // tap-to-play behaviour is unchanged.
-            let hoverTimer: number | undefined;
             this.addEventListener('mouseenter', () => {
                 if (this.dataset.played === 'true') return;
                 this.seenMouse = true;
                 if (!this.canHover()) return;
-                hoverTimer = window.setTimeout(() => this.startHoverPreview(), 400);
+                // No delay: create the player immediately so the swap is as
+                // fast as the network allows (was a 400ms timer before).
+                window.clearTimeout(this.hoverIdleTimer);
+                this.startHoverPreview();
             });
             this.addEventListener('mouseleave', () => {
-                window.clearTimeout(hoverTimer);
-                if (this.dataset.played !== 'true') this.stopHoverPreview();
+                if (this.dataset.played === 'true') return;
+                // Keep the preview alive briefly so re-entering is instant.
+                window.clearTimeout(this.hoverIdleTimer);
+                this.hoverIdleTimer = window.setTimeout(
+                    () => this.stopHoverPreview(),
+                    PREVIEW_KEEPALIVE_MS
+                );
             });
 
             // React to consent given at any time on this page.
@@ -132,7 +145,7 @@ const { videoId, title } = Astro.props;
             return LiteYouTube.hasConsent();
         }
 
-        /** Muted, looping, no-controls preview that is torn down on mouse-leave. */
+        /** Muted, looping, no-controls preview kept warm for PREVIEW_KEEPALIVE_MS. */
         startHoverPreview() {
             if (!this.isValidVideoId || !this.canLoadYouTube()) return;
             if (this.dataset.played === 'true' || this.hoverPreview) return;
@@ -168,9 +181,10 @@ const { videoId, title } = Astro.props;
             }
         }
 
-        static setConsent(value: string) {
+        static setConsent(value: string | null) {
             try {
-                localStorage.setItem(CONSENT_KEY, value);
+                if (value === null) localStorage.removeItem(CONSENT_KEY);
+                else localStorage.setItem(CONSENT_KEY, value);
             } catch {
                 /* storage blocked: fall back to per-session consent */
             }
@@ -185,8 +199,7 @@ const { videoId, title } = Astro.props;
         syncThumb() {
             if (!LiteYouTube.hasConsent()) return;
             const img = this.querySelector<HTMLImageElement>('.yt-thumb');
-            const poster = this.querySelector('.absolute.inset-0.overflow-hidden');
-            const play = this.querySelector<HTMLElement>('.yt-play');
+            const poster = this.querySelector('.yt-poster');
             if (!img) return;
 
             img.src = `https://i.ytimg.com/vi/${this.dataset.id}/maxresdefault.jpg`;
@@ -194,8 +207,9 @@ const { videoId, title } = Astro.props;
                 'load',
                 () => {
                     img.classList.add('is-loaded');
+                    // Keep the red play button and duration badge visible —
+                    // that is exactly how a real YouTube embed looks.
                     poster?.setAttribute('hidden', '');
-                    play?.setAttribute('hidden', '');
                 },
                 { once: true }
             );
@@ -213,9 +227,21 @@ const { videoId, title } = Astro.props;
         async addIframe() {
             if (!this.isValidVideoId) return;
 
-            // No consent yet: run the one site-wide gate. Until it is answered
+            const consent = LiteYouTube.readConsent();
+
+            // An explicit refusal is final: never nag again, just link out.
+            if (consent === DECLINED) {
+                window.open(
+                    `https://www.youtube.com/watch?v=${this.dataset.id}`,
+                    '_blank',
+                    'noopener'
+                );
+                return;
+            }
+
+            // No answer yet: run the one site-wide gate. Until it is answered
             // there is nothing to play, so do not fall through to an embed.
-            if (!LiteYouTube.hasConsent()) {
+            if (consent !== ACCEPTED) {
                 await ensureConsentDialog();
                 if (!LiteYouTube.hasConsent()) return;
             }
@@ -226,18 +252,37 @@ const { videoId, title } = Astro.props;
         renderIframe() {
             if (!this.isValidVideoId) return;
 
-            // A hover preview in flight becomes the real player on click.
-            this.stopHoverPreview();
+            window.clearTimeout(this.hoverIdleTimer);
+
+            // A warm hover preview becomes the real player on click — swap
+            // its parameters instead of tearing it down and cold-loading a
+            // second iframe (that reload was part of the ~3s delay).
+            const warm = this.hoverPreview;
+            if (warm) {
+                this.hoverPreview = null;
+                this.dataset.played = 'true';
+                this.classList.remove('is-hovering');
+                this.classList.add('is-playing');
+                warm.removeAttribute('aria-hidden');
+                warm.removeAttribute('tabindex');
+                warm.setAttribute('title', this.dataset.title || 'YouTube Video');
+                warm.setAttribute(
+                    'allow',
+                    'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                );
+                warm.src = `https://www.youtube-nocookie.com/embed/${this.dataset.id}?autoplay=1&rel=0&playsinline=1`;
+                return;
+            }
+
             this.dataset.played = 'true';
+            this.classList.add('is-playing');
 
-            const videoId = this.dataset.id;
             const iframe = document.createElement('iframe');
-
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allowfullscreen', '1');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
             iframe.setAttribute('title', this.dataset.title || 'YouTube Video');
-            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`);
+            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${this.dataset.id}?autoplay=1&rel=0&playsinline=1`);
             iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
 
             this.innerHTML = '';
@@ -254,10 +299,44 @@ const { videoId, title } = Astro.props;
     /* ------------------------------------------------------------------ */
     let dialogPromise: Promise<void> | null = null;
 
+    /** Localized dialog copy — the site is EN/DE/ES (see html[lang]). */
+    function consentCopy() {
+        const lang = document.documentElement.lang?.slice(0, 2) || 'en';
+        const copy = {
+            de: {
+                title: 'YouTube-Videos laden?',
+                body: 'Die Videos stammen von YouTube, einem Dienst von Google. Beim Laden werden deine IP-Adresse und Browserdaten an Google übertragen, die Google eigene Zwecken nutzen darf — auch für personalisierte Werbung. Das geschieht unter Googles Nutzungsbedingungen und Datenschutzerklärung, auf die ich keinen Einfluss habe.',
+                detail: 'Es wird nichts von YouTube oder Google geladen, bevor du dich entscheidest. Wenn du zustimmst, merke ich mir die Wahl auf diesem Gerät und die Videos laufen ab sofort direkt. Wenn du ablehnst, kannst du sie weiterhin direkt auf YouTube ansehen.',
+                accept: 'Akzeptieren und Videos laden',
+                decline: 'Nein, danke',
+                link: 'Google Datenschutzerklärung',
+            },
+            es: {
+                title: '¿Cargar vídeos de YouTube?',
+                body: 'Los vídeos proceden de YouTube, un servicio de Google. Al cargarlos se envían tu dirección IP y datos de navegación a Google, que puede usarlos para sus propios fines, incluida la publicidad personalizada. Esto ocurre bajo los Términos y la Política de Privacidad de Google, que no controlo.',
+                detail: 'No se carga nada de YouTube ni de Google hasta que tú decidas. Si aceptas, recuerdo la decisión en este dispositivo y los vídeos se reproducirán directamente a partir de ahora. Si rechazas, puedes verlos directamente en YouTube.',
+                accept: 'Aceptar y cargar vídeos',
+                decline: 'No, gracias',
+                link: 'Política de Privacidad de Google',
+            },
+            en: {
+                title: 'Load YouTube videos?',
+                body: 'The videos below are hosted on YouTube, a service provided by Google. Loading them sends your IP address and browsing data to Google, which may use it for its own purposes, including personalised advertising. This happens under Google’s Terms of Service and Privacy Policy, which I do not control.',
+                detail: 'Nothing is loaded from YouTube or Google until you choose. If you accept, I remember that choice on this device and the videos will play straight away from now on. If you decline, you can still watch them on YouTube itself.',
+                accept: 'Accept and load videos',
+                decline: 'No thanks',
+                link: 'Google Privacy Policy',
+            },
+        } as const;
+        return copy[lang as keyof typeof copy] ?? copy.en;
+    }
+
     function ensureConsentDialog(): Promise<void> {
         if (dialogPromise) return dialogPromise;
 
         dialogPromise = new Promise<void>((resolve) => {
+            const copy = consentCopy();
+
             const overlay = document.createElement('div');
             overlay.className = 'yt-consent-overlay fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto';
 
@@ -266,15 +345,6 @@ const { videoId, title } = Astro.props;
             dialog.setAttribute('aria-modal', 'true');
             dialog.setAttribute('aria-labelledby', 'yt-consent-title');
             dialog.className = 'yt-consent-dialog max-w-lg w-full rounded-3xl bg-card-bg border border-accent/20 p-7 md:p-8 text-text-main shadow-2xl my-auto';
-
-            const copy = {
-                title: 'Load YouTube videos?',
-                body: 'The videos below are hosted on YouTube, a service provided by Google. Loading them sends your IP address and browsing data to Google, which may use it for its own purposes, including personalised advertising. This happens under Google’s Terms of Service and Privacy Policy, which I do not control.',
-                detail: 'Nothing is loaded from YouTube or Google until you choose. If you accept, I remember that choice on this device and the videos will play straight away from now on. If you decline, you can still watch them on YouTube itself.',
-                accept: 'Accept and load videos',
-                decline: 'No thanks',
-                link: 'Google Privacy Policy',
-            };
 
             const heading = document.createElement('h3');
             heading.id = 'yt-consent-title';
@@ -320,6 +390,10 @@ const { videoId, title } = Astro.props;
             document.body.style.overflow = 'hidden';
 
             const finish = (value: string) => {
+                // Detach the key handler here: the DOM has no 'remove' event,
+                // so the old `overlay.addEventListener('remove', …)` never
+                // fired and a leaked Escape handler later flipped consent.
+                document.removeEventListener('keydown', onKey);
                 LiteYouTube.setConsent(value);
                 overlay.remove();
                 document.body.style.overflow = previousOverflow;
@@ -354,7 +428,6 @@ const { videoId, title } = Astro.props;
                 }
             };
             document.addEventListener('keydown', onKey);
-            overlay.addEventListener('remove', () => document.removeEventListener('keydown', onKey));
             acceptBtn.focus();
         });
 
@@ -378,6 +451,21 @@ const { videoId, title } = Astro.props;
         }
     }
 
+    /* Withdrawal of consent (GDPR Art. 7(3)): the footer control calls this. */
+    (window as any).__ytConsentReset = () => {
+        LiteYouTube.setConsent(null);
+        document.querySelectorAll('lite-youtube').forEach((el) => {
+            const img = el.querySelector<HTMLImageElement>('.yt-thumb');
+            const poster = el.querySelector('.yt-poster');
+            if (img) {
+                img.removeAttribute('src');
+                img.classList.remove('is-loaded');
+            }
+            poster?.removeAttribute('hidden');
+        });
+        ensureConsentDialog();
+    };
+
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initConsentGate);
     } else {
@@ -396,7 +484,15 @@ const { videoId, title } = Astro.props;
         z-index: 2;
     }
     .lite-youtube.is-hovering .yt-thumb,
-    .lite-youtube.is-hovering .yt-play {
+    .lite-youtube.is-hovering .yt-play,
+    .lite-youtube.is-hovering .yt-duration {
+        visibility: hidden;
+    }
+    /* Once the real player is up, all facade chrome is gone. */
+    .lite-youtube.is-playing .yt-thumb,
+    .lite-youtube.is-playing .yt-play,
+    .lite-youtube.is-playing .yt-duration,
+    .lite-youtube.is-playing .yt-poster {
         visibility: hidden;
     }
     /* Touch devices: no hover preview, so keep the affordance obvious. */
