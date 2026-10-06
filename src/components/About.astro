@@ -89,8 +89,8 @@ const milestones = [
 
 <section id="about" class="relative py-20 scroll-mt-24">
     {/* flavour quotes live in the background whitespace, not in the cards */}
-    <BgQuote text={t('quote_bugs')} class="top-2 left-[3%] -rotate-[2deg]" />
-    <BgQuote text={t('quote_pit_machine')} class="bottom-2 right-[3%] rotate-[1deg]" />
+    <BgQuote text={t('quote_bugs')} class="top-24 left-[calc(572px_-_50vw)] rotate-180" />
+    <BgQuote text={t('quote_pit_machine')} class="bottom-24 right-[calc(572px_-_50vw)]" />
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <!-- Image with Sheep -->
         <div class="reveal-item" style="transition-delay: 200ms">
@@ -180,12 +180,12 @@ const milestones = [
             </div>
         </div>
 
-        <!-- Hackathons -->
-        <div class="space-y-4 reveal-item">
+        <!-- Hackathons: left column, one card per row (roomy, no squeezing) -->
+        <div class="space-y-4 reveal-item lg:col-start-1 lg:row-start-3">
             <h3 class="font-heading text-2xl text-text-main mb-4">
                 {t('hackathons_title')}
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="space-y-4">
                 {hackathons.map(h => (
                     h.href ? (
                         <a href={h.href} target="_blank" rel="noopener" class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow group">
@@ -216,8 +216,8 @@ const milestones = [
             </div>
         </div>
 
-        <!-- Experience -->
-        <div class="space-y-4 reveal-item">
+        <!-- Experience: continues the left column below the hackathons -->
+        <div class="space-y-4 reveal-item lg:col-start-1 lg:row-start-4">
             <h3 class="font-heading text-2xl text-text-main mb-4">
                 {t('experience_title')}
             </h3>
@@ -234,12 +234,13 @@ const milestones = [
             </div>
         </div>
 
-        <!-- Milestones: full-width band so the grid rows stay symmetric -->
-        <div class="space-y-4 reveal-item lg:col-span-2">
+        <!-- Milestones: right column, spanning both rows alongside
+             hackathons + experience -->
+        <div class="space-y-4 reveal-item lg:col-start-2 lg:row-start-3 lg:row-span-2">
             <h3 class="font-heading text-2xl text-text-main mb-4">
                 {t('milestones_title')}
             </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+            <div class="space-y-4">
                 {milestones.map(ms => (
                     <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow">
                         <Icon name={ms.icon} class="text-2xl text-accent pt-1" />
