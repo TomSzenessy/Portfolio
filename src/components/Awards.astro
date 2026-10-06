@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import BgQuote from './BgQuote.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -15,14 +16,16 @@ const awards = [
   { id: 'jf_cib_2024', img: '../assets/Preise/images/jugend_forscht_cib_2024.png', label: t('award_jf_cib_2024'), delay: 50 },
   { id: 'bwinf_2023', img: '../assets/Preise/images/bwinf_2023.png', label: t('award_bwinf_2023'), delay: 100 },
   { id: 'math_2019', img: '../assets/Preise/images/math_olympiad_2019.png', label: t('award_math_2019'), delay: 150 },
-  { id: 'eyp_2024', img: '../assets/Preise/images/eyp_2024.png', label: t('award_eyp_2024'), delay: 0 },
-  { id: 'biber_2023', img: '../assets/Preise/images/biber_2023.png', label: t('award_biber_2023'), delay: 50 },
+  { id: 'biber_2023', img: '../assets/Preise/images/biber_2023.png', label: t('award_biber_2023'), delay: 0 },
+  { id: 'eyp_2024', img: '../assets/Preise/images/eyp_2024.png', label: t('award_eyp_2024'), delay: 50 },
   { id: 'jwinf_2023', img: '../assets/Preise/images/jwinf_2023.png', label: t('award_jwinf_2023'), delay: 100 },
-  { id: 'kangaroo_2024', img: '../assets/Preise/images/kangaroo_2024.png', label: t('award_kangaroo_2024'), delay: 150 },
+  { id: 'hackatum_2025', img: '../assets/Preise/images/hackatum_2025.png', label: t('award_hackatum_2025'), delay: 150 },
 ];
 ---
 
-<section id="awards" class="py-20">
+<section id="awards" class="relative py-20">
+    {/* flavour quote lives in the background whitespace, not in the header */}
+    <BgQuote text={t('quote_tidy')} class="bottom-16 left-[calc(572px_-_50vw)] rotate-180" />
     <div class="text-center mb-16 reveal-item">
         <p class="text-accent font-bold tracking-widest uppercase text-xs mb-3">
             {t('awards_kicker')}
@@ -30,9 +33,6 @@ const awards = [
         <h2 class="font-heading text-4xl text-text-main mb-4">
             {t('honors_title')}
         </h2>
-        <div class="text-xs text-text-muted/40 italic pt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
-            {t('quote_tidy')}
-        </div>
     </div>
 
     <!-- Awards Grid -->
@@ -40,8 +40,10 @@ const awards = [
         {awards.map(award => {
             const imageAsset: any = awardImages[award.img];
             return (
-                <div class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item" 
+                <button type="button"
+                     class="group bg-white p-4 rounded-2xl shadow-sm border border-black/5 hover:shadow-xl hover:-translate-y-2 transition-all cursor-pointer reveal-item text-left w-full"
                      data-full-img={imageAsset?.default?.src}
+                     aria-label={`${award.label}`}
                      style={`transition-delay: ${award.delay}ms`}>
                     <div class="bg-gray-50 rounded-xl overflow-hidden mb-4 border border-black/5">
                         <Image 
@@ -55,7 +57,7 @@ const awards = [
                     <p class="text-center font-bold text-text-main text-sm">
                         {award.label}
                     </p>
-                </div>
+                </button>
             );
         })}
     </div>
@@ -79,6 +81,7 @@ const awards = [
     const lightboxLoader = document.getElementById('lightbox-loader');
     const closeBtn = document.getElementById('close-lightbox');
     const awardCards = document.querySelectorAll('#awards .group');
+    let lastTrigger: HTMLElement | null = null;
 
     // Preload helper
     const preloadImage = (url: string) => {
@@ -97,6 +100,10 @@ const awards = [
         card.addEventListener('click', () => {
             const fullImg = card.getAttribute('data-full-img');
             if (fullImg && lightbox && lightboxImg) {
+                // Keyboard support: remember what opened the lightbox so
+                // focus can return there when it closes.
+                lastTrigger = card as HTMLElement;
+                closeBtn?.focus();
                 // Show lightbox and loader
                 lightbox.classList.remove('hidden');
                 if (lightboxLoader) lightboxLoader.style.opacity = '1';
@@ -132,6 +139,7 @@ const awards = [
                 if (lightboxImg) lightboxImg.src = '';
             }, 300);
             document.body.style.overflow = '';
+            lastTrigger?.focus();
         }
     };
 
@@ -140,13 +148,12 @@ const awards = [
         if (e.target === lightbox) closeLightbox();
     });
 
-    // Strategy: Preload all full images after page is fully loaded and idle
-    window.addEventListener('load', () => {
-        setTimeout(() => {
-            awardCards.forEach(card => {
-                const fullImg = card.getAttribute('data-full-img');
-                if (fullImg) preloadImage(fullImg);
-            });
-        }, 3000); // Wait 3 seconds after load to not interfere with initial performance
+    // NOTE: no idle preload of the full-size images on purpose. The visible
+    // award thumbnails are already optimised WebP (~10-22 KB each); the
+    // full-size PNGs are 0.3-2.3 MB each and were being fetched for every
+    // visitor straight after load, which dominated the page weight.
+    // The full image is now fetched only when a card is actually opened.
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
     });
 </script>

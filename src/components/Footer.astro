@@ -7,20 +7,29 @@ interface Props {
 const { t, lang } = Astro.props;
 ---
 
-<footer class="text-center pb-12 pt-12 text-text-muted/70 text-sm">
+<footer class="text-center pb-12 pt-12 text-text-muted text-sm"
+>
     <p set:html={t('footer_made_with')} />
     <div>
-        <a href="mailto:tom@szenessy.de" class="hover:text-accent">tom@szenessy.de</a>
-        <p class="mt-2">{t('footer_location')}</p>
+        <a href="mailto:tom@szenessy.de" class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text">tom@szenessy.de</a>
+        <p class="mt-2 text-sm">{t('footer_location')}</p>
     </div>
 
-    <div class="mt-5 flex flex-wrap justify-center gap-x-4 gap-y-2 text-xs">
-        <a href={`/${lang}/privacy-policy/`} class="hover:text-accent">{t('footer_privacy')}</a>
-        <a href={`/${lang}/terms-of-service/`} class="hover:text-accent">{t('footer_terms')}</a>
-        <a href={`/${lang}/impressum/`} class="hover:text-accent">{t('footer_impressum')}</a>
+    <div class="mt-5 flex flex-wrap justify-center gap-x-2 gap-y-1 text-xs">
+        <a href={`/${lang}/privacy-policy/`} class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text">{t('footer_privacy')}</a>
+        <a href={`/${lang}/terms-of-service/`} class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text">{t('footer_terms')}</a>
+        <a href={`/${lang}/impressum/`} class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text">{t('footer_impressum')}</a>
+        <!-- GDPR Art. 7(3): withdrawing video consent must be as easy as giving it -->
+        <button type="button" id="yt-consent-reset" class="inline-flex items-center min-h-[40px] px-3 hover:text-accent-text cursor-pointer">{t('footer_video_prefs')}</button>
     </div>
 
-    <div class="mt-4 text-[10px] italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
+    <div class="mt-4 text-[10px] italic hover:text-accent-text hover:opacity-100 transition-all cursor-default select-none">
         {t('quote_chocolates')}
     </div>
 </footer>
+
+<script>
+    document.getElementById('yt-consent-reset')?.addEventListener('click', () => {
+        (window as any).__ytConsentReset?.();
+    });
+</script>

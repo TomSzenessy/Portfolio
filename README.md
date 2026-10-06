@@ -6,7 +6,7 @@ This is the high-performance, modular version of my portfolio, migrated from a m
 
 - **Static Branding & i18n:** Full support for English, German, and Spanish with static routing for SEO and speed.
 - **Optimized Assets:** Automatic image optimization (WebP/compression) via `astro:assets`.
-- **Modern Styling:** Built with Tailwind CSS 4 and custom Bricolage Grotesque/Fraunces typography.
+- **Modern Styling:** Built with Tailwind CSS 4 and self-hosted Inter Variable/Fraunces Variable typography.
 - **Interactive Elements:** Smooth reveal animations, a custom particle background system, and a playful "Peeking Tom" scroll-triggered avatar.
 - **Zero JS by Default:** Ships minimal JavaScript, only where interactivity is required.
 
@@ -43,7 +43,7 @@ Open `http://localhost:4321` in your browser.
 ```bash
 npm run build
 ```
-The production-ready site will be generated in the `dist/` directory.
+The production-ready site will be generated in the `dist/` directory. The `prebuild` hook fetches the top YouTube videos from the channel RSS feed (ranked by views, Shorts excluded) into `src/data/videos.json`; manually added fields like `duration` are preserved across runs.
 
 ## 📈 Performance Improvements
 - **PageSpeed Score:** Significant boost by removing Tailwind CDN and using build-time compilation.

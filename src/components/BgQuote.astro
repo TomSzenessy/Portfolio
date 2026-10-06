@@ -1,0 +1,20 @@
+---
+// A small quote set like a margin note in a book: vertical, italic, hugging
+// the page edge outside the content column. Decorative flavour that can never
+// overlap cards because it lives in the outer margin. Hidden below xl, where
+// there is no margin to place it in. Use `rotate-180` for left-side margins
+// so the text reads upward like a book spine.
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: klass = '' } = Astro.props;
+---
+
+<p
+    class={`bg-quote pointer-events-none select-none hidden xl:block absolute font-heading italic text-sm tracking-wide text-text-muted/55 [writing-mode:vertical-rl] ${klass}`}
+    aria-hidden="true"
+>
+    {text}
+</p>

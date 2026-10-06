@@ -1,7 +1,8 @@
 ---
 import { Image } from 'astro:assets';
-import profileImage from '../assets/Fotos/Tom Passfoto-400.webp';
+import profileImage from '../assets/Fotos/Tom Passfoto-square.webp';
 import Icon from './Icon.astro';
+import BgQuote from './BgQuote.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -10,58 +11,64 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<header id="home" class="min-h-screen flex items-center justify-center py-20 mt-12">
-    <div class="bg-card-bg/90 backdrop-blur-sm p-10 md:p-16 rounded-[40px] shadow-2xl border border-accent/10 text-center max-w-4xl w-full relative reveal-item active">
-        <!-- Profile Image -->
-        <div class="w-44 h-44 mx-auto -mt-36 mb-8 rounded-full border-8 border-white shadow-lg overflow-hidden relative z-10 bg-gradient-to-br from-accent to-orange-300">
-            <Image 
-                src={profileImage} 
-                alt="Tom Szenessy" 
-                width={176} 
-                height={176} 
+<header id="home" class="relative flex items-center justify-center min-h-[calc(100svh-68px)] py-10 md:py-12">
+    {/* the quote floats in the beige gutter beside the card, not inside it */}
+    <BgQuote text={t('quote_mom_wake_up')} class="top-16 right-[calc(572px_-_50vw)]" />
+    <div class="bg-card-bg/90 backdrop-blur-sm p-8 md:p-12 rounded-[40px] shadow-2xl border border-accent/10 text-center max-w-4xl w-full relative reveal-item active">
+        <!-- Profile Image: aspect-true square asset on a soft brand backdrop,
+             so the cut-out face no longer floats on white -->
+        <div class="w-32 h-32 md:w-40 md:h-40 mx-auto -mt-28 md:-mt-32 mb-6 rounded-full border-8 border-white bg-accent-soft shadow-lg overflow-hidden relative z-10">
+            <Image
+                src={profileImage}
+                alt="Tom Szenessy"
+                width={320}
+                height={320}
                 loading="eager"
-                class="w-full h-full object-contain hover:scale-110 transition-transform duration-500"
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
             />
         </div>
 
-        <div class="space-y-6">
-            <h1 class="font-heading text-5xl md:text-6xl text-text-main leading-tight" set:html={t('hero_title')} />
+        <div class="space-y-5">
+            <!-- Name stays the headline: it is the thing a visitor looks for. -->
+            <h1 class="font-heading text-4xl md:text-5xl text-text-main leading-tight" set:html={t('hero_greeting')} />
 
-            <p class="text-lg text-text-muted max-w-2xl mx-auto leading-relaxed" set:html={t('hero_text')} />
-            
-            <p class="italic opacity-80 text-base mt-2 block">
+            <!-- Positioning: what he is, in one line, bold lead-in. -->
+            <p class="text-lg md:text-xl text-text-main max-w-2xl mx-auto leading-relaxed" set:html={t('hero_subline')} />
+
+            <!-- Stack keywords as a single quiet line: greppable for recruiters,
+                 but visually flat so it never competes with the headline. -->
+            <p class="text-sm text-text-muted max-w-2xl mx-auto leading-relaxed">
+                {t('hero_stack')}
+            </p>
+
+            <p class="italic opacity-80 text-sm block">
                 {t('hero_note')}
             </p>
 
-            <div class="flex flex-wrap justify-center gap-4 pt-4">
-                <a href="#projects" class="group relative px-8 py-4 bg-gradient-to-r from-accent to-orange-400 text-white rounded-full font-semibold shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 hover:-translate-y-1 transition-all overflow-hidden">
+            <div class="flex flex-wrap justify-center gap-3 pt-1">
+                <a href="#projects" class="group relative px-7 py-3.5 bg-gradient-to-r from-accent to-orange-400 text-white rounded-full font-semibold shadow-lg shadow-accent/30 hover:shadow-xl hover:shadow-accent/40 hover:-translate-y-1 transition-all overflow-hidden">
                     <span class="relative z-10">{t('btn_see_work')}</span>
                     <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                 </a>
-                <a href="#about" class="px-8 py-4 bg-transparent border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all">
+                <a href="#contact" class="px-7 py-3.5 bg-transparent border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all">
                     <span>{t('btn_more_about')}</span>
                 </a>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-3 pt-6">
-                <span class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
-                    <Icon name="graduation-cap" class="text-accent" />
+            <div class="flex flex-wrap justify-center gap-2 pt-3">
+                <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
+                    <Icon name="trophy" class="text-accent-text" />
                     <span>{t('hero_badge_tum')}</span>
                 </span>
-                <span class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
-                    <Icon name="location-dot" class="text-accent" />
+                <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
+                    <Icon name="graduation-cap" class="text-accent-text" />
                     <span>{t('hero_badge_location')}</span>
                 </span>
-                <span class="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
-                    <Icon name="heart" class="text-accent" />
+                <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
+                    <Icon name="location-dot" class="text-accent-text" />
                     <span>{t('hero_badge_focus')}</span>
                 </span>
             </div>
-        </div>
-
-
-        <div class="mt-8 text-xs text-text-muted/40 italic hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
-            <span>{t('quote_mom_wake_up')}</span>
         </div>
     </div>
 </header>

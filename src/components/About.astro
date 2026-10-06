@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import sheepImage from '../assets/Fotos/Tom with Sheep.webp';
 import wallImage from '../assets/Fotos/Tom leaning against a wall.webp';
 import Icon from './Icon.astro';
+import BgQuote from './BgQuote.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -14,22 +15,22 @@ const skillCategories = [
   {
     title: t('skills_ai_title'),
     icon: 'robot',
-    skills: ['skill_ml', 'skill_openai', 'skill_automation', 'skill_data_processing', 'skill_cloud']
+    skills: ['skill_ml', 'skill_openai', 'skill_automation', 'skill_llm', 'skill_data_processing']
   },
   {
     title: t('skills_web_title'),
     icon: 'code',
-    skills: ['skill_js', 'skill_ts', 'skill_react', 'skill_next', 'skill_node', 'skill_tailwind']
+    skills: ['skill_ts', 'skill_js', 'skill_react', 'skill_next', 'skill_astro', 'skill_node', 'skill_tailwind']
   },
   {
-    title: t('skills_creative_title'),
-    icon: 'palette',
-    skills: ['skill_blender', 'skill_unity', 'skill_three', 'skill_video', 'skill_vector']
+    title: t('skills_cloud_title'),
+    icon: 'globe',
+    skills: ['skill_cloudflare', 'skill_go', 'skill_k8s', 'skill_postgres', 'skill_api', 'skill_cicd']
   },
   {
     title: t('skills_tools_title'),
     icon: 'toolbox',
-    skills: ['skill_git', 'skill_docker', 'skill_python', 'skill_js', 'skill_db']
+    skills: ['skill_git', 'skill_docker', 'skill_python', 'skill_kotlin', 'skill_db']
   }
 ];
 
@@ -43,6 +44,22 @@ const experience = [
     title: t('exp_atech_title'),
     desc: t('exp_atech_desc'),
     icon: 'wrench'
+  }
+];
+
+const hackathons = [
+  {
+    title: t('hack_hackatum_title'),
+    desc: t('hack_hackatum_desc'),
+    icon: 'users',
+    // The owner keeps the hackathon project (MunichPulse) unlinked on purpose.
+    href: null
+  },
+  {
+    title: t('hack_makeathon_title'),
+    desc: t('hack_makeathon_desc'),
+    icon: 'code',
+    href: 'https://makeathon.tum-ai.com/'
   }
 ];
 
@@ -70,7 +87,10 @@ const milestones = [
 ];
 ---
 
-<section id="about" class="py-20 scroll-mt-24">
+<section id="about" class="relative py-20 scroll-mt-24">
+    {/* flavour quotes live in the background whitespace, not in the cards */}
+    <BgQuote text={t('quote_bugs')} class="top-24 left-[calc(572px_-_50vw)] rotate-180" />
+    <BgQuote text={t('quote_pit_machine')} class="bottom-24 right-[calc(572px_-_50vw)]" />
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <!-- Image with Sheep -->
         <div class="reveal-item" style="transition-delay: 200ms">
@@ -91,8 +111,15 @@ const milestones = [
                 <p>{t('about_p1')}</p>
                 <p set:html={t('about_p2')} />
                 <p>{t('about_p3')}</p>
-                <div class="text-xs text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
-                    {t('quote_bugs')}
+
+                <!-- Education: the strongest academic signal, stated plainly -->
+                <div class="mt-6 p-5 bg-white rounded-2xl shadow-sm border border-black/5">
+                    <h3 class="font-heading text-2xl text-text-main mb-2 flex items-center gap-2">
+                        <Icon name="graduation-cap" class="text-accent-text" />
+                        <span>{t('education_title')}</span>
+                    </h3>
+                    <p class="text-sm text-text-muted">{t('education_tum')}</p>
+                    <p class="text-sm text-text-muted mt-1.5">{t('education_school')}</p>
                 </div>
             </div>
         </div>
@@ -104,12 +131,15 @@ const milestones = [
                     {t('languages_title')}
                 </h3>
                 <div class="flex flex-wrap gap-3">
-                    {['lang_de', 'lang_en', 'lang_es', 'lang_fr'].map(l => (
+                    {['lang_de', 'lang_en', 'lang_es', 'lang_zh', 'lang_fr'].map(l => (
                         <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-text-main border border-black/5">
                             {t(l)}
                         </span>
                     ))}
                 </div>
+                <p class="text-sm text-text-muted">
+                    {t('languages_note')}
+                </p>
             </div>
 
             <div class="mt-10 space-y-4">
@@ -147,14 +177,47 @@ const milestones = [
                 <div class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5">
                     {t('photo_caption_wall')}
                 </div>
-                <div class="text-xs text-center text-text-muted/40 italic mt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
-                    {t('quote_pit_machine')}
-                </div>
             </div>
         </div>
 
-        <!-- Experience -->
-        <div class="space-y-4 reveal-item">
+        <!-- Hackathons: left column, one card per row (roomy, no squeezing) -->
+        <div class="space-y-4 reveal-item lg:col-start-1 lg:row-start-3">
+            <h3 class="font-heading text-2xl text-text-main mb-4">
+                {t('hackathons_title')}
+            </h3>
+            <div class="space-y-4">
+                {hackathons.map(h => (
+                    h.href ? (
+                        <a href={h.href} target="_blank" rel="noopener" class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow group">
+                            <Icon name={h.icon} class="text-2xl text-accent pt-1 shrink-0" />
+                            <div>
+                                <h4 class="font-bold text-text-main group-hover:text-accent-text transition-colors">
+                                    {h.title}
+                                </h4>
+                                <p class="text-sm text-text-muted mt-1">
+                                    {h.desc}
+                                </p>
+                            </div>
+                        </a>
+                    ) : (
+                        <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5">
+                            <Icon name={h.icon} class="text-2xl text-accent pt-1 shrink-0" />
+                            <div>
+                                <h4 class="font-bold text-text-main">
+                                    {h.title}
+                                </h4>
+                                <p class="text-sm text-text-muted mt-1">
+                                    {h.desc}
+                                </p>
+                            </div>
+                        </div>
+                    )
+                ))}
+            </div>
+        </div>
+
+        <!-- Experience: continues the left column below the hackathons -->
+        <div class="space-y-4 reveal-item lg:col-start-1 lg:row-start-4">
             <h3 class="font-heading text-2xl text-text-main mb-4">
                 {t('experience_title')}
             </h3>
@@ -171,8 +234,9 @@ const milestones = [
             </div>
         </div>
 
-        <!-- Milestones -->
-        <div class="space-y-4 reveal-item">
+        <!-- Milestones: right column, spanning both rows alongside
+             hackathons + experience -->
+        <div class="space-y-4 reveal-item lg:col-start-2 lg:row-start-3 lg:row-span-2">
             <h3 class="font-heading text-2xl text-text-main mb-4">
                 {t('milestones_title')}
             </h3>

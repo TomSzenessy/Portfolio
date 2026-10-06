@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="404 — Tom Szenessy" description="This page wandered off." lang="en">
+    <main class="min-h-screen flex items-center justify-center px-6">
+        <div class="text-center max-w-xl">
+            <p class="text-accent font-bold tracking-widest uppercase text-xs mb-3">404</p>
+            <h1 class="font-heading text-4xl md:text-5xl text-text-main mb-4">
+                This page wandered off.
+            </h1>
+            <p class="text-text-muted text-lg mb-8">
+                Maybe it is out building something. The projects are all still here:
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="/en/" class="px-7 py-3.5 bg-gradient-to-r from-accent to-orange-400 text-white rounded-full font-semibold shadow-lg hover:-translate-y-1 transition-all">English</a>
+                <a href="/de/" class="px-7 py-3.5 border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all">Deutsch</a>
+                <a href="/es/" class="px-7 py-3.5 border-2 border-accent/40 text-text-main rounded-full font-semibold hover:bg-accent/10 hover:-translate-y-1 transition-all">Español</a>
+            </div>
+        </div>
+    </main>
+</BaseLayout>

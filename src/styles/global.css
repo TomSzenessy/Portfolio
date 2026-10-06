@@ -1,6 +1,42 @@
 @import "tailwindcss";
-@import "@fontsource-variable/bricolage-grotesque";
-@import "@fontsource-variable/fraunces";
+/* Latin + Latin-Extended only. Fontsource's `wght.css` also declares
+   Cyrillic, Greek and Vietnamese, which this EN/DE/ES site never renders —
+   that added ~110KB of woff2. Declaring the faces ourselves keeps the
+   families identical while shipping only the subsets we need.
+   Names MUST match what Fontsource declares ("… Variable"), otherwise the
+   browser silently falls back to a generic family. */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('@fontsource-variable/fraunces/files/fraunces-latin-ext-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
 
 @theme {
   --color-bg: #f6eee2;
@@ -8,13 +44,19 @@
   --color-text-main: #2d231c;
   --color-text-muted: #6a5c52;
   --color-accent: #d07a3d;
+  /* Text-safe accent. #d07a3d is only 2.79:1 on cream and fails WCAG AA.
+     #a15420 gives 4.80:1 on cream and 5.52:1 on white. */
+  --color-accent-text: #a15420;
   --color-accent-soft: #f3c8a0;
   --color-accent-sage: #8aa39a;
   --color-card-bg: #ffffff;
   --color-border-main: rgba(0, 0, 0, 0.05);
 
-  --font-heading: "Fraunces", serif;
-  --font-body: "Bricolage Grotesque", sans-serif;
+  /* Names MUST match @fontsource-variable's declared family exactly:
+     "Fraunces Variable" and "Inter Variable". Asking for "Fraunces" or "Inter"
+     silently falls back to a generic family. */
+  --font-heading: "Fraunces Variable", Georgia, serif;
+  --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --animate-float: float 6s ease-in-out infinite;
 
@@ -37,9 +79,15 @@
     z-index: 5;
 }
 
-/* Hide scrollbar for clean look */
+/* Custom scrollbar — cream track, brand thumb (matches main).
+   Standard properties cover Firefox; the webkit block covers Chrome/Safari. */
+html {
+    scrollbar-color: #d07a3d #f6eee2;
+    scrollbar-width: thin;
+}
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
 }
 ::-webkit-scrollbar-track {
     background: #f6eee2;
@@ -48,14 +96,49 @@
     background: #d07a3d;
     border-radius: 4px;
 }
+::-webkit-scrollbar-corner {
+    background: #f6eee2;
+}
+/* Dark overlays scroll with a dark scrollbar — the cream one over the
+   consent modal and the award lightbox looked broken. */
+.yt-consent-overlay,
+#lightbox {
+    scrollbar-color: #d07a3d rgba(0, 0, 0, 0.4);
+}
+.yt-consent-overlay::-webkit-scrollbar-track,
+#lightbox::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.4);
+}
 
-/* Reveal Animation Classes */
+/* Reduced motion: honour the OS setting across all animation. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .reveal-item {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* Reveal Animation Classes — hidden ONLY when JS runs (BaseLayout adds the
+   .js class), so content stays visible without JavaScript and a failed
+   observer can never blank the page. */
 .reveal-item {
-    opacity: 0;
-    transform: translateY(30px);
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal-item.active {
+.js .reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+}
+.js .reveal-item.active {
     opacity: 1;
     transform: translateY(0);
 }
@@ -90,15 +173,25 @@
 /* Language switcher active state */
 .lang-btn {
     color: #6a5c52;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    border-radius: 9999px;
 }
 .lang-btn:hover {
     color: #d07a3d;
+    background-color: rgba(208, 122, 61, 0.1);
 }
-.lang-btn.is-active {
+.lang-btn.is-active,
+.lang-btn[aria-current="true"] {
     color: #d07a3d;
     text-decoration-line: underline;
     text-underline-offset: 4px;
+}
+
+/* Keyboard focus visibility across the site */
+:focus-visible {
+    outline: 3px solid #d07a3d;
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
 .skill-chip {
@@ -109,7 +202,7 @@
     border-radius: 9999px;
     background: rgba(208, 122, 61, 0.12);
     color: #2d231c;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 600;
 }
 .skill-dot {
@@ -118,4 +211,23 @@
     border-radius: 9999px;
     background: #d07a3d;
     flex-shrink: 0;
+}
+
+/* YouTube poster/thumbnail behaviour
+   The thumbnail is revealed by JS on consent. The base class must stay
+   visible on touch devices, where there is no hover to trigger a CSS fade. */
+.lite-youtube .yt-thumb {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+.lite-youtube .yt-thumb.is-loaded {
+    opacity: 1;
+}
+
+/* Award card images: keep the lightbox affordance obvious on touch too */
+@media (hover: none) {
+    .sheep-tooltip {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }

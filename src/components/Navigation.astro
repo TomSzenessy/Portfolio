@@ -23,11 +23,12 @@ const languages = [
 ];
 ---
 
-<!-- Navigation Dots (Desktop) -->
-<nav class="hidden side-nav fixed right-8 top-1/2 -translate-y-1/2 md:flex flex-col gap-4 z-50 p-3 bg-white/70 backdrop-blur-md rounded-full border border-white/30 shadow-lg">
+<!-- Navigation Dots (Desktop) — 44px tap targets with a visual dot inside -->
+<nav class="hidden side-nav fixed right-6 top-1/2 -translate-y-1/2 md:flex flex-col gap-1 z-50 p-2 bg-white/70 backdrop-blur-md rounded-full border border-white/30 shadow-lg">
     {navItems.map(item => (
-        <a href={`#${item.id}`} class="w-3 h-3 bg-text-muted rounded-full transition-all hover:bg-accent hover:scale-125 relative group" aria-label={item.label}>
-            <span class="absolute right-8 top-1/2 -translate-y-1/2 bg-text-main text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+        <a href={`#${item.id}`} class="relative group flex items-center justify-center w-11 h-11" aria-label={item.label}>
+            <span class="block w-2.5 h-2.5 rounded-full bg-text-muted group-hover:bg-accent group-hover:scale-125 transition-all"></span>
+            <span class="absolute right-11 top-1/2 -translate-y-1/2 bg-text-main text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
                 {item.label}
             </span>
         </a>
@@ -35,27 +36,27 @@ const languages = [
 </nav>
 
 <!-- Top Navigation -->
-<nav class="sticky top-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-black/5 px-6 py-4 flex flex-wrap justify-around items-center transition-all duration-300" id="top-nav">
-    <a href="#home" class="font-heading font-bold text-xl tracking-tight text-text-main hover:text-accent transition-colors">tom.szenessy</a>
+<nav class="sticky top-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-black/5 px-6 py-3 flex flex-wrap justify-between items-center gap-y-2 transition-all duration-300" id="top-nav">
+    <a href="#home" class="font-heading font-bold text-xl tracking-tight text-text-main hover:text-accent-text transition-colors py-2">tom.szenessy</a>
 
-    <div class="flex items-center gap-6">
-        <!-- Language Switcher -->
-        <div class="flex gap-3 text-sm font-semibold">
-            {languages.map(l => (
-                <a 
-                    href={`/${l.code}/`} 
-                    class={`lang-btn cursor-pointer ${lang === l.code ? 'is-active' : ''}`}
-                >
-                    {l.label}
-                </a>
-            ))}
-        </div>
+    <!-- Language Switcher: 44px tap targets -->
+    <div class="flex items-center gap-1">
+        {languages.map(l => (
+            <a
+                href={`/${l.code}/`}
+                aria-current={lang === l.code ? 'true' : undefined}
+                class={`lang-btn cursor-pointer inline-flex items-center justify-center min-w-[44px] min-h-[44px] px-3 text-sm font-semibold`}
+            >
+                {l.label}
+            </a>
+        ))}
     </div>
-    <!-- Social Icons -->
-    <div class="hidden sm:flex gap-4 text-lg text-text-muted">
-        <a href="https://www.youtube.com/@tomsze" target="_blank" class="text-[#ff0000] hover:-translate-y-1 transition-transform"><Icon name="youtube" /></a>
-        <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" class="text-[#0a66c2] hover:-translate-y-1 transition-transform"><Icon name="linkedin" /></a>
-        <a href="https://github.com/TomSzenessy" target="_blank" class="text-[#1f1f1f]  hover:-translate-y-1 transition-transform"><Icon name="github" /></a>
-        <a href="https://www.instagram.com/tom_szenessy/" target="_blank" class="text-[#833ab4] hover:-translate-y-1 transition-transform"><Icon name="instagram" /></a>
+
+    <!-- Social Icons: 44px tap targets, hidden below sm -->
+    <div class="hidden sm:flex items-center gap-1 text-text-muted">
+        <a href="https://www.youtube.com/@tomsze" target="_blank" rel="noopener" aria-label="YouTube" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-[#cc0000] hover:bg-accent/10 hover:-translate-y-1 transition-transform"><Icon name="youtube" /></a>
+        <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" rel="noopener" aria-label="LinkedIn" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-[#0a58a8] hover:bg-accent/10 hover:-translate-y-1 transition-transform"><Icon name="linkedin" /></a>
+        <a href="https://github.com/TomSzenessy" target="_blank" rel="noopener" aria-label="GitHub" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-[#1f1f1f] hover:bg-accent/10 hover:-translate-y-1 transition-transform"><Icon name="github" /></a>
+        <a href="https://www.instagram.com/tom_szenessy/" target="_blank" rel="noopener" aria-label="Instagram" class="inline-flex items-center justify-center w-11 h-11 rounded-full text-[#833ab4] hover:bg-accent/10 hover:-translate-y-1 transition-transform"><Icon name="instagram" /></a>
     </div>
 </nav>

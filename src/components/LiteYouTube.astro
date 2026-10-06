@@ -2,56 +2,83 @@
 interface Props {
   videoId: string;
   title: string;
-  thumbnailSrc: string;
-  consentTitle: string;
-  consentBody: string;
-  consentAccept: string;
-  consentCancel: string;
+  /** Duration badge text, e.g. "15:42". Hidden when missing. */
+  duration?: string;
 }
 
-const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, consentCancel } = Astro.props;
+const { videoId, title, duration } = Astro.props;
 ---
 
 <lite-youtube
-    class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden shadow-lg block"
+    class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden block bg-[#2d231c]"
     data-id={videoId}
     data-title={title}
-    data-consent-title={consentTitle}
-    data-consent-body={consentBody}
-    data-consent-accept={consentAccept}
-    data-consent-cancel={consentCancel}
 >
-    <!-- Poster Image -->
-    <img 
-        src={thumbnailSrc}
-        alt={title}
-        loading="lazy"
-        class="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
-    />
-    
-    <!-- Play Button Overlay -->
-    <div class="absolute inset-0 flex items-center justify-center">
-        <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center text-white text-2xl shadow-xl group-hover:scale-110 group-hover:bg-orange-400 transition-all duration-300">
-            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+    <!-- Local poster: stands in for the thumbnail until the visitor accepts
+         third-party content. Deliberately NOT a YouTube URL, so nothing reaches
+         Google before consent. The blurry background gives the card depth. -->
+    <div class="yt-poster absolute inset-0 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#3d3028] to-[#241c16]"></div>
+        <div class="absolute inset-0 opacity-25" aria-hidden="true" style="background-image:radial-gradient(circle at 30% 30%,#d07a3d,transparent 55%),radial-gradient(circle at 75% 70%,#8aa39a,transparent 55%)"></div>
+    </div>
+
+    <!-- Real thumbnail: injected only after the site-wide consent exists -->
+    <img class="yt-thumb absolute inset-0 w-full h-full object-cover" alt="" aria-hidden="true" loading="lazy" />
+
+    <!-- YouTube's own embed play button: red rounded rectangle, white triangle.
+         Stays visible over the thumbnail, exactly like a real YouTube embed. -->
+    <div class="yt-play absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-[68px] h-[48px] bg-[#ff0000] rounded-[12px] flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:bg-[#ff0000] transition-transform duration-200">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true">
                 <path d="M8 5.14v14l11-7-11-7z" />
             </svg>
         </div>
     </div>
 
-    <!-- YouTube Logo for Branding -->
-    <div class="absolute bottom-4 right-4 text-white/50 text-xs font-bold pointer-events-none group-hover:text-white/80 transition-colors">
-        YouTube
-    </div>
+    <!-- Duration badge (bottom-right), the way YouTube draws it -->
+    {duration && (
+        <span class="yt-duration absolute bottom-2 right-2 bg-black/80 text-white text-xs font-semibold px-1.5 py-0.5 rounded">
+            {duration}
+        </span>
+    )}
 </lite-youtube>
 
 <script>
+    /**
+     * Consent model (site-wide, once):
+     *   - On the FIRST visit the visitor gets one dialog explaining that
+     *     accepting loads YouTube (Google) content under Google's terms.
+     *   - Nothing is requested from Google before they accept.
+     *   - Accepting stores a single flag in localStorage; from then on every
+     *     video thumbnail loads and every video plays with no further prompt,
+     *     including after a reload.
+     *   - Declining stores the refusal: the site NEVER asks again and never
+     *     loads Google content. Cards become quiet link-outs to youtube.com.
+     *     A footer control lets the visitor change their mind later.
+     */
+    const CONSENT_KEY = 'yt-consent-v2';
+    const ACCEPTED = 'accepted';
+    const DECLINED = 'declined';
+
+    /** How long a hover preview is kept alive after the pointer leaves. */
+    const PREVIEW_KEEPALIVE_MS = 15000;
+
     class LiteYouTube extends HTMLElement {
-        static consentStorageKey = 'youtube-consent-granted';
-        static consentDialogPromise = null;
         isValidVideoId = true;
+        hoverPreview: HTMLIFrameElement | null = null;
+        /** Set on the first real mouse event, so touch taps never start a preview. */
+        seenMouse = false;
+        private hoverIdleTimer: number | undefined;
 
         constructor() {
             super();
+            window.addEventListener(
+                'mousemove',
+                () => {
+                    this.seenMouse = true;
+                },
+                { once: true, passive: true }
+            );
         }
 
         connectedCallback() {
@@ -61,16 +88,160 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
                 console.warn('Invalid YouTube video ID:', videoId);
                 return;
             }
-            this.addEventListener('click', () => this.addIframe());
+
+            this.addEventListener('click', (e) => {
+                if ((e.target as HTMLElement).closest('a')) return;
+                this.addIframe();
+            });
+
+            // Hovering must NEVER start playback. It only preloads the embed
+            // player behind the facade so the first click is instant — the
+            // visible behaviour on hover is a gentle thumbnail zoom (CSS).
+            //
+            // Attach unconditionally and decide inside the handler rather than
+            // gating on a media query at load time: `hover: hover` is only
+            // trustworthy after the first real pointer event, and some
+            // environments (embedded webviews, headless, certain Linux
+            // setups) report `hover: none` even for a desktop mouse.
+            this.addEventListener('mouseenter', () => {
+                if (this.dataset.played === 'true') return;
+                this.seenMouse = true;
+                if (!this.canHover()) return;
+                window.clearTimeout(this.hoverIdleTimer);
+                this.startHoverPreview();
+            });
+            this.addEventListener('mouseleave', () => {
+                if (this.dataset.played === 'true') return;
+                // The preloaded player is hidden behind the facade; discard it
+                // only after a longer idle period.
+                window.clearTimeout(this.hoverIdleTimer);
+                this.hoverIdleTimer = window.setTimeout(
+                    () => this.stopHoverPreview(),
+                    PREVIEW_KEEPALIVE_MS
+                );
+            });
+
+            // React to consent given at any time on this page.
+            document.addEventListener('yt-consent-change', () => this.syncThumb());
+            this.syncThumb();
+        }
+
+        /**
+         * True only on a device that both reports hover support and has
+         * actually produced a mouse event. Touch devices return false, so the
+         * preview never starts there.
+         */
+        canHover() {
+            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return false;
+            return this.seenMouse === true;
+        }
+
+        /** Consent-gated: never create a Google request the visitor refused. */
+        canLoadYouTube() {
+            return LiteYouTube.hasConsent();
+        }
+
+        /**
+         * Preload the embed player BEHIND the facade (autoplay off, muted):
+         * nothing is visible and nothing plays until the visitor clicks.
+         */
+        startHoverPreview() {
+            if (!this.isValidVideoId || !this.canLoadYouTube()) return;
+            if (this.dataset.played === 'true' || this.hoverPreview) return;
+
+            const iframe = document.createElement('iframe');
+            // Sits behind the facade chrome (which has z-index: 1 in <style>).
+            iframe.className = 'yt-hover absolute inset-0 w-full h-full border-0';
+            iframe.setAttribute('tabindex', '-1');
+            iframe.setAttribute('aria-hidden', 'true');
+            iframe.setAttribute('title', '');
+            iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+            iframe.src =
+                `https://www.youtube-nocookie.com/embed/${this.dataset.id}` +
+                `?autoplay=0&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1&iv_loading=0`;
+
+            this.hoverPreview = iframe;
+            this.appendChild(iframe);
+        }
+
+        stopHoverPreview() {
+            const iframe = this.hoverPreview;
+            if (!iframe) return;
+            this.hoverPreview = null;
+            iframe.remove();
+        }
+
+        static readConsent(): string | null {
+            try {
+                return localStorage.getItem(CONSENT_KEY);
+            } catch {
+                return null;
+            }
+        }
+
+        static setConsent(value: string | null) {
+            try {
+                if (value === null) localStorage.removeItem(CONSENT_KEY);
+                else localStorage.setItem(CONSENT_KEY, value);
+            } catch {
+                /* storage blocked: fall back to per-session consent */
+            }
+            document.dispatchEvent(new CustomEvent('yt-consent-change'));
+        }
+
+        static hasConsent(): boolean {
+            return LiteYouTube.readConsent() === ACCEPTED;
+        }
+
+        /** Show the real YouTube thumbnail once consent exists. */
+        syncThumb() {
+            if (!LiteYouTube.hasConsent()) return;
+            const img = this.querySelector<HTMLImageElement>('.yt-thumb');
+            const poster = this.querySelector('.yt-poster');
+            if (!img) return;
+
+            img.src = `https://i.ytimg.com/vi/${this.dataset.id}/maxresdefault.jpg`;
+            img.addEventListener(
+                'load',
+                () => {
+                    img.classList.add('is-loaded');
+                    // Keep the red play button and duration badge visible —
+                    // that is exactly how a real YouTube embed looks.
+                    poster?.setAttribute('hidden', '');
+                },
+                { once: true }
+            );
+            // Some uploads lack a maxres asset; fall back to a smaller guaranteed size.
+            img.addEventListener(
+                'error',
+                () => {
+                    img.src = `https://i.ytimg.com/vi/${this.dataset.id}/hqdefault.jpg`;
+                    img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
+                },
+                { once: true }
+            );
         }
 
         async addIframe() {
             if (!this.isValidVideoId) return;
-            const hasConsent = localStorage.getItem(LiteYouTube.consentStorageKey) === 'true';
-            if (!hasConsent) {
-                const granted = await this.requestConsent();
-                if (!granted) return;
-                localStorage.setItem(LiteYouTube.consentStorageKey, 'true');
+
+            const consent = LiteYouTube.readConsent();
+
+            // An explicit refusal is final: never nag again, just link out.
+            if (consent === DECLINED) {
+                window.open(
+                    `https://www.youtube.com/watch?v=${this.dataset.id}`,
+                    '_blank',
+                    'noopener'
+                );
+                return;
+            }
+
+            // No answer yet: run the one site-wide gate. Until it is answered
+            // there is nothing to play, so do not fall through to an embed.
+            if (consent !== ACCEPTED) {
+                await ensureConsentDialog();
+                if (!LiteYouTube.hasConsent()) return;
             }
 
             this.renderIframe();
@@ -78,93 +249,258 @@ const { videoId, title, thumbnailSrc, consentTitle, consentBody, consentAccept, 
 
         renderIframe() {
             if (!this.isValidVideoId) return;
-            const videoId = this.dataset.id;
-            const title = this.dataset.title;
+
+            window.clearTimeout(this.hoverIdleTimer);
+
+            // A warm hover preview becomes the real player on click — swap
+            // its parameters instead of tearing it down and cold-loading a
+            // second iframe (that reload was part of the ~3s delay).
+            const warm = this.hoverPreview;
+            if (warm) {
+                this.hoverPreview = null;
+                this.dataset.played = 'true';
+                this.classList.add('is-playing');
+                warm.removeAttribute('aria-hidden');
+                warm.removeAttribute('tabindex');
+                warm.setAttribute('title', this.dataset.title || 'YouTube Video');
+                warm.setAttribute(
+                    'allow',
+                    'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+                );
+                warm.src = `https://www.youtube-nocookie.com/embed/${this.dataset.id}?autoplay=1&rel=0&playsinline=1`;
+                return;
+            }
+
+            this.dataset.played = 'true';
+            this.classList.add('is-playing');
+
             const iframe = document.createElement('iframe');
-            
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allowfullscreen', '1');
             iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-            iframe.setAttribute('title', title || 'YouTube Video');
-            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0`);
+            iframe.setAttribute('title', this.dataset.title || 'YouTube Video');
+            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${this.dataset.id}?autoplay=1&rel=0&playsinline=1`);
             iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
-            
+
             this.innerHTML = '';
             this.appendChild(iframe);
         }
+    }
 
-        requestConsent() {
-            if (LiteYouTube.consentDialogPromise) {
-                return LiteYouTube.consentDialogPromise;
-            }
+    if (!customElements.get('lite-youtube')) {
+        customElements.define('lite-youtube', LiteYouTube);
+    }
 
-            const title = this.dataset.consentTitle || 'Load YouTube?';
-            const body = this.dataset.consentBody || 'By playing this video, a connection to YouTube will be established.';
-            const acceptLabel = this.dataset.consentAccept || 'Allow YouTube';
-            const cancelLabel = this.dataset.consentCancel || 'Cancel';
+    /* ------------------------------------------------------------------ */
+    /* The single site-wide consent dialog                                  */
+    /* ------------------------------------------------------------------ */
+    let dialogPromise: Promise<void> | null = null;
 
-            LiteYouTube.consentDialogPromise = new Promise((resolve) => {
-                const overlay = document.createElement('div');
-                overlay.className = 'yt-consent-overlay fixed inset-0 z-[9999] bg-black/70 flex items-center justify-center p-4';
+    /** Localized dialog copy — the site is EN/DE/ES (see html[lang]). */
+    function consentCopy() {
+        const lang = document.documentElement.lang?.slice(0, 2) || 'en';
+        const copy = {
+            de: {
+                title: 'YouTube-Videos laden?',
+                body: 'Die Videos stammen von YouTube, einem Dienst von Google. Beim Laden werden deine IP-Adresse und Browserdaten an Google übertragen, die Google eigene Zwecken nutzen darf — auch für personalisierte Werbung. Das geschieht unter Googles Nutzungsbedingungen und Datenschutzerklärung, auf die ich keinen Einfluss habe.',
+                detail: 'Es wird nichts von YouTube oder Google geladen, bevor du dich entscheidest. Wenn du zustimmst, merke ich mir die Wahl auf diesem Gerät und die Videos laufen ab sofort direkt. Wenn du ablehnst, kannst du sie weiterhin direkt auf YouTube ansehen.',
+                accept: 'Akzeptieren und Videos laden',
+                decline: 'Nein, danke',
+                link: 'Google Datenschutzerklärung',
+            },
+            es: {
+                title: '¿Cargar vídeos de YouTube?',
+                body: 'Los vídeos proceden de YouTube, un servicio de Google. Al cargarlos se envían tu dirección IP y datos de navegación a Google, que puede usarlos para sus propios fines, incluida la publicidad personalizada. Esto ocurre bajo los Términos y la Política de Privacidad de Google, que no controlo.',
+                detail: 'No se carga nada de YouTube ni de Google hasta que tú decidas. Si aceptas, recuerdo la decisión en este dispositivo y los vídeos se reproducirán directamente a partir de ahora. Si rechazas, puedes verlos directamente en YouTube.',
+                accept: 'Aceptar y cargar vídeos',
+                decline: 'No, gracias',
+                link: 'Política de Privacidad de Google',
+            },
+            en: {
+                title: 'Load YouTube videos?',
+                body: 'The videos below are hosted on YouTube, a service provided by Google. Loading them sends your IP address and browsing data to Google, which may use it for its own purposes, including personalised advertising. This happens under Google’s Terms of Service and Privacy Policy, which I do not control.',
+                detail: 'Nothing is loaded from YouTube or Google until you choose. If you accept, I remember that choice on this device and the videos will play straight away from now on. If you decline, you can still watch them on YouTube itself.',
+                accept: 'Accept and load videos',
+                decline: 'No thanks',
+                link: 'Google Privacy Policy',
+            },
+        } as const;
+        return copy[lang as keyof typeof copy] ?? copy.en;
+    }
 
-                const dialog = document.createElement('div');
-                dialog.className = 'yt-consent-dialog max-w-md w-full rounded-2xl bg-card-bg border border-white/10 p-6 text-text-main shadow-2xl';
+    function ensureConsentDialog(): Promise<void> {
+        if (dialogPromise) return dialogPromise;
 
-                const heading = document.createElement('h3');
-                heading.className = 'font-heading text-2xl mb-3';
-                heading.textContent = title;
+        dialogPromise = new Promise<void>((resolve) => {
+            const copy = consentCopy();
 
-                const paragraph = document.createElement('p');
-                paragraph.className = 'text-sm text-text-muted mb-6';
-                paragraph.textContent = body;
+            const overlay = document.createElement('div');
+            overlay.className = 'yt-consent-overlay fixed inset-0 z-[9999] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto';
 
-                const actions = document.createElement('div');
-                actions.className = 'flex gap-3 justify-end';
+            const dialog = document.createElement('div');
+            dialog.setAttribute('role', 'dialog');
+            dialog.setAttribute('aria-modal', 'true');
+            dialog.setAttribute('aria-labelledby', 'yt-consent-title');
+            dialog.className = 'yt-consent-dialog max-w-lg w-full rounded-3xl bg-card-bg border border-accent/20 p-7 md:p-8 text-text-main shadow-2xl my-auto';
 
-                const cancelBtn = document.createElement('button');
-                cancelBtn.type = 'button';
-                cancelBtn.className = 'yt-consent-cancel px-4 py-2 rounded-lg border border-white/20 text-sm hover:border-white/40 transition-colors';
-                cancelBtn.textContent = cancelLabel;
+            const heading = document.createElement('h3');
+            heading.id = 'yt-consent-title';
+            heading.className = 'font-heading text-2xl md:text-3xl mb-3';
+            heading.textContent = copy.title;
 
-                const acceptBtn = document.createElement('button');
-                acceptBtn.type = 'button';
-                acceptBtn.className = 'yt-consent-accept px-4 py-2 rounded-lg bg-accent text-white text-sm font-semibold hover:bg-orange-400 transition-colors';
-                acceptBtn.textContent = acceptLabel;
+            const para = document.createElement('p');
+            para.className = 'text-[15px] leading-relaxed text-text-main/90 mb-3';
+            para.textContent = copy.body;
 
-                actions.appendChild(cancelBtn);
-                actions.appendChild(acceptBtn);
-                dialog.appendChild(heading);
-                dialog.appendChild(paragraph);
-                dialog.appendChild(actions);
+            const para2 = document.createElement('p');
+            para2.className = 'text-sm leading-relaxed text-text-muted mb-6';
+            para2.textContent = copy.detail;
 
-                overlay.appendChild(dialog);
-                document.body.appendChild(overlay);
+            const policy = document.createElement('a');
+            policy.href = 'https://policies.google.com/privacy';
+            policy.target = '_blank';
+            policy.rel = 'noopener noreferrer';
+            policy.className = 'text-accent-text font-medium underline underline-offset-2 hover:opacity-80 inline-block mb-6';
+            policy.textContent = copy.link;
 
-                const cleanup = (value) => {
-                    overlay.remove();
-                    LiteYouTube.consentDialogPromise = null;
-                    resolve(value);
-                };
+            const actions = document.createElement('div');
+            actions.className = 'flex flex-col-reverse sm:flex-row gap-3 sm:justify-end';
 
-                dialog.querySelector('.yt-consent-cancel').addEventListener('click', () => cleanup(false));
-                dialog.querySelector('.yt-consent-accept').addEventListener('click', () => cleanup(true));
-                overlay.addEventListener('click', (event) => {
-                    if (event.target === overlay) cleanup(false);
-                });
+            const declineBtn = document.createElement('button');
+            declineBtn.type = 'button';
+            declineBtn.className = 'yt-consent-decline px-5 py-3 rounded-full border border-text-muted/40 text-text-main font-medium hover:bg-text-main/5 transition-colors';
+            declineBtn.textContent = copy.decline;
+
+            const acceptBtn = document.createElement('button');
+            acceptBtn.type = 'button';
+            acceptBtn.className = 'yt-consent-accept px-5 py-3 rounded-full bg-accent text-white font-semibold hover:bg-orange-400 transition-colors';
+            acceptBtn.textContent = copy.accept;
+
+            actions.appendChild(declineBtn);
+            actions.appendChild(acceptBtn);
+
+            dialog.append(heading, para, para2, policy, actions);
+            overlay.appendChild(dialog);
+            document.body.appendChild(overlay);
+
+            const previousOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+
+            const finish = (value: string) => {
+                // Detach the key handler here: the DOM has no 'remove' event,
+                // so the old `overlay.addEventListener('remove', …)` never
+                // fired and a leaked Escape handler later flipped consent.
+                document.removeEventListener('keydown', onKey);
+                LiteYouTube.setConsent(value);
+                overlay.remove();
+                document.body.style.overflow = previousOverflow;
+                dialogPromise = null;
+                resolve();
+            };
+
+            declineBtn.addEventListener('click', () => finish(DECLINED));
+            acceptBtn.addEventListener('click', () => finish(ACCEPTED));
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) finish(DECLINED);
             });
 
-            return LiteYouTube.consentDialogPromise;
+            // Keep focus inside the dialog and let Escape count as "decline"
+            // so dismissing never silently records consent.
+            const onKey = (e: KeyboardEvent) => {
+                if (e.key === 'Escape') {
+                    finish(DECLINED);
+                    return;
+                }
+                if (e.key !== 'Tab') return;
+                const focusable = dialog.querySelectorAll<HTMLElement>('button, a[href]');
+                if (!focusable.length) return;
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            };
+            document.addEventListener('keydown', onKey);
+            acceptBtn.focus();
+        });
+
+        return dialogPromise;
+    }
+
+    /**
+     * Ask once per device, on the first visit, as soon as the page is idle —
+     * not on the first click, which interrupts the visitor mid-scroll.
+     * Only offered if there is at least one video on the page.
+     */
+    function initConsentGate() {
+        if (LiteYouTube.readConsent()) return;
+        if (!document.querySelector('lite-youtube')) return;
+
+        const open = () => ensureConsentDialog();
+        if ('requestIdleCallback' in window) {
+            (window as any).requestIdleCallback(open, { timeout: 2500 });
+        } else {
+            window.setTimeout(open, 1200);
         }
     }
 
-    // Register as a custom element if it hasn't been already
-    if (!customElements.get('lite-youtube')) {
-        customElements.define('lite-youtube', LiteYouTube);
+    /* Withdrawal of consent (GDPR Art. 7(3)): the footer control calls this. */
+    (window as any).__ytConsentReset = () => {
+        LiteYouTube.setConsent(null);
+        document.querySelectorAll('lite-youtube').forEach((el) => {
+            const img = el.querySelector<HTMLImageElement>('.yt-thumb');
+            const poster = el.querySelector('.yt-poster');
+            if (img) {
+                img.removeAttribute('src');
+                img.classList.remove('is-loaded');
+            }
+            poster?.removeAttribute('hidden');
+        });
+        ensureConsentDialog();
+    };
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initConsentGate);
+    } else {
+        initConsentGate();
     }
 </script>
 
 <style>
     .lite-youtube iframe {
         border-radius: inherit;
+    }
+
+    /* Facade chrome sits ABOVE the preloaded (hidden, autoplay-off) player,
+       so nothing of it shows before the visitor actually clicks. */
+    .lite-youtube .yt-poster,
+    .lite-youtube .yt-thumb,
+    .lite-youtube .yt-play,
+    .lite-youtube .yt-duration {
+        z-index: 1;
+    }
+    /* Hover affordance: gentle zoom only — playback never starts on hover. */
+    .lite-youtube .yt-thumb {
+        transition: transform 0.4s ease;
+    }
+    .lite-youtube:hover .yt-thumb {
+        transform: scale(1.03);
+    }
+    /* Once the real player is up, all facade chrome is gone. */
+    .lite-youtube.is-playing .yt-thumb,
+    .lite-youtube.is-playing .yt-play,
+    .lite-youtube.is-playing .yt-duration,
+    .lite-youtube.is-playing .yt-poster {
+        visibility: hidden;
+    }
+    /* Touch devices: keep the play affordance obvious. */
+    @media (hover: none) {
+        .lite-youtube .yt-play {
+            opacity: 1;
+        }
     }
 </style>
