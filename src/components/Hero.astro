@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import profileImage from '../assets/Fotos/Tom Passfoto-square.webp';
 import Icon from './Icon.astro';
+import BgQuote from './BgQuote.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -10,7 +11,9 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<header id="home" class="flex items-center justify-center py-14 md:py-16 mt-6">
+<header id="home" class="relative flex items-center justify-center min-h-[calc(100svh-68px)] py-10 md:py-12">
+    {/* the quote floats in the beige gutter beside the card, not inside it */}
+    <BgQuote text={t('quote_mom_wake_up')} class="bottom-1 left-[2%] -rotate-[1deg]" />
     <div class="bg-card-bg/90 backdrop-blur-sm p-8 md:p-12 rounded-[40px] shadow-2xl border border-accent/10 text-center max-w-4xl w-full relative reveal-item active">
         <!-- Profile Image: aspect-true square asset on a soft brand backdrop,
              so the cut-out face no longer floats on white -->
@@ -66,10 +69,6 @@ const { t } = Astro.props;
                     <span>{t('hero_badge_focus')}</span>
                 </span>
             </div>
-        </div>
-
-        <div class="mt-5 text-xs text-text-muted italic hover:text-accent-text hover:opacity-100 transition-all cursor-default select-none">
-            <span>{t('quote_mom_wake_up')}</span>
         </div>
     </div>
 </header>

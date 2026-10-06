@@ -94,30 +94,26 @@ const { videoId, title, duration } = Astro.props;
                 this.addIframe();
             });
 
-            // Play on hover, the way YouTube's own previews behave: on a
-            // pointer device, hovering swaps the thumbnail for a muted,
-            // looping, click-free preview. Leaving keeps the preview warm for
-            // a while so re-hovering is instant.
+            // Hovering must NEVER start playback. It only preloads the embed
+            // player behind the facade so the first click is instant — the
+            // visible behaviour on hover is a gentle thumbnail zoom (CSS).
             //
             // Attach unconditionally and decide inside the handler rather than
             // gating on a media query at load time: `hover: hover` is only
             // trustworthy after the first real pointer event, and some
             // environments (embedded webviews, headless, certain Linux
-            // setups) report `hover: none` even for a desktop mouse. On a
-            // touch device the media query still blocks the preview, so the
-            // tap-to-play behaviour is unchanged.
+            // setups) report `hover: none` even for a desktop mouse.
             this.addEventListener('mouseenter', () => {
                 if (this.dataset.played === 'true') return;
                 this.seenMouse = true;
                 if (!this.canHover()) return;
-                // No delay: create the player immediately so the swap is as
-                // fast as the network allows (was a 400ms timer before).
                 window.clearTimeout(this.hoverIdleTimer);
                 this.startHoverPreview();
             });
             this.addEventListener('mouseleave', () => {
                 if (this.dataset.played === 'true') return;
-                // Keep the preview alive briefly so re-entering is instant.
+                // The preloaded player is hidden behind the facade; discard it
+                // only after a longer idle period.
                 window.clearTimeout(this.hoverIdleTimer);
                 this.hoverIdleTimer = window.setTimeout(
                     () => this.stopHoverPreview(),
@@ -145,12 +141,16 @@ const { videoId, title, duration } = Astro.props;
             return LiteYouTube.hasConsent();
         }
 
-        /** Muted, looping, no-controls preview kept warm for PREVIEW_KEEPALIVE_MS. */
+        /**
+         * Preload the embed player BEHIND the facade (autoplay off, muted):
+         * nothing is visible and nothing plays until the visitor clicks.
+         */
         startHoverPreview() {
             if (!this.isValidVideoId || !this.canLoadYouTube()) return;
             if (this.dataset.played === 'true' || this.hoverPreview) return;
 
             const iframe = document.createElement('iframe');
+            // Sits behind the facade chrome (which has z-index: 1 in <style>).
             iframe.className = 'yt-hover absolute inset-0 w-full h-full border-0';
             iframe.setAttribute('tabindex', '-1');
             iframe.setAttribute('aria-hidden', 'true');
@@ -158,11 +158,10 @@ const { videoId, title, duration } = Astro.props;
             iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
             iframe.src =
                 `https://www.youtube-nocookie.com/embed/${this.dataset.id}` +
-                `?autoplay=1&mute=1&controls=0&loop=1&playlist=${this.dataset.id}&rel=0&modestbranding=1&playsinline=1&iv_loading=0`;
+                `?autoplay=0&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1&iv_loading=0`;
 
             this.hoverPreview = iframe;
             this.appendChild(iframe);
-            this.classList.add('is-hovering');
         }
 
         stopHoverPreview() {
@@ -170,7 +169,6 @@ const { videoId, title, duration } = Astro.props;
             if (!iframe) return;
             this.hoverPreview = null;
             iframe.remove();
-            this.classList.remove('is-hovering');
         }
 
         static readConsent(): string | null {
@@ -261,7 +259,6 @@ const { videoId, title, duration } = Astro.props;
             if (warm) {
                 this.hoverPreview = null;
                 this.dataset.played = 'true';
-                this.classList.remove('is-hovering');
                 this.classList.add('is-playing');
                 warm.removeAttribute('aria-hidden');
                 warm.removeAttribute('tabindex');
@@ -478,15 +475,20 @@ const { videoId, title, duration } = Astro.props;
         border-radius: inherit;
     }
 
-    /* Hover preview sits above the thumbnail; the poster and play button are
-       hidden by JS only while it is active. */
-    .lite-youtube.is-hovering .yt-hover {
-        z-index: 2;
+    /* Facade chrome sits ABOVE the preloaded (hidden, autoplay-off) player,
+       so nothing of it shows before the visitor actually clicks. */
+    .lite-youtube .yt-poster,
+    .lite-youtube .yt-thumb,
+    .lite-youtube .yt-play,
+    .lite-youtube .yt-duration {
+        z-index: 1;
     }
-    .lite-youtube.is-hovering .yt-thumb,
-    .lite-youtube.is-hovering .yt-play,
-    .lite-youtube.is-hovering .yt-duration {
-        visibility: hidden;
+    /* Hover affordance: gentle zoom only — playback never starts on hover. */
+    .lite-youtube .yt-thumb {
+        transition: transform 0.4s ease;
+    }
+    .lite-youtube:hover .yt-thumb {
+        transform: scale(1.03);
     }
     /* Once the real player is up, all facade chrome is gone. */
     .lite-youtube.is-playing .yt-thumb,
@@ -495,7 +497,7 @@ const { videoId, title, duration } = Astro.props;
     .lite-youtube.is-playing .yt-poster {
         visibility: hidden;
     }
-    /* Touch devices: no hover preview, so keep the affordance obvious. */
+    /* Touch devices: keep the play affordance obvious. */
     @media (hover: none) {
         .lite-youtube .yt-play {
             opacity: 1;

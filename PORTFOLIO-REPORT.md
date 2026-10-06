@@ -220,6 +220,22 @@ Today, a "Tom Szenessy" search shows: LinkedIn → GitHub → the CIB award arti
 
 ---
 
+## 8. v3 revision — post-deploy review (2026-10-06)
+
+The owner reviewed the deploy preview; these decisions supersede earlier ones where they conflict:
+
+1. **Hackathon copy: never frame as a loss.** The "Lost to an unrehearsed demo" / "Didn't place" journey-beats are gone — the research-supported journey clause lost to a simpler rule from the owner: describe what was *built* and the positive outcome ("Built SideStroll end to end… pitched the working app on the big stage").
+2. **StuStandUp, Tom's Time Bluff and the Agentic Trading Bot are project cards** (8 cards now). Link targets are per-project: live site if it exists (Time Bluff → [toms-time-bluff.com](https://toms-time-bluff.com/)), GitHub for strictly-code projects (ToMindMap), and an accessible in-page detail dialog when there is no public URL (StuStandUp, Trading Bot). The dead AlpacaTradingBot repo link is gone entirely.
+3. **"Beyond the Screen" removed** — hobbies were costing attention without earning it. (Poker was already out.)
+4. **Micro-quotes float in the beige background** (decorative, rotated, low-contrast, `xl+` only) instead of sitting inside the content cards.
+5. **Hero is exactly one fold** (`min-h: calc(100svh - nav)`), so the next section starts at the fold for a consistent first impression (verified: section top 901px at 900px viewport).
+6. **Hover never plays video.** Hovering only preloads the embed player invisibly behind the thumbnail (autoplay=0); playback starts strictly on click (instant, since the player is warm).
+7. **Hackathons sit in the same grid row as Experience** for symmetry; Milestones became a full-width 4-up band.
+
+Verified end-to-end with two DevTools Protocol QA suites (11/11 new-behavior checks, 23/23 regression checks), including the detail dialog's focus management, zero quote/card overlaps, and the exact fold position.
+
+---
+
 ## Sources
 
 See `research-positioning.md` for the fully cited research brief (Ladders eye-tracking, Profy.dev survey, Sezer et al. 2018, Cuddy/Fiske, Nault et al., Pratfall effect, GEO/KDD 2024, exemplar sites).

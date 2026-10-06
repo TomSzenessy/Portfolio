@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import sheepImage from '../assets/Fotos/Tom with Sheep.webp';
 import wallImage from '../assets/Fotos/Tom leaning against a wall.webp';
 import Icon from './Icon.astro';
+import BgQuote from './BgQuote.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -86,7 +87,10 @@ const milestones = [
 ];
 ---
 
-<section id="about" class="py-20 scroll-mt-24">
+<section id="about" class="relative py-20 scroll-mt-24">
+    {/* flavour quotes live in the background whitespace, not in the cards */}
+    <BgQuote text={t('quote_bugs')} class="top-2 left-[3%] -rotate-[2deg]" />
+    <BgQuote text={t('quote_pit_machine')} class="bottom-2 right-[3%] rotate-[1deg]" />
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         <!-- Image with Sheep -->
         <div class="reveal-item" style="transition-delay: 200ms">
@@ -116,10 +120,6 @@ const milestones = [
                     </h3>
                     <p class="text-sm text-text-muted">{t('education_tum')}</p>
                     <p class="text-sm text-text-muted mt-1.5">{t('education_school')}</p>
-                </div>
-
-                <div class="text-xs text-text-muted/40 italic mt-2 hover:text-accent-text hover:opacity-100 transition-all cursor-default select-none">
-                    {t('quote_bugs')}
                 </div>
             </div>
         </div>
@@ -177,14 +177,11 @@ const milestones = [
                 <div class="sheep-tooltip absolute bottom-4 left-4 bg-white px-4 py-2 rounded-xl shadow-lg text-sm font-semibold text-text-main border border-black/5">
                     {t('photo_caption_wall')}
                 </div>
-                <div class="text-xs text-center text-text-muted/40 italic mt-2 hover:text-accent-text hover:opacity-100 transition-all cursor-default select-none">
-                    {t('quote_pit_machine')}
-                </div>
             </div>
         </div>
 
         <!-- Hackathons -->
-        <div class="space-y-4 reveal-item lg:col-span-2">
+        <div class="space-y-4 reveal-item">
             <h3 class="font-heading text-2xl text-text-main mb-4">
                 {t('hackathons_title')}
             </h3>
@@ -219,16 +216,6 @@ const milestones = [
             </div>
         </div>
 
-        <!-- Beyond the screen -->
-        <div class="space-y-4 reveal-item lg:col-span-2">
-            <h3 class="font-heading text-2xl text-text-main mb-2">
-                {t('beyond_title')}
-            </h3>
-            <p class="text-text-muted leading-relaxed max-w-3xl">
-                {t('beyond_p')}
-            </p>
-        </div>
-
         <!-- Experience -->
         <div class="space-y-4 reveal-item">
             <h3 class="font-heading text-2xl text-text-main mb-4">
@@ -247,12 +234,12 @@ const milestones = [
             </div>
         </div>
 
-        <!-- Milestones -->
-        <div class="space-y-4 reveal-item">
+        <!-- Milestones: full-width band so the grid rows stay symmetric -->
+        <div class="space-y-4 reveal-item lg:col-span-2">
             <h3 class="font-heading text-2xl text-text-main mb-4">
                 {t('milestones_title')}
             </h3>
-            <div class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                 {milestones.map(ms => (
                     <div class="flex gap-4 p-5 bg-white rounded-2xl shadow-sm border border-black/5 hover:shadow-md transition-shadow">
                         <Icon name={ms.icon} class="text-2xl text-accent pt-1" />

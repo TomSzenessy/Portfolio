@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import BgQuote from './BgQuote.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -22,7 +23,9 @@ const awards = [
 ];
 ---
 
-<section id="awards" class="py-20">
+<section id="awards" class="relative py-20">
+    {/* flavour quote lives in the background whitespace, not in the header */}
+    <BgQuote text={t('quote_tidy')} class="top-8 right-[4%] rotate-[2deg]" />
     <div class="text-center mb-16 reveal-item">
         <p class="text-accent font-bold tracking-widest uppercase text-xs mb-3">
             {t('awards_kicker')}
@@ -30,9 +33,6 @@ const awards = [
         <h2 class="font-heading text-4xl text-text-main mb-4">
             {t('honors_title')}
         </h2>
-        <div class="text-xs text-text-muted/60 italic pt-2 hover:text-accent hover:opacity-100 transition-all cursor-default select-none">
-            {t('quote_tidy')}
-        </div>
     </div>
 
     <!-- Awards Grid -->

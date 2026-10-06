@@ -1,0 +1,18 @@
+---
+// A small quote floating in the beige background whitespace — decorative
+// flavour that never sits inside the content cards. Hidden on narrow
+// screens where there is no spare background to place it in.
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: klass = '' } = Astro.props;
+---
+
+<p
+    class={`bg-quote pointer-events-none select-none hidden xl:block absolute font-heading italic text-xs text-text-muted/35 max-w-[300px] leading-relaxed ${klass}`}
+    aria-hidden="true"
+>
+    {text}
+</p>
