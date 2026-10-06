@@ -24,9 +24,10 @@ const formatViews = (n: number) =>
 const formatAge = (iso: string) => {
     const days = Math.round((Date.now() - new Date(iso).getTime()) / 86400000);
     const rtf = new Intl.RelativeTimeFormat(localeTag, { numeric: 'auto' });
+    // Floor like YouTube does: "1 month ago" until 60 days, not 45.
     if (days < 30) return rtf.format(-days, 'day');
-    if (days < 365) return rtf.format(-Math.round(days / 30), 'month');
-    return rtf.format(-Math.round(days / 365), 'year');
+    if (days < 365) return rtf.format(-Math.floor(days / 30), 'month');
+    return rtf.format(-Math.floor(days / 365), 'year');
 };
 
 // The Agentic Trading Bot card links to a repo that is not public yet —
@@ -145,7 +146,7 @@ const visibleProjects = projects.filter(p => SHOW_TRADING_BOT || p.id !== 'bot')
                         </h3>
                         <p class="text-[13px] text-text-muted mt-1">
                             Tom Szenessy
-                            {v.views != null && <> · {formatViews(v.views)} {t('video_views')}</>}
+                            {v.views != null && <> · {formatViews(v.views)}&nbsp;{t('video_views')}</>}
                             {v.published && <> · {formatAge(v.published)}</>}
                         </p>
                     </div>

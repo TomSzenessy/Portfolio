@@ -62,6 +62,9 @@ import '../styles/global.css';
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Marks that JS runs, so reveal animations may hide content until
+             observed. Without JS everything stays visible. -->
+        <script is:inline>document.documentElement.classList.add('js');</script>
         <title>{title}</title>
         <meta name="description" content={description} />
         

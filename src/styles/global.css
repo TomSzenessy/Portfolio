@@ -128,13 +128,17 @@ html {
     }
 }
 
-/* Reveal Animation Classes */
+/* Reveal Animation Classes — hidden ONLY when JS runs (BaseLayout adds the
+   .js class), so content stays visible without JavaScript and a failed
+   observer can never blank the page. */
 .reveal-item {
-    opacity: 0;
-    transform: translateY(30px);
     transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.reveal-item.active {
+.js .reveal-item {
+    opacity: 0;
+    transform: translateY(30px);
+}
+.js .reveal-item.active {
     opacity: 1;
     transform: translateY(0);
 }
