@@ -62,7 +62,7 @@ CONTENT = {
         ],
         "exp": [
             ("House Representative", None, "since Feb 2026",
-             "Studentenstadt Munich · elected for 150+ residents, house events",
+             "Studentenstadt Munich · representing 150+ residents",
              ["Elected in February 2026 to represent the 150+ residents of my building.",
               "Organise community events and parties for the house."]),
             ("Software Development Intern", None, "2023",
@@ -72,7 +72,7 @@ CONTENT = {
         ],
         "proj": [
             ("WorldFolder", ("worldfolder.com", "https://worldfolder.com"), "2026",
-             "Go + Docker hosting · idle servers sleep at zero cost",
+             "Game-server hosting with zero idle cost · Go, Docker",
              ["On-demand Minecraft server hosting written in Go and Docker: idle servers shut down to zero compute cost and wake automatically when a player joins.",
               "Edge proxy, lifecycle state machine, crash guards, control API and Firecracker snapshots for fast wake-up."]),
             ("RoadTax", ("roadtax.app", "https://roadtax.app"), "2026",
@@ -122,7 +122,7 @@ CONTENT = {
         ],
         "exp": [
             ("Haussprecher", None, "seit 02/2026",
-             "Studentenstadt München · gewählt, 150+ Bewohner, Hausevents",
+             "Studentenstadt München · für 150+ Bewohner",
              ["Im Februar 2026 gewählt, um die 150+ Bewohner meines Hauses zu vertreten.",
               "Organisation von Veranstaltungen und Partys für das Haus."]),
             ("Praktikum Softwareentwicklung", None, "2023",
@@ -132,7 +132,7 @@ CONTENT = {
         ],
         "proj": [
             ("WorldFolder", ("worldfolder.com", "https://worldfolder.com"), "2026",
-             "Go + Docker · Gameserver schlafen im Leerlauf kostenlos",
+             "Gameserver-Hosting ohne Kosten im Leerlauf · Go, Docker",
              ["Gameserver-Hosting in Go und Docker: Inaktive Minecraft-Server fahren auf null Rechenkosten herunter und starten automatisch, sobald ein Spieler beitritt.",
               "Edge-Proxy, Lifecycle-Zustandsautomat, Crash-Schutz, Control-API und Firecracker-Snapshots für schnelles Aufwachen."]),
             ("RoadTax", ("roadtax.app", "https://roadtax.app"), "2026",
