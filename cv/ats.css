@@ -1,0 +1,18 @@
+/* Plain single-column CV for applicant tracking systems: no columns, cards, icons or images. */
+@font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2190-2199, U+2212, U+2215; }
+@font-face { font-family: 'Inter'; font-weight: 100 900; src: url('fonts/inter-latin-ext-wght-normal.woff2') format('woff2-variations'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF; }
+
+@page { size: A4; margin: 11mm 15mm 10mm; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', Arial, sans-serif; font-size: 9.3pt; line-height: 1.32; color: #111; background: #fff; }
+a { color: inherit; text-decoration: none; }
+
+h1 { font-size: 20pt; font-weight: 700; }
+.role { font-size: 11pt; margin-top: 0.5mm; }
+.contact { margin-top: 1mm; color: #333; }
+
+h2 { font-size: 10pt; font-weight: 700; text-transform: uppercase; border-bottom: 0.8pt solid #111; padding-bottom: 0.6mm; margin: 3.4mm 0 1.4mm; }
+.item + .item { margin-top: 1.2mm; }
+ul { margin: 0.4mm 0 0 4.5mm; }
+li + li { margin-top: 0.3mm; }
+.more { margin-top: 1.2mm; color: #333; }

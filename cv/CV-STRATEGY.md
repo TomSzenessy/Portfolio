@@ -2,6 +2,14 @@
 
 Content lives in `build.py` (EN and DE side by side). Run `./render.sh` to regenerate `cv-*.html` and the PDFs. The script warns if either one spills onto a second page.
 
+## Two versions from one source
+| File | Use it for |
+|---|---|
+| `Tom_Szenessy_CV_<LANG>.pdf` (card layout, photo) | Email applications, career fairs, startups: anything a person opens directly |
+| `Tom_Szenessy_CV_<LANG>-ATS.pdf` (single column, plain text) | Online application portals (Workday, SAP SuccessFactors, Personio …) that parse the CV automatically |
+
+The ATS version carries slightly more detail (two bullets per key item), because a parser rewards keywords, while the card version keeps one line per item, because a person scans. Both only state verified facts: no invented metrics, download counts or resident numbers.
+
 ## What an employer wants to know, in scan order
 1. **Who and what for.** Name, current role and what you're looking for. That's the header card.
 2. **Hard facts at a glance.** Four number widgets: 1.0 Abitur, 4 live products, Jugend forscht prize, 5 languages.

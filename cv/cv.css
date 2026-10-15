@@ -62,10 +62,6 @@ h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 28pt;
 
 .langs li { display: flex; justify-content: space-between; align-items: center; }
 .langs li + li { margin-top: 1.9mm; }
-.langs .lvl { font-size: 7.8pt; color: var(--muted); margin-left: 1.2mm; }
-.dots { display: inline-flex; gap: 1mm; }
-.dots i { width: 2.2mm; height: 2.2mm; border-radius: 50%; background: var(--dot); }
-.dots i.on { background: var(--accent); }
 
 .plain li + li { margin-top: 1.3mm; }
 
@@ -77,12 +73,13 @@ h1 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 28pt;
 .side .langs li + li { margin-top: 2.9mm; }
 .side .item + .item { margin-top: 3mm; }
 
-h2 { display: flex; justify-content: space-between; align-items: baseline; }
-h2 .more { font-size: 7.8pt; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--accent); }
 
 /* Main column: fewer items now, so give them more room */
 .main .card { padding: 5.5mm 6mm; }
 .main h2 { margin-bottom: 3.2mm; }
 .main .item { font-size: 9.9pt; }
-.main .item + .item { margin-top: 3.6mm; }
+.main .item + .item { margin-top: 3.1mm; }
 .main .item .d { margin-top: 0.4mm; }
+.langs .lvl { color: var(--muted); font-size: 8.8pt; }
+/* "More at szenessy.com" line at the end of a card */
+.more { display: block; margin-top: 3mm; font-size: 8.4pt; font-weight: 500; color: var(--accent); }
