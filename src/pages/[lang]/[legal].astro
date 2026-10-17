@@ -344,7 +344,7 @@ const page = langPages[legal];
 const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://szenessy.com').href;
 ---
 
-<BaseLayout lang={lang} canonicalURL={canonicalURL} title={page.title} description={page.description}>
+<BaseLayout lang={lang} canonicalURL={canonicalURL} title={page.title} description={page.description} noindex>
   <main class="relative z-10 w-full">
     <div class="container mx-auto px-6 max-w-4xl py-16">
       <h1 class="font-heading text-4xl md:text-5xl text-text-main mb-10">{page.heading}</h1>

@@ -4,13 +4,15 @@ interface Props {
   description?: string;
   lang?: string;
   canonicalURL?: string;
+  noindex?: boolean;
 }
 
 const { 
   title = "Tom Szenessy — Business Informatics @ TUM | Projects & Videos",
   description = "Tom Szenessy is a Business Informatics student at TU Munich who builds and ships full-stack products — games, plugins and self-hosted platforms. Projects, awards and videos.",
   lang = "en",
-  canonicalURL
+  canonicalURL,
+  noindex = false
 } = Astro.props;
 
 const siteURL = "https://szenessy.com";
@@ -67,6 +69,7 @@ import '../styles/global.css';
         <script is:inline>document.documentElement.classList.add('js');</script>
         <title>{title}</title>
         <meta name="description" content={description} />
+        {noindex && <meta name="robots" content="noindex, follow" />}
         
         <!-- Favicon: face in a cream rounded-square tile. favicon.ico first for
              the classic /favicon.ico probe; favicon-v2.webp is cache-busted so
