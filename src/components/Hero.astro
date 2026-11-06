@@ -2,7 +2,6 @@
 import { Image } from 'astro:assets';
 import profileImage from '../assets/Fotos/Tom Passfoto-square.webp';
 import Icon from './Icon.astro';
-import BgQuote from './BgQuote.astro';
 
 interface Props {
   t: (key: string) => string;
@@ -12,8 +11,6 @@ const { t } = Astro.props;
 ---
 
 <header id="home" class="relative flex items-center justify-center min-h-[calc(100svh-68px)] py-10 md:py-12">
-    {/* the quote floats in the beige gutter beside the card, not inside it */}
-    <BgQuote text={t('quote_mom_wake_up')} class="top-16 right-[calc(572px_-_50vw)]" />
     <div class="bg-card-bg/90 backdrop-blur-sm p-8 md:p-12 rounded-[40px] shadow-2xl border border-accent/10 text-center max-w-4xl w-full relative reveal-item active">
         <!-- Profile Image: aspect-true square asset on a soft brand backdrop,
              so the cut-out face no longer floats on white -->
@@ -39,21 +36,21 @@ const { t } = Astro.props;
             </p>
 
             <!-- The four channels, as one quiet, modern row. -->
-            <div class="grid grid-cols-2 gap-y-0.5 pt-1 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-7">
+            <div class="grid grid-cols-2 gap-y-0.5 pt-1 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-8">
                 <a href="https://www.youtube.com/@tomsze" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
-                    <Icon name="youtube" class="text-base text-[#cc0000]" />
+                    <Icon name="youtube" class="text-lg text-[#cc0000]" />
                     <span>YouTube</span>
                 </a>
                 <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
-                    <Icon name="linkedin" class="text-base text-[#0a58a8]" />
+                    <Icon name="linkedin" class="text-lg text-[#0a58a8]" />
                     <span>LinkedIn</span>
                 </a>
                 <a href="https://github.com/TomSzenessy" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
-                    <Icon name="github" class="text-base text-[#1f1f1f]" />
+                    <Icon name="github" class="text-lg text-[#1f1f1f]" />
                     <span>GitHub</span>
                 </a>
                 <a href="https://www.instagram.com/tom_szenessy/" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
-                    <Icon name="instagram" class="text-base text-[#833ab4]" />
+                    <Icon name="instagram" class="text-lg text-[#833ab4]" />
                     <span>Instagram</span>
                 </a>
             </div>
