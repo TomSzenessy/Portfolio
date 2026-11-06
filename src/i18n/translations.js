@@ -13,7 +13,7 @@ export const translations = {
 			'<strong>Business Informatics student @ TUM</strong> in Munich. I love solving messy technical problems and starting new projects',
 		hero_note:
 			'Still learning, always curious, and grateful for opportunities to collaborate.',
-		btn_see_work: 'See My Work',
+		btn_see_work: 'See My Projects',
 		btn_more_about: 'Get in touch',
 		hero_badge_tum: 'Jugend forscht 2024 — 2nd prize + CIB Special Prize',
 		hero_badge_location: '1.0 Abitur',
