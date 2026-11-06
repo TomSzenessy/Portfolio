@@ -55,6 +55,28 @@ const { t } = Astro.props;
                 </a>
             </div>
 
+            <div>
+                <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-text-muted mb-1.5">{t('contact_social_label')}</p>
+                <div class="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-center">
+                    <a href="https://www.youtube.com/@tomsze" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
+                        <Icon name="youtube" class="text-lg text-[#cc0000]" />
+                        <span>YouTube</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
+                        <Icon name="linkedin" class="text-lg text-[#0a58a8]" />
+                        <span>LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/TomSzenessy" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
+                        <Icon name="github" class="text-lg text-[#1f1f1f]" />
+                        <span>GitHub</span>
+                    </a>
+                    <a href="https://www.instagram.com/tom_szenessy/" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
+                        <Icon name="instagram" class="text-lg text-[#833ab4]" />
+                        <span>Instagram</span>
+                    </a>
+                </div>
+            </div>
+
             <div class="flex flex-wrap justify-center gap-2 pt-3">
                 <span class="inline-flex items-center gap-2 px-3 py-1 bg-accent/10 rounded-full text-sm font-semibold text-text-main">
                     <Icon name="trophy" class="text-accent-text" />
@@ -68,6 +90,20 @@ const { t } = Astro.props;
                     <Icon name="location-dot" class="text-accent-text" />
                     <span>{t('hero_badge_focus')}</span>
                 </span>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t border-black/5 pt-3">
+                <span class="text-sm font-semibold text-text-main">{t('cv_download')}</span>
+                <div class="flex flex-wrap justify-center gap-2">
+                    <a href="/cv/Tom_Szenessy_CV_EN.pdf" download type="application/pdf" class="inline-flex min-h-[40px] items-center rounded-full border border-accent/40 px-4 text-sm font-semibold text-accent-text transition-colors hover:bg-accent/10">
+                        {t('cv_english')}
+                        <span class="ml-1.5 text-xs font-normal text-text-muted">PDF</span>
+                    </a>
+                    <a href="/cv/Tom_Szenessy_CV_DE.pdf" download type="application/pdf" class="inline-flex min-h-[40px] items-center rounded-full border border-accent/40 px-4 text-sm font-semibold text-accent-text transition-colors hover:bg-accent/10">
+                        {t('cv_german')}
+                        <span class="ml-1.5 text-xs font-normal text-text-muted">PDF</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
