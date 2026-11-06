@@ -23,9 +23,9 @@ export const translations = {
 		cv_german: 'German',
 		parallax_quote: '“the journey is the reward.”',
 
-		projects_kicker: 'Projects & Videos',
-		projects_title: 'Projects & Videos',
-		projects_subtitle: 'Things I built, shipped, and put my name on. Videos ranked by how many people actually watched them.',
+		projects_kicker: 'Videos & Projects',
+		projects_title: 'Videos & Projects',
+		projects_subtitle: 'Some Videos and Projects I made',
 		video_watch: 'Watch on YouTube',
 		youtube_consent_title: 'Load YouTube video?',
 		youtube_consent_body:
@@ -225,9 +225,9 @@ export const translations = {
 		cv_download: 'Lebenslauf herunterladen',
 		cv_english: 'Englisch',
 		cv_german: 'Deutsch',
-		projects_kicker: 'Projekte & Videos',
-		projects_title: 'Projekte & Videos',
-		projects_subtitle: 'Was ich gebaut, ausgeliefert und mit meinem Namen versehen habe. Videos nach echten Aufrufzahlen sortiert.',
+		projects_kicker: 'Videos & Projekte',
+		projects_title: 'Videos & Projekte',
+		projects_subtitle: 'Einige Videos und Projekte von mir',
 		video_watch: 'Auf YouTube ansehen',
 		youtube_consent_title: 'YouTube-Video laden?',
 		youtube_consent_body:
@@ -431,9 +431,9 @@ export const translations = {
 		cv_download: 'Descargar CV',
 		cv_english: 'Inglés',
 		cv_german: 'Alemán',
-		projects_kicker: 'Proyectos y vídeos',
-		projects_title: 'Proyectos y vídeos',
-		projects_subtitle: 'Lo que he construido, publicado y firmado. Vídeos ordenados por visitas reales.',
+		projects_kicker: 'Vídeos y proyectos',
+		projects_title: 'Vídeos y proyectos',
+		projects_subtitle: 'Algunos vídeos y projectos que he creado',
 		video_watch: 'Ver en YouTube',
 		youtube_consent_title: '¿Cargar vídeo de YouTube?',
 		youtube_consent_body:
