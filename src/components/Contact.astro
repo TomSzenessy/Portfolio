@@ -8,12 +8,12 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<section id="contact" class="py-20 mb-20 px-6">
-    <div class="text-center mb-16 reveal-item">
-        <h2 class="font-heading text-4xl text-text-main mb-4 transition-colors duration-300">
+<section id="contact" class="mb-12 px-5 py-12 sm:px-6 md:mb-20 md:py-20">
+    <div class="text-center mb-10 reveal-item md:mb-16">
+        <h2 class="font-heading text-3xl text-text-main mb-4 transition-colors duration-300 md:text-4xl">
             {t('contact_title')}
         </h2>
-        <p class="text-text-muted text-lg max-w-2xl mx-auto transition-colors duration-300">
+        <p class="text-text-muted text-base max-w-2xl mx-auto transition-colors duration-300 md:text-lg">
             {t('contact_subtitle')}
         </p>
 
@@ -27,7 +27,7 @@ const { t } = Astro.props;
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
         <!-- Direct Contact -->
-        <div class="bg-card-bg p-10 rounded-3xl shadow-lg border border-border-main hover:shadow-xl transition-all transition-colors duration-300 reveal-item text-center md:text-left">
+        <div class="bg-card-bg rounded-3xl border border-border-main p-6 shadow-lg transition-all transition-colors duration-300 reveal-item text-center sm:p-8 md:p-10 md:text-left hover:shadow-xl">
             <div class="w-14 h-14 bg-accent/10 rounded-full flex items-center justify-center text-accent text-xl mb-6 mx-auto md:mx-0">
                 <Icon name="paper-plane" />
             </div>
@@ -37,7 +37,7 @@ const { t } = Astro.props;
             <p class="text-text-muted mb-8 transition-colors duration-300">
                 {t('contact_p')}
             </p>
-            <a href="mailto:tom@szenessy.de" class="inline-block bg-gradient-to-br from-accent to-orange-400 text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-accent/20 hover:shadow-xl hover:shadow-accent/30 hover:-translate-y-1 transition-all">
+            <a href="mailto:tom@szenessy.de" class="inline-flex w-full items-center justify-center rounded-full bg-gradient-to-br from-accent to-orange-400 px-8 py-3.5 font-bold text-white shadow-lg shadow-accent/20 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/30 sm:w-auto">
                 tom@szenessy.de
             </a>
             <div class="mt-6 pt-6 border-t border-border-main">
@@ -51,7 +51,7 @@ const { t } = Astro.props;
         </div>
 
         <!-- Topics Panel -->
-        <div class="bg-card-bg p-10 rounded-3xl shadow-lg border border-border-main hover:shadow-xl transition-all transition-colors duration-300 reveal-item" style="transition-delay: 100ms">
+        <div class="bg-card-bg rounded-3xl border border-border-main p-6 shadow-lg transition-all transition-colors duration-300 reveal-item sm:p-8 md:p-10 hover:shadow-xl" style="transition-delay: 100ms">
             <h3 class="font-heading text-2xl text-text-main mb-6 transition-colors duration-300">
                 {t('contact_topics_title')}
             </h3>
