@@ -433,7 +433,7 @@ export const translations = {
 		cv_german: 'Alemán',
 		projects_kicker: 'Vídeos y proyectos',
 		projects_title: 'Vídeos y proyectos',
-		projects_subtitle: 'Algunos vídeos y projectos que he creado',
+		projects_subtitle: 'Algunos vídeos y proyectos que he creado',
 		video_watch: 'Ver en YouTube',
 		youtube_consent_title: '¿Cargar vídeo de YouTube?',
 		youtube_consent_body:
