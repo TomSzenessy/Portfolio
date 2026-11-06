@@ -9,7 +9,7 @@ interface Props {
 const { t } = Astro.props;
 ---
 
-<div id="peekingTom" class="fixed -bottom-[140px] right-6 w-28 h-28 z-50 transition-all duration-75 ease-linear pointer-events-none drop-shadow-xl">
+<div id="peekingTom" class="hidden 2xl:block fixed -bottom-[140px] right-6 w-28 h-28 z-50 transition-all duration-75 ease-linear pointer-events-none drop-shadow-xl">
     <div id="peekingBubble" class="absolute -top-12 right-16 bg-white px-4 py-2 rounded-2xl text-sm font-bold shadow-md border border-black/5 opacity-0 transition-opacity duration-300 whitespace-nowrap after:content-[''] after:absolute after:right-4 after:-bottom-2 after:border-l-8 after:border-r-8 after:border-t-8 after:border-t-white after:border-transparent">
         {t('peeking_bubble')}
     </div>
@@ -21,6 +21,22 @@ const { t } = Astro.props;
     const peekingBubble = document.getElementById('peekingBubble');
 
     if (peekingTom && peekingBubble) {
+        // Do not let the decorative avatar cover the contact/footer content.
+        const bottomTargets = [document.getElementById('contact'), document.querySelector('footer')]
+            .filter((el): el is HTMLElement => Boolean(el));
+
+        if (bottomTargets.length && 'IntersectionObserver' in window) {
+            const visible = new Set<Element>();
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) visible.add(entry.target);
+                    else visible.delete(entry.target);
+                });
+                peekingTom.classList.toggle('opacity-0', visible.size > 0);
+            }, { rootMargin: '0px 0px 25% 0px' });
+            bottomTargets.forEach((el) => observer.observe(el));
+        }
+
         window.addEventListener('scroll', () => {
             const scrollPercent = window.scrollY / (document.body.scrollHeight - window.innerHeight);
             const start = 0.05;
