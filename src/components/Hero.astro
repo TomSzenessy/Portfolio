@@ -38,41 +38,24 @@ const { t } = Astro.props;
                 <span class="block text-base text-text-muted sm:inline sm:text-lg"><span class="hidden sm:inline">· </span>{t('hero_badge_focus')}</span>
             </p>
 
-            <!-- Primary actions for both audiences: the channels and the CV. -->
-            <div>
-                <p class="text-[11px] font-bold uppercase tracking-[0.18em] text-text-muted mb-1.5">{t('contact_social_label')}</p>
-                <div class="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-center">
-                    <a href="https://www.youtube.com/@tomsze" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
-                        <Icon name="youtube" class="text-lg text-[#cc0000]" />
-                        <span>YouTube</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
-                        <Icon name="linkedin" class="text-lg text-[#0a58a8]" />
-                        <span>LinkedIn</span>
-                    </a>
-                    <a href="https://github.com/TomSzenessy" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
-                        <Icon name="github" class="text-lg text-[#1f1f1f]" />
-                        <span>GitHub</span>
-                    </a>
-                    <a href="https://www.instagram.com/tom_szenessy/" target="_blank" rel="noopener" class="inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-full border border-black/10 bg-bg px-4 text-sm font-semibold text-text-main transition-colors hover:border-accent/40 hover:bg-accent/10 sm:w-auto">
-                        <Icon name="instagram" class="text-lg text-[#833ab4]" />
-                        <span>Instagram</span>
-                    </a>
-                </div>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 border-t border-black/5 pt-3">
-                <span class="text-sm font-semibold text-text-main">{t('cv_download')}</span>
-                <div class="flex flex-wrap justify-center gap-2">
-                    <a href="/cv/Tom_Szenessy_CV_EN.pdf" download type="application/pdf" class="inline-flex min-h-[40px] items-center rounded-full border border-accent/40 px-4 text-sm font-semibold text-accent-text transition-colors hover:bg-accent/10">
-                        {t('cv_english')}
-                        <span class="ml-1.5 text-xs font-normal text-text-muted">PDF</span>
-                    </a>
-                    <a href="/cv/Tom_Szenessy_CV_DE.pdf" download type="application/pdf" class="inline-flex min-h-[40px] items-center rounded-full border border-accent/40 px-4 text-sm font-semibold text-accent-text transition-colors hover:bg-accent/10">
-                        {t('cv_german')}
-                        <span class="ml-1.5 text-xs font-normal text-text-muted">PDF</span>
-                    </a>
-                </div>
+            <!-- The four channels, as one quiet, modern row. -->
+            <div class="grid grid-cols-2 gap-y-0.5 pt-1 sm:flex sm:flex-wrap sm:items-center sm:justify-center sm:gap-x-7">
+                <a href="https://www.youtube.com/@tomsze" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
+                    <Icon name="youtube" class="text-base text-[#cc0000]" />
+                    <span>YouTube</span>
+                </a>
+                <a href="https://www.linkedin.com/in/tom-szenessy" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
+                    <Icon name="linkedin" class="text-base text-[#0a58a8]" />
+                    <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/TomSzenessy" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
+                    <Icon name="github" class="text-base text-[#1f1f1f]" />
+                    <span>GitHub</span>
+                </a>
+                <a href="https://www.instagram.com/tom_szenessy/" target="_blank" rel="noopener" class="group inline-flex min-h-[44px] items-center justify-center gap-2 text-sm font-medium text-text-main transition-colors hover:text-accent-text hover:underline decoration-2 underline-offset-4 sm:justify-start">
+                    <Icon name="instagram" class="text-base text-[#833ab4]" />
+                    <span>Instagram</span>
+                </a>
             </div>
 
             <div class="flex flex-wrap justify-center gap-3 pt-1">
