@@ -4,15 +4,21 @@ interface Props {
   title: string;
   /** Duration badge text, e.g. "15:42". Hidden when missing. */
   duration?: string;
+  /** Shown only if YouTube refuses to start playback (its bot gate). */
+  stallText?: string;
+  /** Label of the escape link inside that notice. */
+  watchText?: string;
 }
 
-const { videoId, title, duration } = Astro.props;
+const { videoId, title, duration, stallText, watchText } = Astro.props;
 ---
 
 <lite-youtube
     class="lite-youtube relative aspect-video cursor-pointer group rounded-xl overflow-hidden block bg-[#2d231c]"
     data-id={videoId}
     data-title={title}
+    data-stall={stallText}
+    data-watch={watchText}
 >
     <!-- Local poster: stands in for the thumbnail until the visitor accepts
          third-party content. Deliberately NOT a YouTube URL, so nothing reaches
@@ -60,26 +66,27 @@ const { videoId, title, duration } = Astro.props;
     const ACCEPTED = 'accepted';
     const DECLINED = 'declined';
 
-    /** How long a hover preview is kept alive after the pointer leaves. */
-    const PREVIEW_KEEPALIVE_MS = 15000;
+    /**
+     * The player is the ordinary YouTube embed (www.youtube.com/embed) rather
+     * than www.youtube-nocookie.com. The no-cookie domain is a separate
+     * registrable domain, so it can never see the visitor's YouTube session —
+     * a signed-in visitor is still an anonymous, cookieless client there,
+     * which is exactly the state YouTube gates behind "Sign in to confirm
+     * you're not a bot". The standard embed can at least see that session.
+     *
+     * No page-side change can switch that gate off: it is YouTube's own
+     * server-side risk decision, driven by the visitor's network, cookies and
+     * extensions. So the player is watched instead — if it never reaches a
+     * playing state, the card offers a direct link to YouTube rather than
+     * leaving the visitor stranded on YouTube's dead end.
+     */
+    const EMBED_BASE = 'https://www.youtube.com/embed/';
+
+    /** Grace period before the "not playing" notice is offered. */
+    const PLAYBACK_STALL_MS = 9000;
 
     class LiteYouTube extends HTMLElement {
         isValidVideoId = true;
-        hoverPreview: HTMLIFrameElement | null = null;
-        /** Set on the first real mouse event, so touch taps never start a preview. */
-        seenMouse = false;
-        private hoverIdleTimer: number | undefined;
-
-        constructor() {
-            super();
-            window.addEventListener(
-                'mousemove',
-                () => {
-                    this.seenMouse = true;
-                },
-                { once: true, passive: true }
-            );
-        }
 
         connectedCallback() {
             const videoId = this.dataset.id;
@@ -94,32 +101,11 @@ const { videoId, title, duration } = Astro.props;
                 this.addIframe();
             });
 
-            // Hovering must NEVER start playback. It only preloads the embed
-            // player behind the facade so the first click is instant — the
-            // visible behaviour on hover is a gentle thumbnail zoom (CSS).
-            //
-            // Attach unconditionally and decide inside the handler rather than
-            // gating on a media query at load time: `hover: hover` is only
-            // trustworthy after the first real pointer event, and some
-            // environments (embedded webviews, headless, certain Linux
-            // setups) report `hover: none` even for a desktop mouse.
-            this.addEventListener('mouseenter', () => {
-                if (this.dataset.played === 'true') return;
-                this.seenMouse = true;
-                if (!this.canHover()) return;
-                window.clearTimeout(this.hoverIdleTimer);
-                this.startHoverPreview();
-            });
-            this.addEventListener('mouseleave', () => {
-                if (this.dataset.played === 'true') return;
-                // The preloaded player is hidden behind the facade; discard it
-                // only after a longer idle period.
-                window.clearTimeout(this.hoverIdleTimer);
-                this.hoverIdleTimer = window.setTimeout(
-                    () => this.stopHoverPreview(),
-                    PREVIEW_KEEPALIVE_MS
-                );
-            });
+            // Hovering only zooms the thumbnail (CSS). The player iframe is
+            // created on the click itself and never in the background: a
+            // hidden player that loads and is reloaded without a click is
+            // both a privacy oddity and another signal YouTube's traffic
+            // heuristics can read as automated.
 
             // React to consent given at any time on this page.
             document.addEventListener('yt-consent-change', () => this.syncThumb());
@@ -127,48 +113,21 @@ const { videoId, title, duration } = Astro.props;
         }
 
         /**
-         * True only on a device that both reports hover support and has
-         * actually produced a mouse event. Touch devices return false, so the
-         * preview never starts there.
+         * `enablejsapi=1` is only used so the player reports its state back to
+         * us; `origin` is required for that handshake and tells YouTube which
+         * site is embedding the video.
          */
-        canHover() {
-            if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return false;
-            return this.seenMouse === true;
-        }
-
-        /** Consent-gated: never create a Google request the visitor refused. */
-        canLoadYouTube() {
-            return LiteYouTube.hasConsent();
-        }
-
-        /**
-         * Preload the embed player BEHIND the facade (autoplay off, muted):
-         * nothing is visible and nothing plays until the visitor clicks.
-         */
-        startHoverPreview() {
-            if (!this.isValidVideoId || !this.canLoadYouTube()) return;
-            if (this.dataset.played === 'true' || this.hoverPreview) return;
-
-            const iframe = document.createElement('iframe');
-            // Sits behind the facade chrome (which has z-index: 1 in <style>).
-            iframe.className = 'yt-hover absolute inset-0 w-full h-full border-0';
-            iframe.setAttribute('tabindex', '-1');
-            iframe.setAttribute('aria-hidden', 'true');
-            iframe.setAttribute('title', '');
-            iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
-            iframe.src =
-                `https://www.youtube-nocookie.com/embed/${this.dataset.id}` +
-                `?autoplay=0&mute=1&controls=0&rel=0&modestbranding=1&playsinline=1&iv_loading=0`;
-
-            this.hoverPreview = iframe;
-            this.appendChild(iframe);
-        }
-
-        stopHoverPreview() {
-            const iframe = this.hoverPreview;
-            if (!iframe) return;
-            this.hoverPreview = null;
-            iframe.remove();
+        embedSrc() {
+            const params = new URLSearchParams({
+                autoplay: '1',
+                rel: '0',
+                playsinline: '1',
+                enablejsapi: '1'
+            });
+            if (/^https?:$/.test(window.location.protocol)) {
+                params.set('origin', window.location.origin);
+            }
+            return `${EMBED_BASE}${this.dataset.id}?${params.toString()}`;
         }
 
         static readConsent(): string | null {
@@ -250,40 +209,116 @@ const { videoId, title, duration } = Astro.props;
         renderIframe() {
             if (!this.isValidVideoId) return;
 
-            window.clearTimeout(this.hoverIdleTimer);
-
-            // A warm hover preview becomes the real player on click — swap
-            // its parameters instead of tearing it down and cold-loading a
-            // second iframe (that reload was part of the ~3s delay).
-            const warm = this.hoverPreview;
-            if (warm) {
-                this.hoverPreview = null;
-                this.dataset.played = 'true';
-                this.classList.add('is-playing');
-                warm.removeAttribute('aria-hidden');
-                warm.removeAttribute('tabindex');
-                warm.setAttribute('title', this.dataset.title || 'YouTube Video');
-                warm.setAttribute(
-                    'allow',
-                    'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-                );
-                warm.src = `https://www.youtube-nocookie.com/embed/${this.dataset.id}?autoplay=1&rel=0&playsinline=1`;
-                return;
-            }
-
             this.dataset.played = 'true';
             this.classList.add('is-playing');
 
             const iframe = document.createElement('iframe');
             iframe.setAttribute('frameborder', '0');
             iframe.setAttribute('allowfullscreen', '1');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+            // Hand YouTube this site's origin as the referrer, explicitly: the
+            // browser default (strict-origin-when-cross-origin) already sends
+            // it, but a stricter site-wide policy would break the embed's
+            // domain check and produce YouTube's "Error 153" instead.
+            iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
             iframe.setAttribute('title', this.dataset.title || 'YouTube Video');
-            iframe.setAttribute('src', `https://www.youtube-nocookie.com/embed/${this.dataset.id}?autoplay=1&rel=0&playsinline=1`);
+            iframe.setAttribute('src', this.embedSrc());
             iframe.classList.add('w-full', 'h-full', 'absolute', 'inset-0');
 
             this.innerHTML = '';
             this.appendChild(iframe);
+            this.watchPlayback(iframe);
+        }
+
+        /**
+         * The embed can load perfectly and still never play: when YouTube's
+         * bot gate takes over, the player stays in state -1 forever. Listen to
+         * the player's own postMessage events and, if nothing ever plays,
+         * offer the direct YouTube link.
+         */
+        watchPlayback(iframe: HTMLIFrameElement) {
+            /**
+             * Last state the player reported: -1 unstarted, 1 playing,
+             * 2 paused, 3 buffering, 5 cued. A gated embed reports `3` for a
+             * moment and then falls back to `-1` for good, so the decision is
+             * made on the FINAL state, not on "did we ever see 3".
+             */
+            let lastState: number | null = null;
+
+            const drop = () => {
+                window.clearTimeout(timer);
+                this.querySelector('.yt-stall')?.remove();
+            };
+
+            const onMessage = (e: MessageEvent) => {
+                if (e.source !== iframe.contentWindow) return;
+                if (!/^https:\/\/(www\.)?youtube(-nocookie)?\.com$/.test(e.origin)) return;
+
+                let message: any;
+                try {
+                    message = JSON.parse(e.data);
+                } catch {
+                    return;
+                }
+                const state = message?.info?.playerState;
+                if (typeof state !== 'number') return;
+                lastState = state;
+                // Really playing: the notice is unnecessary, now or later.
+                if (state === 1) drop();
+            };
+
+            const timer = window.setTimeout(() => {
+                // -1 unstarted and 3 buffering mean nothing is playing. A
+                // paused (2), cued (5) or playing (1) player is fine, and no
+                // report at all means the API is blocked — do not guess then.
+                if (lastState === -1 || lastState === 3) this.showStallNotice();
+            }, PLAYBACK_STALL_MS);
+
+            window.addEventListener('message', onMessage);
+
+            // The player only starts posting events after this handshake.
+            iframe.addEventListener(
+                'load',
+                () => {
+                    iframe.contentWindow?.postMessage(
+                        JSON.stringify({ event: 'listening', id: this.dataset.id }),
+                        '*'
+                    );
+                },
+                { once: true }
+            );
+        }
+
+        /** A slim, dismissible bar over the bottom of the player. */
+        showStallNotice() {
+            if (!this.isValidVideoId || this.querySelector('.yt-stall')) return;
+
+            const bar = document.createElement('div');
+            bar.className =
+                'yt-stall absolute inset-x-0 bottom-0 z-[2] flex flex-wrap items-center gap-x-3 gap-y-2 bg-black/85 px-4 py-3 text-white';
+            bar.setAttribute('role', 'status');
+
+            const text = document.createElement('p');
+            text.className = 'm-0 min-w-[11rem] flex-1 text-[13px] leading-snug';
+            text.textContent = this.dataset.stall || 'This video is not starting.';
+
+            const link = document.createElement('a');
+            link.href = `https://www.youtube.com/watch?v=${this.dataset.id}`;
+            link.target = '_blank';
+            link.rel = 'noopener';
+            link.className =
+                'shrink-0 rounded-full bg-white px-3 py-1.5 text-[13px] font-semibold text-black no-underline hover:bg-white/90';
+            link.textContent = this.dataset.watch || 'Watch on YouTube';
+
+            const close = document.createElement('button');
+            close.type = 'button';
+            close.setAttribute('aria-label', 'Dismiss');
+            close.className = 'shrink-0 px-1 text-lg leading-none text-white/70 hover:text-white';
+            close.textContent = '×';
+            close.addEventListener('click', () => bar.remove());
+
+            bar.append(text, link, close);
+            this.appendChild(bar);
         }
     }
 
@@ -459,6 +494,7 @@ const { videoId, title, duration } = Astro.props;
                 img.classList.remove('is-loaded');
             }
             poster?.removeAttribute('hidden');
+            el.querySelector('.yt-stall')?.remove();
         });
         ensureConsentDialog();
     };

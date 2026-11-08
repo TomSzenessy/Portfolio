@@ -152,6 +152,8 @@ const videoStructuredData = topVideos.map(v => ({
                     videoId={v.embedId}
                     title={v.title}
                     duration={v.duration}
+                    stallText={t('video_stalled')}
+                    watchText={t('video_watch')}
                 />
                 <div class="flex items-start gap-3 p-4">
                     <div class="w-9 h-9 shrink-0 rounded-full bg-accent/15 flex items-center justify-center text-accent-text font-bold text-sm">
